@@ -6,7 +6,7 @@ const theme = createTheme({
   },
 
   typography: {
-    fontFamily: 'yekanbakh',
+    fontFamily: 'farhang2',
   },
 
   palette: {
@@ -28,15 +28,15 @@ const theme = createTheme({
 
     /* 🌑 Backgrounds */
     background: {
-      default: '#FFFFFF', // بک‌گراند کلی صفحات
-      paper: '#F8F9FA', // کارت‌ها / سکشن‌ها
+      default: '#0A0D1A', // بک‌گراند کلی صفحات
+      paper: '#0A0D1A', // کارت‌ها / سکشن‌ها
     },
 
     /* 🧾 Text Colors */
     text: {
-      primary: '#111827', // متن اصلی (خوانا و حرفه‌ای)
-      secondary: '#6B4EFF', // لینک‌ها و متن تأکیدی
-      disabled: '#C9C9D1', // متن غیرفعال
+      primary: '#FFF', // متن اصلی (خوانا و حرفه‌ای)
+      disabled: '#111827', // متن های غیر اکتیو
+      secondary: '#6B4EFF', // لینک ها
     },
 
     /* ➖ Divider */

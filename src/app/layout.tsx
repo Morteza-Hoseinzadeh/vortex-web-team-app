@@ -1,4 +1,3 @@
-// NO "use client" here
 import type { Metadata } from 'next';
 import '@/utils/styles/globals.css';
 import ClientThemeLayout from './ClientWrapper';
