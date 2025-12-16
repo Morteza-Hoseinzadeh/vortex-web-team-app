@@ -7,12 +7,13 @@ export const metadata: Metadata = {
     default: 'تیم طراحی سایت ورتکس | طراحی سایت حرفه‌ای و اختصاصی',
     template: '%s | تیم طراحی سایت ورتکس',
   },
+
   description: 'تیم طراحی سایت ورتکس ارائه‌دهنده خدمات طراحی سایت حرفه‌ای، شرکتی و فروشگاهی با تمرکز بر سئو، سرعت و تجربه کاربری.',
 
-  metadataBase: new URL('https://vortexwebteam.ir'),
+  metadataBase: new URL('https://vortexweb.ir'),
 
   alternates: {
-    canonical: 'https://vortexwebteam.ir',
+    canonical: 'https://vortexweb.ir',
   },
 
   icons: {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     apple: '/favicon/apple-touch-icon.png',
   },
 
-  themeColor: '#0D6EFD',
+  themeColor: '#0A0D1A',
 
   robots: {
     index: true,
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fa_IR',
-    url: 'https://vortexwebteam.ir',
+    url: 'https://vortexweb.ir',
     siteName: 'تیم طراحی سایت ورتکس',
     title: 'تیم طراحی سایت ورتکس | طراحی سایت حرفه‌ای',
     description: 'طراحی سایت حرفه‌ای، شرکتی و فروشگاهی توسط تیم طراحی سایت ورتکس با استانداردهای روز دنیا',
@@ -57,6 +58,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fa" dir="rtl">
       <body>
         <ClientThemeLayout>{children}</ClientThemeLayout>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'تیم طراحی سایت ورتکس',
+              url: 'https://vortexweb.ir',
+            }),
+          }}
+        />
       </body>
     </html>
   );

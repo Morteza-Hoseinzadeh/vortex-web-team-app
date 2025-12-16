@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block internal or unnecessary paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /dashboard/
+
+# Sitemap location
+Sitemap: https://vortexweb.ir/sitemap.xml

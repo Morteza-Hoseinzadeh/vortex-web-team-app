@@ -1,12 +1,19 @@
-// src/app/not-found.tsx
 'use client';
 
-import { Box, Typography, Button, Container, Stack, useTheme } from '@mui/material';
-import { FiHome, FiSearch } from 'react-icons/fi';
+// Next js imports
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
-import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
+
+// Mui imports
+import { Box, Typography, Button, Container, Stack, useTheme } from '@mui/material';
+
+// Icons
+import { FiHome, FiSearch } from 'react-icons/fi';
+
+// Animated elements imports
+import { motion } from 'framer-motion';
+
+// Custom components
 import ChildrenLayout from '@/components/ChildrenLayout';
 
 const NotFoundContainer = () => {
