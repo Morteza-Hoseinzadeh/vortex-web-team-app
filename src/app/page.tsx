@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import ChildrenLayout from '@/components/ChildrenLayout';
 import AboutVortex from '@/components/pages/Home/AboutVortex';
 import OurServices from '@/components/pages/Home/OurServices';
+import CoopiesLogoSection from '@/components/pages/Home/CoopiesLogoSection';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Box margin={'32px'}>
         <AboutVortex />
         <OurServices />
+        <CoopiesLogoSection />
       </Box>
     </ChildrenLayout>
   );
