@@ -36,7 +36,7 @@ const theme = createTheme({
     text: {
       primary: '#FFF', // متن اصلی (خوانا و حرفه‌ای)
       disabled: '#111827', // متن های غیر اکتیو
-      secondary: '#6B4EFF', // لینک ها
+      secondary: '#9CA0D8', // لینک ها
     },
 
     /* ➖ Divider */

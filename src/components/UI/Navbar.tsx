@@ -41,7 +41,7 @@ const Navbar = () => {
             sx={{
               ...styles.links,
               color: theme.palette.text.primary,
-              opacity: pathname === link.href ? 1 : 0.6,
+              opacity: pathname === link.href ? 1 : 0.8,
               '&::after': { ...styles.links.links_after, width: pathname === link.href ? '100%' : '0%', backgroundColor: theme.palette.text.primary },
               '&:hover': { opacity: 1 },
             }}
@@ -101,22 +101,25 @@ const HeroSection = () => {
         <source src="/assets/videos/hero-section-video.mp4" type="video/webm" />
       </video>
       {/* Overlay for readability */}
-      <Box sx={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 1 }} />
+      <Box sx={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(60, 0, 124, 0.1)', zIndex: 1 }} />
 
       {/* Hero Content */}
       <Box position="relative" zIndex={2} height="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center" textAlign="center" px={2}>
         <Typography component="h1" sx={{ fontWeight: 800, color: '#fff', mb: 2, fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
           تیم طراحی سایت ورتکس
         </Typography>
-        <Typography component="p" variant={matchMdDown ? 'h5' : 'h4'} sx={{ fontWeight: 'bold', color: '#fff', mb: 4, maxWidth: { xs: '90%', md: 800 } }}>
-          تیم طراحی سایت ورتکس ارائه‌دهنده خدمات طراحی سایت حرفه‌ای، شرکتی و فروشگاهی با تمرکز بر سئو، سرعت و تجربه کاربری.
+        <Typography component="p" variant={matchMdDown ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#fff', mb: 4, maxWidth: { xs: '90%', md: 800 } }}>
+          "وب سایتت و میکشیم وسط گرداب توجه"
+        </Typography>
+        <Typography component="p" variant={matchMdDown ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#fff', mb: 4, maxWidth: { xs: '90%', md: 800 } }}>
+          مستقیم و فروش محور🚀
         </Typography>
         <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-          <Button variant="contained" sx={{ boxShadow: 'none', fontSize: 22, border: '1px solid rgba(255,255,255,0.10)', backdropFilter: 'blur(2px)', background: 'rgba(255,255,255,0.1)', color: '#fff', fontWeight: 'bold', px: 4, py: 1.5, borderRadius: 6, '&:hover': { transform: 'translateY(-2px)' } }}>
-            خدمات طراحی سایت
-          </Button>
-          <Button variant="contained" sx={{ boxShadow: 'none', fontSize: 22, background: `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`, color: '#fff', fontWeight: 'bold', px: 4, py: 1.5, borderRadius: 6, '&:hover': { transform: 'translateY(-2px)' } }}>
+          <Button variant="contained" sx={{ transition: 'all ease-in-out 0.3s', boxShadow: 'none', fontSize: 22, border: `1px solid ${theme.palette.primary.main}50`, backdropFilter: 'blur(2px)', background: 'rgba(255,255,255,0.1)', color: '#fff', fontWeight: 'bold', px: 4, py: 1.5, borderRadius: 6, '&:hover': { transform: 'translateY(-2px)' } }}>
             مشاوره رایگان
+          </Button>
+          <Button variant="contained" sx={{ transition: 'all ease-in-out 0.3s', boxShadow: 'none', fontSize: 22, background: `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`, color: '#fff', fontWeight: 'bold', px: 4, py: 1.5, borderRadius: 6, '&:hover': { transform: 'translateY(-2px)' } }}>
+            سفارش طراحی سایت
           </Button>
         </Box>
       </Box>

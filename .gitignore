@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# assets
+*.mp4 
+
 # next.js
 /.next/
 /out/

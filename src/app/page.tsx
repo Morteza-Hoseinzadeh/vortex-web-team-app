@@ -1,10 +1,14 @@
-import ChildrenLayout from '@/components/ChildrenLayout';
 import React from 'react';
+import ChildrenLayout from '@/components/ChildrenLayout';
+import AboutVortex from '@/components/pages/Home/AboutVortex';
+import { Box } from '@mui/material';
 
 export default function Home() {
   return (
     <ChildrenLayout>
-      <div></div>
+      <Box margin={'64px'}>
+        <AboutVortex />
+      </Box>
     </ChildrenLayout>
   );
 }
