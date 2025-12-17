@@ -8,6 +8,7 @@ import CoopiesLogoSection from '@/components/pages/Home/CoopiesLogoSection';
 import Portfolios from '@/components/pages/Home/Portfolios';
 import CoopWays from '@/components/pages/Home/CoopWays';
 import PricingTable from '@/components/pages/Home/PricingTable';
+import CompanyVoices from '@/components/pages/Home/CompanyVoices';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Portfolios />
         <CoopWays />
         <PricingTable />
+        <CompanyVoices />
       </Box>
     </ChildrenLayout>
   );
