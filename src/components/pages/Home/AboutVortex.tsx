@@ -1,75 +1,100 @@
 'use client';
 
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import Image from 'next/image';
 
 export default function AboutVortex() {
   const theme = useTheme();
 
   return (
     <Box
+      component="section"
       sx={{
         width: '100%',
+        py: { xs: 8, md: 12, lg: 14 },
+        px: { xs: 3, md: 6, lg: 8 },
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: { xs: 'column', lg: 'row' },
-        gap: { xs: 4, md: 6 },
-        px: { xs: 2, md: 4 }, // padding responsive
-        py: { xs: 4, md: 6 },
+        justifyContent: 'center',
+        textAlign: 'center',
+        bgcolor: 'rgba(20, 10, 40, 0.4)',
+        backdropFilter: 'blur(12px)',
+        borderTop: '1px solid rgba(107, 78, 255, 0.2)',
+        borderBottom: '1px solid rgba(107, 78, 255, 0.2)',
       }}
+      aria-labelledby="about-heading"
     >
-      {/* Text Section */}
       <Box
         sx={{
-          width: { xs: '100%', lg: '50%' },
-          textAlign: { xs: 'center', lg: 'right' },
+          maxWidth: '960px',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: { xs: 'center', lg: 'flex-start' },
-          gap: { xs: 3, md: 4 },
+          alignItems: 'center',
+          gap: { xs: 4, md: 6 },
         }}
       >
-        <Box>
-          <Typography
-            component="h1"
-            sx={{
-              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.6rem' },
-              fontWeight: 900,
-              color: theme.palette.text.primary,
-            }}
-          >
-            🔥چرا تیم طراحی سایت ورتکس؟
-          </Typography>
+        {/* Heading */}
+        <Typography
+          id="about-heading"
+          component="h2"
+          sx={{
+            fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem', lg: '3.8rem' },
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.15,
+            mb: 2,
+            position: 'relative',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '-12px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '80px',
+              height: '4px',
+              bgcolor: 'primary.main',
+              borderRadius: '4px',
+            },
+          }}
+        >
+          🔥 چرا تیم طراحی سایت ورتکس؟
+        </Typography>
 
-          <Typography
-            component="p"
-            sx={{
-              mt: 2,
-              fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
-              fontWeight: 700,
-              color: theme.palette.text.secondary,
-              lineHeight: 1.8,
-            }}
-          >
-            در ورتکس، ما وب‌سایت‌هایی طراحی می‌کنیم که در همان لحظه اول توجه بازدیدکننده را جلب می‌کنند. طراحی‌های ما نه‌تنها زیبا و چشم‌نواز هستند، بلکه با هوشمندی و کاربرپسندی، بازدیدکننده را به مشتری واقعی تبدیل می‌کنند. ما هر پروژه را با دقت و خلاقیت پیش می‌بریم تا کسب‌وکار شما به سطحی بالاتر برسد.
-          </Typography>
-        </Box>
+        {/* Description */}
+        <Typography
+          component="p"
+          sx={{
+            fontSize: { xs: '1.05rem', md: '1.25rem', lg: '1.4rem' },
+            fontWeight: 600,
+            color: 'rgba(255, 255, 255, 0.88)',
+            lineHeight: 1.85,
+            maxWidth: '820px',
+            mx: 'auto',
+          }}
+        >
+          در ورتکس، ما وب‌سایت‌هایی طراحی می‌کنیم که در همان لحظه اول توجه بازدیدکننده را جلب می‌کنند. طراحی‌های ما نه‌تنها زیبا و چشم‌نواز هستند، بلکه با هوشمندی و کاربرپسندی، بازدیدکننده را به مشتری واقعی تبدیل می‌کنند. ما هر پروژه را با دقت و خلاقیت پیش می‌بریم تا کسب‌وکار شما به سطحی بالاتر برسد.
+        </Typography>
 
         {/* Buttons */}
-        <Box display="flex" gap={2} flexWrap="wrap" justifyContent={{ xs: 'center', lg: 'flex-start' }}>
+        <Box display="flex" gap={4} flexWrap="wrap" justifyContent="center" mt={2}>
           <Button
             variant="contained"
+            href="/portfolio"
             sx={{
-              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
-              px: { xs: 2, md: 3 },
-              py: 1,
-              fontWeight: 'bold',
-              borderRadius: 3,
-              boxShadow: 'none',
-              background: `linear-gradient(180deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-              transition: '0.3s',
-              '&:hover': { transform: 'translateY(-2px)' },
+              fontSize: { xs: '1.05rem', md: '1.2rem' },
+              fontWeight: 800,
+              px: { xs: 5, md: 6 },
+              py: { xs: 1.8, md: 2.2 },
+              borderRadius: '32px',
+              bgcolor: 'primary.main',
+              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              color: '#fff',
+              textTransform: 'none',
+              boxShadow: '0 10px 30px rgba(107, 78, 255, 0.35)',
+              transition: 'all 0.4s ease',
+              '&:hover': {
+                transform: 'translateY(-6px)',
+                boxShadow: '0 18px 45px rgba(107, 78, 255, 0.45)',
+              },
             }}
           >
             مشاهده نمونه‌کارها
@@ -77,44 +102,28 @@ export default function AboutVortex() {
 
           <Button
             variant="outlined"
+            href="/contact"
             sx={{
-              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
-              px: { xs: 2, md: 3 },
-              py: 1,
-              fontWeight: 'bold',
-              borderRadius: 3,
-              borderColor: `${theme.palette.primary.main}70`,
-              color: theme.palette.primary.main,
-              backdropFilter: 'blur(4px)',
-              transition: '0.3s',
-              '&:hover': { transform: 'translateY(-2px)' },
+              fontSize: { xs: '1.05rem', md: '1.2rem' },
+              fontWeight: 800,
+              px: { xs: 5, md: 6 },
+              py: { xs: 1.8, md: 2.2 },
+              borderRadius: '32px',
+              border: '2px solid rgba(107, 78, 255, 0.6)',
+              bgcolor: 'transparent',
+              color: '#fff',
+              textTransform: 'none',
+              transition: 'all 0.4s ease',
+              '&:hover': {
+                bgcolor: 'rgba(107, 78, 255, 0.15)',
+                borderColor: '#fff',
+                transform: 'translateY(-6px)',
+              },
             }}
           >
             همکاری با ما
           </Button>
         </Box>
-      </Box>
-
-      {/* Image Section */}
-      <Box
-        sx={{
-          width: { xs: '100%', lg: '50%' },
-          mt: { xs: 4, lg: 0 },
-          position: 'relative',
-        }}
-      >
-        <Image
-          src="/assets/image/background-overlay.png"
-          alt="تیم طراحی سایت ورتکس"
-          width={800}
-          height={450}
-          priority
-          style={{
-            width: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-          }}
-        />
       </Box>
     </Box>
   );

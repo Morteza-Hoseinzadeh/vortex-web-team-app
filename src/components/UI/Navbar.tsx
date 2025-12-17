@@ -3,18 +3,14 @@
 import { Box, Button, Drawer, Typography, IconButton, List, ListItem, ListItemButton, useTheme, useMediaQuery } from '@mui/material';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Navbar = () => {
   const theme = useTheme();
   const pathname = usePathname();
-
-  const matchMdDown = useMediaQuery(theme.breakpoints.down('md'), {
-    noSsr: true,
-  });
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'), { noSsr: true });
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const links = [
@@ -27,60 +23,104 @@ const Navbar = () => {
   ];
 
   return (
-    <Box component="nav" sx={{ width: '100%', position: 'absolute', top: 0, left: 0, zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: { xs: 'row-reverse', md: 'row' }, px: { xs: 2, md: 4 }, py: 4 }}>
-      {/* Logo */}
-      <Image src="/assets/logo/vortex-logo.png" alt="تیم طراحی سایت ورتکس" width={matchMdDown ? 46 : 60} height={matchMdDown ? 46 : 56} priority quality={80} />
+    <>
+      <Box
+        component="nav"
+        sx={{
+          position: 'fixed',
+          top: { xs: 16, md: 24 },
+          left: { xs: 16, md: 32 },
+          right: { xs: 16, md: 32 },
+          zIndex: 1000,
+          bgcolor: 'rgba(20, 10, 40, 0.45)',
+          backdropFilter: 'blur(24px)',
+          borderRadius: { xs: '24px', md: '32px' },
+          border: '1px solid rgba(107, 78, 255, 0.3)',
+          boxShadow: '0 12px 40px rgba(107, 78, 255, 0.2)',
+          px: { xs: 3, md: 5 },
+          py: { xs: 1.5, md: 2 },
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: { xs: 'row-reverse', md: 'row' },
+          transition: 'all 0.4s ease',
+        }}
+      >
+        {/* Logo */}
+        <Image src="/assets/logo/vortex-logo.png" alt="تیم طراحی سایت ورتکس" width={isMobile ? 50 : 55} height={isMobile ? 50 : 55} priority quality={95} style={{ borderRadius: '18px', boxShadow: '0 10px 32px rgba(107, 78, 255, 0.35)' }} />
 
-      {/* Desktop Links */}
-      <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 4 }}>
-        {links.map((link) => (
-          <Typography
-            key={link.href}
-            component="a"
-            href={link.href}
-            sx={{
-              ...styles.links,
-              color: theme.palette.text.primary,
-              opacity: pathname === link.href ? 1 : 0.8,
-              '&::after': { ...styles.links.links_after, width: pathname === link.href ? '100%' : '0%', backgroundColor: theme.palette.text.primary },
-              '&:hover': { opacity: 1 },
-            }}
-          >
-            {link.title}
-          </Typography>
-        ))}
+        {/* Desktop Links */}
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 5 }}>
+          {links.map((link) => (
+            <Typography
+              key={link.href}
+              component="a"
+              href={link.href}
+              aria-current={pathname === link.href ? 'page' : undefined}
+              sx={{
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                color: '#fff',
+                textDecoration: 'none',
+                position: 'relative',
+                opacity: pathname === link.href ? 1 : 0.8,
+                transition: 'all 0.45s ease',
+                '&:hover': { opacity: 1 },
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -10,
+                  left: 0,
+                  width: '100%',
+                  height: '3px',
+                  bgcolor: theme.palette.primary.main,
+                  borderRadius: '4px',
+                  transform: pathname === link.href ? 'scaleX(1)' : 'scaleX(0)',
+                  transformOrigin: 'left',
+                  transition: 'transform 0.45s ease',
+                },
+                '&:hover::after': { transform: 'scaleX(1)' },
+              }}
+            >
+              {link.title}
+            </Typography>
+          ))}
+        </Box>
+
+        {/* Desktop CTA Button */}
+        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+          <Button sx={{ fontSize: 17, fontWeight: 800, px: 4.5, py: 1.6, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', transition: 'all 0.45s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'translateY(-5px)', borderColor: '#fff' } }}>نیاز به مشاوره دارید؟</Button>
+        </Box>
+
+        {/* Mobile Hamburger */}
+        <IconButton onClick={() => setDrawerOpen(true)} aria-label="باز کردن منو" sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <GiHamburgerMenu color="#fff" size={32} />
+        </IconButton>
       </Box>
 
-      {/* Desktop CTA Button */}
-      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-        <Button sx={{ fontSize: 16, fontWeight: 'bold', px: 3, py: 1.5, borderRadius: 4, background: `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`, color: '#fff', textTransform: 'none', transition: 'all ease-in-out 0.3s', '&:hover': { transform: 'translateY(-2px)', backgroundColor: theme.palette.primary.dark } }}>نیاز به مشاوره دارید؟</Button>
-      </Box>
+      {/* Mobile Drawer */}
+      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)} PaperProps={{ sx: { bgcolor: 'rgba(15, 8, 35, 0.95)', backdropFilter: 'blur(28px)', borderLeft: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: { xs: '24px 0 0 24px', md: '32px 0 0 32px' }, width: 300 } }}>
+        <Box sx={{ p: 4 }}>
+          <Box textAlign="center" mb={6}>
+            <Image src="/assets/logo/vortex-logo.png" alt="تیم طراحی سایت ورتکس" width={80} height={80} priority style={{ borderRadius: '20px', boxShadow: '0 14px 40px rgba(107, 78, 255, 0.45)' }} />
+          </Box>
 
-      {/* Mobile Hamburger */}
-      <IconButton sx={{ display: { xs: 'flex', md: 'none' } }} onClick={() => setDrawerOpen(true)} aria-label="Open menu">
-        <GiHamburgerMenu color={theme.palette.text.primary} />
-      </IconButton>
-
-      {/* Drawer for Mobile */}
-      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <Box sx={{ width: 250, p: 2 }}>
           <List>
             {links.map((link) => (
-              <ListItem key={link.href} disablePadding>
-                <ListItemButton component="a" href={link.href} onClick={() => setDrawerOpen(false)} sx={{ color: pathname === link.href ? theme.palette.primary.main : theme.palette.text.primary, fontWeight: 'bold' }}>
+              <ListItem key={link.href} disablePadding sx={{ mb: 2 }}>
+                <ListItemButton component="a" href={link.href} onClick={() => setDrawerOpen(false)} sx={{ py: 2, borderRadius: '18px', bgcolor: pathname === link.href ? 'rgba(107, 78, 255, 0.3)' : 'rgba(255,255,255,0.08)', color: '#fff', fontWeight: 700, fontSize: '1.2rem', justifyContent: 'center', transition: 'all 0.4s', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.4)', transform: 'scale(1.03)' } }}>
                   {link.title}
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
 
-          {/* CTA Button in Drawer */}
-          <Button fullWidth sx={{ mt: 2, fontSize: 16, fontWeight: 'bold', px: 3, py: 1.5, borderRadius: 4, background: `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`, color: '#fff', textTransform: 'none', '&:hover': { backgroundColor: theme.palette.primary.dark } }}>
-            نیاز به مشاوره دارید؟
+          <Button fullWidth sx={{ mt: 6, fontSize: 18, fontWeight: 800, py: 2, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'scale(1.03)' } }}>
+            مشاوره رایگان
           </Button>
         </Box>
       </Drawer>
-    </Box>
+    </>
   );
 };
 
@@ -97,8 +137,8 @@ const HeroSection = () => {
   return (
     <Box position="relative" width="100%" height="100vh" overflow="hidden">
       <video ref={videoRef} muted loop playsInline preload="none" poster="/assets/images/hero-poster.webp" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(2px)', position: 'absolute', inset: 0 }}>
-        <source src="/assets/videos/hero-section-video.mp4" type="video/mp4" />
-        <source src="/assets/videos/hero-section-video.mp4" type="video/webm" />
+        <source src="/assets/videos/hero-section-video-2.mp4" type="video/mp4" />
+        <source src="/assets/videos/hero-section-video-2.mp4" type="video/webm" />
       </video>
       {/* Overlay for readability */}
       <Box sx={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(60, 0, 124, 0.1)', zIndex: 1 }} />
@@ -139,24 +179,3 @@ export default function HomePage() {
     </Box>
   );
 }
-
-const styles = {
-  links: {
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    fontSize: 20,
-    transition: 'color 0.2s',
-    position: 'relative',
-
-    links_after: {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: -6,
-      height: '2px',
-      borderRadius: '100%',
-      transition: 'width 0.3s ease',
-    },
-  },
-};
