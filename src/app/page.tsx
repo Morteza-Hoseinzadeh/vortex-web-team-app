@@ -9,6 +9,7 @@ import Portfolios from '@/components/pages/Home/Portfolios';
 import CoopWays from '@/components/pages/Home/CoopWays';
 import PricingTable from '@/components/pages/Home/PricingTable';
 import CompanyVoices from '@/components/pages/Home/CompanyVoices';
+import ContactForm from '@/components/pages/Home/ContactForm';
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <CoopWays />
         <PricingTable />
         <CompanyVoices />
+        <ContactForm />
       </Box>
     </ChildrenLayout>
   );

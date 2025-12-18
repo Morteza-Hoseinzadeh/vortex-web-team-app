@@ -103,7 +103,7 @@ export default function CompanyVoices() {
 
                 {/* Waveform Bars */}
                 <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {[...Array(isMobile ? 17 : 22)].map((_, i) => (
+                  {[...Array(isMobile ? 60 : 22)].map((_, i) => (
                     <Box key={i} sx={{ width: '4px', height: `${20 + Math.sin(i * 0.5) * 20 + 20}px`, bgcolor: 'rgba(255,255,255,0.6)', borderRadius: '4px', animation: !!voicePlayed[index] ? 'wave 2s ease-in-out infinite' : 'none', animationDelay: `${i * 0.05}s`, '@keyframes wave': { '0%, 100%': { height: '20px' }, '50%': { height: '50px' } } }} />
                   ))}
                 </Box>
