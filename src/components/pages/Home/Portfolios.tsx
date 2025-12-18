@@ -266,7 +266,7 @@ const styles = {
   projectDesc: {
     fontWeight: 500,
     opacity: 0.95,
-    mb: 1,
+    mb: 0.5,
     fontSize: { xs: '1.15rem', md: '1.1rem' },
     display: { xs: '-webkit-box', md: 'block' },
     WebkitLineClamp: { xs: 2, md: 'unset' },
