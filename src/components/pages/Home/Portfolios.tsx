@@ -7,9 +7,10 @@ import Image from 'next/image';
 
 // Types
 interface PortfolioItem {
+  logo: string;
   mockup: string;
   description: string;
-  category: string;
+  category: string[];
   alt: string;
 }
 
@@ -19,39 +20,45 @@ type Category = (typeof categories)[number];
 // Data
 const portfolioItems: PortfolioItem[] = [
   {
+    logo: '/assets/logo/company-logo/chroma-ui.png',
     mockup: '/assets/image/mockups/chormaUI-mockup.png',
     description: 'کروما یو آی - طراحی رابط کاربری',
-    category: 'شرکتی',
+    category: ['شرکتی'],
     alt: 'نمونه کار طراحی رابط کاربری برای کروما یو آی',
   },
   {
+    logo: '/assets/logo/company-logo/zichat-logo.png',
     mockup: '/assets/image/mockups/zichat-mockup.png',
     description: 'زیچت - پروژه پیام‌رسان ایرانی',
-    category: 'خدماتی',
+    category: ['خدماتی'],
     alt: 'نمونه کار پروژه پیام‌رسان زیچت',
   },
   {
+    logo: '/assets/logo/company-logo/zephyr-logo.png',
     mockup: '/assets/image/mockups/zephyr-mockup.png',
     description: 'زفیـر - طراحی وب‌سایت شرکتی',
-    category: 'شرکتی',
+    category: ['شرکتی'],
     alt: 'نمونه کار طراحی وب‌سایت شرکتی زفیـر',
   },
   {
+    logo: '/assets/logo/company-logo/dorna-logo.png',
     mockup: '/assets/image/mockups/dourna-mockup.png',
     description: 'کلینک زیبایی درنا - نمونه کار پروژه فروشگاهی',
-    category: 'فروشگاهی',
+    category: ['فروشگاهی', 'خدماتی'],
     alt: 'نمونه کار فروشگاهی کلینک زیبایی درنا',
   },
   {
+    logo: '/assets/logo/company-logo/rabet-automatic-kasra-logo.png',
     mockup: '/assets/image/mockups/rabet-automatic-kasra-mockup.png',
     description: 'رابط اتوماتیک کسری - پروژه اختصاصی',
-    category: 'خدماتی',
+    category: ['خدماتی'],
     alt: 'نمونه کار پروژه اختصاصی رابط اتوماتیک کسری',
   },
   {
+    logo: '/assets/logo/company-logo/personal-portfolio.png',
     mockup: '/assets/image/mockups/my-portfolio-mockup.png',
     description: 'پورتفولیو شخصی - طراحی رابط کاربری بصری',
-    category: 'شخصی',
+    category: ['شخصی'],
     alt: 'نمونه کار پورتفولیو شخصی با طراحی بصری',
   },
 ];
@@ -79,8 +86,6 @@ interface CategoryFiltersProps {
 }
 
 function CategoryFilters({ activeCategory, onCategoryChange }: CategoryFiltersProps) {
-  const theme = useTheme();
-
   return (
     <Box display="flex" flexWrap="wrap" gap={{ xs: 2, md: 3 }} justifyContent="center" mb={{ xs: 8, md: 10 }} role="tablist" aria-label="دسته‌بندی نمونه کارها">
       {categories.map((category) => (
@@ -125,30 +130,34 @@ interface PortfolioCardProps {
 }
 
 function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProps) {
-  const theme = useTheme();
   const projectName = item.description.split(' - ')[0].trim();
-  const projectDesc = item.description.split(' - ')[1]?.trim() || '';
+  const projectDesc = item.description.split(' - ')[1]?.trim();
 
   return (
     <Box sx={styles.cardContainer} component="article">
       <Box sx={styles.imageWrapper}>
-        <Image src={item.mockup} alt={item.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover' }} priority={index < 3} loading={index >= 3 ? 'lazy' : undefined} />
+        <Image src={item.mockup} alt={item.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover', filter: 'blur(3px)' }} priority={index < 3} loading={index >= 3 ? 'lazy' : undefined} />
 
         {/* Overlay با محتوا */}
         <Box sx={styles.contentOverlay}>
-          <Typography variant="h5" sx={styles.projectTitle}>
-            {projectName}
-          </Typography>
-
-          {projectDesc && (
-            <Typography variant="body2" sx={styles.projectDesc}>
-              {projectDesc}
+          <Box minWidth={'100%'} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: 1.5 }} mb={1}>
+            <Image src={item.logo} alt={item.alt} width={40} height={40} priority />
+            <Typography variant="h5" sx={styles.projectTitle}>
+              {projectName}
             </Typography>
-          )}
+          </Box>
 
-          <Typography variant="caption" sx={styles.categoryTag}>
-            {item.category}
+          <Typography variant="body2" sx={styles.projectDesc}>
+            {projectDesc}
           </Typography>
+
+          <Box display={'flex'} alignItems={'center'} gap={1}>
+            {item.category.map((cate, index) => (
+              <Typography key={index} variant="caption" sx={styles.categoryTag}>
+                {cate}
+              </Typography>
+            ))}
+          </Box>
 
           <Button variant="contained" size="large" sx={styles.viewButton} aria-label={`مشاهده جزئیات پروژه ${projectName}`}>
             مشاهده پروژه
@@ -180,7 +189,9 @@ export default function Portfolios() {
   const [activeCategory, setActiveCategory] = useState<Category>('همه');
   const [likedItems, setLikedItems] = useState<Record<number, boolean>>({});
 
-  const filteredItems = useMemo(() => (activeCategory === 'همه' ? portfolioItems : portfolioItems.filter((item) => item.category === activeCategory)), [activeCategory]);
+  const filteredItems = useMemo<PortfolioItem[]>(() => {
+    return activeCategory === 'همه' ? portfolioItems : portfolioItems.filter((item) => item.category?.includes(activeCategory));
+  }, [activeCategory]);
 
   const handleToggleLike = (index: number) => {
     setLikedItems((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -195,7 +206,7 @@ export default function Portfolios() {
       <Grid id="portfolio-grid" container spacing={{ xs: 3, md: 4 }} justifyContent="center" role="tabpanel" aria-live="polite">
         {filteredItems.length > 0 ? (
           filteredItems.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={index}>
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
               <PortfolioCard item={item} index={index} isLiked={!!likedItems[index]} onToggleLike={handleToggleLike} />
             </Grid>
           ))
@@ -239,7 +250,7 @@ const styles = {
     color: '#fff',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: { xs: 'center', md: 'flex-end' },
     transition: 'all 0.4s ease-in-out',
     opacity: 0.9,
     '&:hover': {
@@ -249,15 +260,14 @@ const styles = {
   },
   projectTitle: {
     fontWeight: 900,
-    fontSize: { xs: '1.25rem', sm: '1.4rem', md: '1.6rem' }, // کوچکتر در موبایل
-    mb: 0.5,
+    fontSize: { xs: '1.35rem', sm: '2rem', md: '1.6rem' },
     lineHeight: 1.2,
   },
   projectDesc: {
     fontWeight: 500,
     opacity: 0.95,
     mb: 1,
-    fontSize: { xs: '0.85rem', md: '0.95rem' }, // کوچکتر در موبایل
+    fontSize: { xs: '1.15rem', md: '1.1rem' },
     display: { xs: '-webkit-box', md: 'block' },
     WebkitLineClamp: { xs: 2, md: 'unset' },
     WebkitBoxOrient: 'vertical',
@@ -272,11 +282,11 @@ const styles = {
     py: { xs: 0.5, md: 0.75 },
     borderRadius: '12px',
     fontWeight: 600,
-    fontSize: { xs: '0.75rem', md: '0.85rem' }, // کوچکتر در موبایل
-    mb: { xs: 1.5, md: 2 },
+    fontSize: { xs: '1rem', md: '0.85rem' },
+    mb: 1,
   },
   viewButton: {
-    mt: { xs: 0.5, md: 1 },
+    mt: 0.5,
     alignSelf: 'flex-start',
     backgroundColor: '#fff',
     color: '#000',
@@ -284,7 +294,7 @@ const styles = {
     borderRadius: '16px',
     px: { xs: 2.5, md: 4 },
     py: { xs: 1, md: 1.2 },
-    fontSize: { xs: '0.9rem', md: '1rem' }, // کوچکتر در موبایل
+    fontSize: { xs: '1.1rem', md: '1rem' }, // کوچکتر در موبایل
     transition: 'transform 0.3s ease',
     '&:hover': {
       transform: 'scale(1.08)',

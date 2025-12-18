@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Box, Button, Typography, useTheme } from '@mui/material';
+import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
 
 export default function PricingTable() {
   const theme = useTheme();
@@ -64,9 +64,10 @@ export default function PricingTable() {
       </Box>
 
       {/* Pricing Cards Grid */}
-      <Box sx={{ display: 'grid', alignItems: 'center', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: { xs: 4, md: 6 }, maxWidth: '100%', mx: 'auto' }}>
+      <Grid container spacing={8} justifyContent={'center'} mb={6}>
         {plans.map((plan, index) => (
-          <Box
+          <Grid
+            size={{ xs: 12, md: 6, xl: 4 }}
             key={index}
             sx={{
               position: 'relative',
@@ -75,10 +76,8 @@ export default function PricingTable() {
               border: '1px solid rgba(107, 78, 255, 0.4)',
               borderRadius: '40px',
               p: { xs: 2, md: 4 },
-              mt: plan.recommended ? 8 : 0,
               boxShadow: plan.recommended ? '0 24px 70px rgba(107, 78, 255, 0.5)' : '0 16px 50px rgba(107, 78, 255, 0.25)',
               transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: plan.recommended ? 'translateY(-30px) scale(1.06)' : 'none',
               zIndex: plan.recommended ? 10 : 1,
               overflow: 'hidden',
               '&:hover': { transform: 'translateY(-30px) scale(1.06)', bgcolor: 'rgba(107, 78, 255, 0.32)', boxShadow: '0 32px 90px rgba(107, 78, 255, 0.5)' },
@@ -110,9 +109,9 @@ export default function PricingTable() {
             <Button fullWidth sx={{ py: { xs: 2, md: 2.5 }, borderRadius: '32px', fontSize: { xs: '1.1rem', md: '1.3rem' }, fontWeight: 800, bgcolor: plan.recommended ? '#fff' : 'rgba(255,255,255,0.12)', color: plan.recommended ? '#000' : '#fff', backdropFilter: 'blur(12px)', border: plan.recommended ? 'none' : '2px solid rgba(255,255,255,0.3)', transition: 'all 0.4s ease', '&:hover': { bgcolor: plan.recommended ? '#f0f0f0' : 'rgba(255,255,255,0.22)', transform: 'scale(1.06)' } }}>
               انتخاب این پکیج
             </Button>
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </Box>
   );
 }

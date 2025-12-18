@@ -11,6 +11,7 @@ export default function CoopiesLogoSection() {
     { src: 'rabet-automatic-kasra-logo', tooltip: 'رابط اتوماتیک کسری - پروژه اختصاصی' },
     { src: 'zephyr-logo', tooltip: 'زفیـر - طراحی وب‌سایت شرکتی' },
     { src: 'zichat-logo', tooltip: 'زیچت - پروژه پیام‌رسان ایرانی' },
+    { src: 'personal-portfolio', tooltip: 'پورتفولیو - نمونه کار پروژه شخصی' },
   ];
 
   return (
