@@ -226,10 +226,11 @@ const HeroSection = () => {
 
 // ---------------- Exported Layout Component ----------------
 export default function HomePage() {
+  const pathname = usePathname();
   return (
     <Box width="100%" position="relative" dir="rtl">
       <Navbar />
-      <HeroSection />
+      {pathname === '/' ? <HeroSection /> : null}
     </Box>
   );
 }
