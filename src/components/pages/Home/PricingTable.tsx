@@ -180,7 +180,7 @@ export default function PricingTable() {
           مقایسه کامل پکیج‌ها
         </Typography>
 
-        <TableContainer component={Paper} sx={{ bgcolor: 'rgba(20, 10, 40, 0.85)', backdropFilter: 'blur(20px)', borderRadius: '32px', overflow: 'hidden', border: '1px solid rgba(107, 78, 255, 0.3)' }}>
+        <TableContainer component={Paper} sx={{ bgcolor: 'rgba(20, 10, 40, 0.85)', backdropFilter: 'blur(20px)', borderRadius: '32px', overflowX: 'auto', border: '1px solid rgba(107, 78, 255, 0.3)' }}>
           <Table sx={{ minWidth: 1000 }}>
             <TableHead>
               <TableRow>
