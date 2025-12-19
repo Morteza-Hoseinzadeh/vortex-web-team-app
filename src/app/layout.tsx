@@ -7,27 +7,21 @@ export const metadata: Metadata = {
     default: 'تیم طراحی سایت ورتکس | طراحی سایت حرفه‌ای و اختصاصی',
     template: '%s | تیم طراحی سایت ورتکس',
   },
-
   description: 'تیم طراحی سایت ورتکس ارائه‌دهنده خدمات طراحی سایت حرفه‌ای، شرکتی و فروشگاهی با تمرکز بر سئو، سرعت و تجربه کاربری.',
-
+  keywords: ['طراحی سایت', 'نمونه کار طراحی سایت', 'UI', 'UX', 'طراحی وب حرفه ای', 'تیم طراحی وب', 'سئو سایت', 'بهینه سازی سایت', 'توسعه وب', 'Frontend', 'Backend', 'طراحی سایت فروشگاهی', 'طراحی سایت شرکتی', 'طراحی سایت شخصی', 'وردپرس', 'React', 'Next.js', 'تیم طراحی ورتکس'],
   metadataBase: new URL('https://vortexweb.ir'),
-
   alternates: {
     canonical: 'https://vortexweb.ir',
   },
-
   icons: {
     icon: '/favicon/favicon.ico',
     apple: '/favicon/apple-touch-icon.png',
   },
-
   themeColor: '#0A0D1A',
-
   robots: {
     index: true,
     follow: true,
   },
-
   openGraph: {
     type: 'website',
     locale: 'fa_IR',
@@ -44,12 +38,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   twitter: {
     card: 'summary_large_image',
     title: 'تیم طراحی سایت ورتکس | طراحی سایت حرفه‌ای',
     description: 'خدمات طراحی سایت حرفه‌ای و سئو محور توسط تیم طراحی سایت ورتکس',
     images: ['/assets/logo/vortex-logo.png'],
+    site: '@vortexweb', // اگر حساب توییتر داری اضافه کن
   },
 };
 
@@ -67,6 +61,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'WebSite',
               name: 'تیم طراحی سایت ورتکس',
               url: 'https://vortexweb.ir',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://vortexweb.ir/?s={search_term_string}',
+                'query-input': 'required name=search_term_string',
+              },
             }),
           }}
         />
