@@ -133,9 +133,41 @@ export default function PricingTable() {
                 </AccordionDetails>
               </Accordion>
 
-              {/* CTA Button */}
-              <Button fullWidth sx={{ py: { xs: 2, md: 2.5 }, borderRadius: '32px', fontSize: { xs: '1.1rem', md: '1.3rem' }, fontWeight: 800, bgcolor: plan.recommended ? '#fff' : 'rgba(255,255,255,0.12)', color: plan.recommended ? '#000' : '#fff', backdropFilter: 'blur(12px)', border: plan.recommended ? 'none' : '2px solid rgba(255,255,255,0.3)', transition: 'all 0.4s ease', '&:hover': { bgcolor: plan.recommended ? '#f0f0f0' : 'rgba(255,255,255,0.22)', transform: 'scale(1.06)' } }}>
-                انتخاب این پکیج
+              {/* CTA Button - چت در واتساپ با رنگ سبز واتساپ واقعی برای پکیج پیشنهادی و آبی برای بقیه */}
+              <Button
+                fullWidth
+                component="a"
+                href={`https://wa.me/989309363715?text=${encodeURIComponent(`سلام تیم ورتکس 👋\nعلاقه‌مند به ${plan.title} هستم (${plan.price})\n${plan.slogan}\nزمان تحویل: ${plan.delivery_time}\nلطفاً راهنمایی کنید 🙏`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  py: { xs: 2, md: 2.5 },
+                  borderRadius: '32px',
+                  fontSize: { xs: '1.1rem', md: '1.3rem' },
+                  fontWeight: 800,
+                  // رنگ سبز واتساپ برای پکیج پیشنهادی
+                  bgcolor: plan.recommended ? '#25D366' : '#6B4EFF',
+                  background: plan.recommended ? 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)' : 'linear-gradient(135deg, #6B4EFF 0%, #A78BFA 100%)',
+                  color: '#fff',
+                  boxShadow: plan.recommended ? '0 16px 50px rgba(37, 211, 102, 0.5)' : '0 12px 32px rgba(107, 78, 255, 0.3)',
+                  border: 'none',
+                  transition: 'all 0.4s ease',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 2,
+                  '&:hover': {
+                    transform: 'scale(1.06)',
+                    boxShadow: plan.recommended ? '0 24px 70px rgba(37, 211, 102, 0.6)' : '0 20px 50px rgba(107, 78, 255, 0.4)',
+                    bgcolor: plan.recommended ? '#22c55e' : '#7B61FF',
+                  },
+                }}
+              >
+                <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap={1}>
+                  <span style={{ fontSize: '1.6rem' }}>💬</span>
+                  {plan.recommended ? 'چت پیشنهادی در واتساپ' : 'چت در واتساپ'}
+                </Box>
               </Button>
             </Box>
           </Grid>

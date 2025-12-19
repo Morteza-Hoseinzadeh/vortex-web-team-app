@@ -119,7 +119,7 @@ export default function Footer() {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: { xs: 'center', lg: 'flex-end' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Typography sx={{ fontSize: '1.1rem' }}>98930953715+</Typography>
+              <Typography sx={{ fontSize: '1.1rem' }}>989309363715+</Typography>
               <FiPhone size={24} color={theme.palette.primary.main} />
             </Box>
 
