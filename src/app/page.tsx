@@ -42,9 +42,9 @@ export default function Home() {
   });
 
   useScrollAnimation(coopiesRef, {
-    from: { scale: 0.8, opacity: 0 },
-    to: { scale: 1, opacity: 1, duration: 0.9, ease: 'elastic.out(1, 0.6)' },
-    stagger: { each: 0.12, from: 'center' },
+    from: { y: 80, opacity: 0, rotateX: -15 },
+    to: { y: 0, opacity: 1, rotateX: 0, duration: 1, ease: 'back.out(1.4)' },
+    stagger: { each: 0.2, from: 'start' },
   });
 
   useScrollAnimation(portfoliosRef, {

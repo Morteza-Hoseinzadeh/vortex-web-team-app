@@ -245,7 +245,7 @@ const styles = {
   contentOverlay: {
     position: 'absolute' as const,
     inset: 0,
-    padding: { xs: '24px 16px 20px', md: '40px 24px 24px' }, // پدینگ کمتر در موبایل برای فضای بیشتر
+    padding: { xs: '24px 16px 20px', md: '40px 24px 24px' },
     background: 'linear-gradient(to top, rgba(107, 78, 255, 0.92) 0%, rgba(107, 78, 255, 0.4) 60%, transparent 100%)',
     color: '#fff',
     display: 'flex',
