@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'تیم طراحی سایت ورتکس',
     images: [
       {
-        url: '/assets/pricing-og-image.png',
+        url: '/assets/logo/vortex-logo.png',
         width: 1200,
         height: 630,
         alt: 'تعرفه‌های خدمات طراحی سایت تیم طراحی سایت ورتکس',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'تعرفه‌ها - تیم طراحی سایت ورتکس',
     description: 'مشاهده پکیج‌های حرفه‌ای و اختصاصی طراحی سایت توسط تیم طراحی سایت ورتکس.',
-    images: ['/assets/pricing-og-image.png'],
+    images: ['/assets/logo/vortex-logo.png'],
   },
   robots: {
     index: true,

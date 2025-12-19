@@ -10,6 +10,7 @@ import Portfolios from '@/components/pages/Home/Portfolios';
 // Custom GSAP Hook
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 import PortfolioTitles from '@/components/pages/portfolio/PortfolioTitles';
+import CompanyVoices from '@/components/pages/Home/CompanyVoices';
 
 export default function PortfolioPage() {
   // Ref برای کل بخش نمونه‌کارها
@@ -26,6 +27,9 @@ export default function PortfolioPage() {
     <ChildrenLayout>
       <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
         <Box ref={portfoliosRef} mt={14}>
+          <Box my={12}>
+            <CompanyVoices />
+          </Box>
           <Portfolios />
           <PortfolioTitles />
         </Box>

@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: 'تیم طراحی سایت ورتکس',
     images: [
       {
-        url: '/assets/portfolio-og-image.png',
+        url: '/assets/logo/vortex-logo.png',
         width: 1200,
         height: 630,
         alt: 'نمونه کارهای تیم طراحی سایت ورتکس',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'نمونه کارها - تیم طراحی سایت ورتکس',
     description: 'در این صفحه می‌توانید نمونه کارهای تیم طراحی سایت ورتکس را مشاهده کنید.',
-    images: ['/assets/portfolio-og-image.png'],
+    images: ['/assets/logo/vortex-logo.png'],
   },
   robots: {
     index: true,
