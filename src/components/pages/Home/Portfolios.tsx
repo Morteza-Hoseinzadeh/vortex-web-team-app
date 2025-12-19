@@ -2,8 +2,9 @@
 
 import React, { useMemo, useState } from 'react';
 import { Box, Button, Grid, IconButton, Typography, useTheme } from '@mui/material';
-import { TbHeart, TbHeartFilled } from 'react-icons/tb';
+import { TbEye, TbEyeFilled, TbHeart, TbHeartFilled } from 'react-icons/tb';
 import Image from 'next/image';
+import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
 
 // Types
 interface PortfolioItem {
@@ -11,7 +12,9 @@ interface PortfolioItem {
   mockup: string;
   description: string;
   category: string[];
+  status: string;
   alt: string;
+  liveUrl?: string | null;
 }
 
 const categories = ['همه', 'فروشگاهی', 'خدماتی', 'شخصی', 'شرکتی'] as const;
@@ -22,48 +25,60 @@ const portfolioItems: PortfolioItem[] = [
   {
     logo: '/assets/logo/company-logo/chroma-ui.png',
     mockup: '/assets/image/mockups/chormaUI-mockup.png',
-    description: 'کروما یو آی - طراحی رابط کاربری',
+    description: 'کروما یو آی - طراحی رابط کاربری حرفه‌ای و مدرن با تمرکز بر تجربه کاربری و زیبایی بصری',
     category: ['شرکتی'],
+    status: 'در حال توسعه',
     alt: 'نمونه کار طراحی رابط کاربری برای کروما یو آی',
+    liveUrl: null,
   },
   {
     logo: '/assets/logo/company-logo/zichat-logo.png',
     mockup: '/assets/image/mockups/zichat-mockup.png',
-    description: 'زیچت - پروژه پیام‌رسان ایرانی',
+    description: 'زیچت - پروژه پیام‌رسان ایرانی با امکانات پیشرفته و امنیت بالا برای ارتباط امن کاربران',
     category: ['خدماتی'],
+    status: 'در حال توسعه',
     alt: 'نمونه کار پروژه پیام‌رسان زیچت',
+    liveUrl: null,
   },
   {
     logo: '/assets/logo/company-logo/zephyr-logo.png',
     mockup: '/assets/image/mockups/zephyr-mockup.png',
-    description: 'زفیـر - طراحی وب‌سایت شرکتی',
+    description: 'زفیـر - طراحی وب‌سایت شرکتی با تمرکز بر برندینگ، سرعت بالا و طراحی واکنش‌گرا',
     category: ['شرکتی'],
+    status: 'توسعه یافته شده',
     alt: 'نمونه کار طراحی وب‌سایت شرکتی زفیـر',
+    liveUrl: 'https://zephyr-team.ir',
   },
   {
     logo: '/assets/logo/company-logo/dorna-logo.png',
     mockup: '/assets/image/mockups/dourna-mockup.png',
-    description: 'کلینک زیبایی درنا - نمونه کار پروژه فروشگاهی',
+    description: 'کلینک زیبایی درنا - فروشگاه آنلاین محصولات زیبایی با سیستم رزرو نوبت و پرداخت امن',
     category: ['فروشگاهی', 'خدماتی'],
+    status: 'توسعه یافته شده',
     alt: 'نمونه کار فروشگاهی کلینک زیبایی درنا',
+    liveUrl: 'https://dournaclinic.com',
   },
   {
     logo: '/assets/logo/company-logo/rabet-automatic-kasra-logo.png',
     mockup: '/assets/image/mockups/rabet-automatic-kasra-mockup.png',
-    description: 'رابط اتوماتیک کسری - پروژه اختصاصی',
+    description: 'رابط اتوماتیک کسری - سیستم هوشمند مدیریت ارتباط با مشتریان برای کسب‌وکارهای صنعتی',
     category: ['خدماتی'],
+    status: 'توسعه یافته شده',
     alt: 'نمونه کار پروژه اختصاصی رابط اتوماتیک کسری',
+    liveUrl: 'https://rabetkasra.ir',
   },
   {
     logo: '/assets/logo/company-logo/personal-portfolio.png',
     mockup: '/assets/image/mockups/my-portfolio-mockup.png',
-    description: 'پورتفولیو شخصی - طراحی رابط کاربری بصری',
+    description: 'پورتفولیو شخصی - طراحی رابط کاربری بصری و انیمیشن‌های پیشرفته با Next.js و GSAP',
     category: ['شخصی'],
+    status: 'توسعه یافته شده',
     alt: 'نمونه کار پورتفولیو شخصی با طراحی بصری',
+    liveUrl: 'https://personal-portfolio-eta-lac-35.vercel.app/',
   },
 ];
 
-// 1. Portfolio Header
+// Portfolio Header
 function PortfolioHeader() {
   const theme = useTheme();
 
@@ -79,7 +94,7 @@ function PortfolioHeader() {
   );
 }
 
-// 2. Category Filters
+// Category Filters
 interface CategoryFiltersProps {
   activeCategory: Category;
   onCategoryChange: (category: Category) => void;
@@ -121,7 +136,7 @@ function CategoryFilters({ activeCategory, onCategoryChange }: CategoryFiltersPr
   );
 }
 
-// 3. Portfolio Card - طراحی جدید و مدرن
+// Portfolio Card
 interface PortfolioCardProps {
   item: PortfolioItem;
   index: number;
@@ -136,12 +151,12 @@ function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProp
   return (
     <Box sx={styles.cardContainer} component="article">
       <Box sx={styles.imageWrapper}>
-        <Image src={item.mockup} alt={item.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover', filter: 'blur(3px)' }} priority={index < 3} loading={index >= 3 ? 'lazy' : undefined} />
+        <Image src={item.mockup} alt={item.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover', filter: 'blur(3px)' }} priority={index < 3} loading={index >= 3 ? 'lazy' : undefined} />
 
-        {/* Overlay با محتوا */}
+        {/* Overlay با محتوا - کاملاً responsive */}
         <Box sx={styles.contentOverlay}>
-          <Box minWidth={'100%'} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: 1.5 }} mb={1}>
-            <Image src={item.logo} alt={item.alt} width={40} height={40} priority />
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: { xs: 1.5, md: 2 } }} mb={{ xs: 1.5, md: 2 }}>
+            <Image src={item.logo} alt={item.alt} width={40} height={40} priority style={{ borderRadius: '8px' }} />
             <Typography variant="h5" sx={styles.projectTitle}>
               {projectName}
             </Typography>
@@ -151,29 +166,68 @@ function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProp
             {projectDesc}
           </Typography>
 
-          <Box display={'flex'} alignItems={'center'} gap={1}>
-            {item.category.map((cate, index) => (
-              <Typography key={index} variant="caption" sx={styles.categoryTag}>
-                {cate}
+          <Box display={'flex'} alignItems={'center'} gap={1} flexWrap="wrap" mb={{ xs: 2, md: 3 }}>
+            {item.category.map((cate, i) => (
+              <Typography key={i} variant="caption" sx={styles.categoryTag}>
+                #{cate}
               </Typography>
             ))}
           </Box>
 
-          <Button variant="contained" size="large" sx={styles.viewButton} aria-label={`مشاهده جزئیات پروژه ${projectName}`}>
+          {/* وضعیت پروژه */}
+          <Typography sx={{ fontSize: { xs: '0.9rem', md: '1rem' }, fontWeight: 700, color: '#fff', mb: { xs: 1.5, md: 2 }, bgcolor: 'rgba(0,0,0,0.3)', px: { xs: 2, md: 2.5 }, py: { xs: 0.6, md: 0.8 }, borderRadius: '16px', alignSelf: 'flex-start' }}>{item.status === 'در حال توسعه' ? '🔄 در حال توسعه' : '✅ توسعه یافته شده'}</Typography>
+
+          {/* دکمه مشاهده پروژه */}
+          <Button
+            fullWidth
+            component="a"
+            disabled={item.liveUrl !== null ? false : true}
+            variant="contained"
+            href={item.liveUrl || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              mt: 'auto',
+              py: { xs: 1.6, md: 2 },
+              px: { xs: 2, md: 3 },
+              borderRadius: '28px',
+              fontSize: { xs: '1rem', md: '1.15rem' },
+              fontWeight: 800,
+              bgcolor: '#6B4EFF',
+              background: 'linear-gradient(135deg, #6B4EFF 100%, #A78BFA 0%)',
+              color: '#fff',
+              boxShadow: '0 10px 28px rgba(107, 78, 255, 0.3)',
+              backdropFilter: 'blur(12px)',
+              border: 'none',
+              transition: 'all 0.4s ease',
+              textDecoration: 'none',
+              minHeight: '44px',
+              '&:hover': {
+                bgcolor: '#7B61FF',
+                transform: 'scale(1.05)',
+                boxShadow: '0 16px 40px rgba(107, 78, 255, 0.4)',
+              },
+            }}
+          >
             مشاهده پروژه
           </Button>
         </Box>
 
-        {/* آیکون لایک در گوشه بالا راست */}
-        <IconButton onClick={() => onToggleLike(index)} aria-label={isLiked ? 'حذف لایک از این پروژه' : 'لایک این پروژه'} aria-pressed={isLiked} sx={styles.likeButton}>
-          {isLiked ? <TbHeartFilled color="#fff" size={24} /> : <TbHeart color="#fff" size={24} />}
-        </IconButton>
+        {/* آیکون لایک */}
+        <Box sx={styles.likeButton} display={'flex'} alignItems={'center'}>
+          <Typography component={'span'} variant="body1" color={'#FFF'} fontWeight={'bold'}>
+            {ConvertToPersianDigit(1013)}
+          </Typography>
+          <IconButton onClick={() => onToggleLike(index)} aria-label={isLiked ? 'حذف لایک از این پروژه' : 'لایک این پروژه'} aria-pressed={isLiked}>
+            {isLiked ? <TbHeartFilled color="#fff" size={24} /> : <TbHeart color="#fff" size={24} />}
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   );
 }
 
-// 4. Empty State
+// Empty State
 function EmptyState() {
   return (
     <Grid size={12}>
@@ -190,7 +244,7 @@ export default function Portfolios() {
   const [likedItems, setLikedItems] = useState<Record<number, boolean>>({});
 
   const filteredItems = useMemo<PortfolioItem[]>(() => {
-    return activeCategory === 'همه' ? portfolioItems : portfolioItems.filter((item) => item.category?.includes(activeCategory));
+    return activeCategory === 'همه' ? portfolioItems : portfolioItems.filter((item) => item.category.includes(activeCategory));
   }, [activeCategory]);
 
   const handleToggleLike = (index: number) => {
@@ -206,7 +260,7 @@ export default function Portfolios() {
       <Grid id="portfolio-grid" container spacing={{ xs: 3, md: 4 }} justifyContent="center" role="tabpanel" aria-live="polite">
         {filteredItems.length > 0 ? (
           filteredItems.map((item, index) => (
-            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
+            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 4 }} key={index}>
               <PortfolioCard item={item} index={index} isLiked={!!likedItems[index]} onToggleLike={handleToggleLike} />
             </Grid>
           ))
@@ -218,18 +272,18 @@ export default function Portfolios() {
   );
 }
 
-// Styles - به‌روزرسانی شده برای رفع مشکل نمایش تگ‌ها در موبایل
+// Styles - بهینه‌شده برای responsive کامل
 const styles = {
   cardContainer: {
     position: 'relative' as const,
     width: '100%',
-    aspectRatio: '16 / 9',
+    height: { xs: '320px', sm: '360px', md: '400px', lg: '360px' }, // ارتفاع متعادل در همه دستگاه‌ها
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: '0px 12px 32px rgba(107, 78, 255, 0.15)',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     '&:hover': {
-      transform: 'translateY(-16px) scale(1.03)',
+      transform: 'translateY(-12px) scale(1.02)',
       boxShadow: '0px 24px 48px rgba(107, 78, 255, 0.3)',
     },
     '&:focus-within': {
@@ -245,61 +299,43 @@ const styles = {
   contentOverlay: {
     position: 'absolute' as const,
     inset: 0,
-    padding: { xs: '24px 16px 20px', md: '40px 24px 24px' },
-    background: 'linear-gradient(to top, rgba(107, 78, 255, 0.92) 0%, rgba(107, 78, 255, 0.4) 60%, transparent 100%)',
+    padding: { xs: '20px 16px', sm: '28px 20px', md: '32px 24px' },
+    background: 'linear-gradient(to top, rgba(107, 78, 255, 0.92) 0%, rgba(107, 78, 255, 0.5) 60%, transparent 100%)',
     color: '#fff',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: { xs: 'center', md: 'flex-end' },
+    justifyContent: 'flex-end',
     transition: 'all 0.4s ease-in-out',
-    opacity: 0.9,
+    opacity: 0.95,
     '&:hover': {
       opacity: 1,
-      background: 'linear-gradient(to top, rgba(107, 78, 255, 0.95) 0%, rgba(107, 78, 255, 0.5) 70%, transparent 100%)',
+      background: 'linear-gradient(to top, rgba(107, 78, 255, 0.95) 0%, rgba(107, 78, 255, 0.6) 70%, transparent 100%)',
     },
   },
   projectTitle: {
     fontWeight: 900,
-    fontSize: { xs: '1.35rem', sm: '2rem', md: '1.6rem' },
-    lineHeight: 1.2,
+    fontSize: { xs: '1.3rem', sm: '1.6rem', md: '1.8rem' },
+    lineHeight: 1.3,
   },
   projectDesc: {
     fontWeight: 500,
     opacity: 0.95,
-    mb: 0.5,
-    fontSize: { xs: '1.15rem', md: '1.1rem' },
-    display: { xs: '-webkit-box', md: 'block' },
-    WebkitLineClamp: { xs: 2, md: 'unset' },
+    mb: { xs: 1.5, md: 2 },
+    fontSize: { xs: '0.95rem', md: '1.05rem' },
+    display: '-webkit-box',
+    WebkitLineClamp: { xs: 3, md: 4 },
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
   categoryTag: {
-    alignSelf: 'flex-start',
     backgroundColor: 'rgba(255,255,255,0.25)',
     backdropFilter: 'blur(4px)',
     px: { xs: 1.5, md: 2 },
     py: { xs: 0.5, md: 0.75 },
     borderRadius: '12px',
     fontWeight: 600,
-    fontSize: { xs: '1rem', md: '0.85rem' },
-    mb: 1,
-  },
-  viewButton: {
-    mt: 0.5,
-    alignSelf: 'flex-start',
-    backgroundColor: '#fff',
-    color: '#000',
-    fontWeight: 800,
-    borderRadius: '16px',
-    px: { xs: 2.5, md: 4 },
-    py: { xs: 1, md: 1.2 },
-    fontSize: { xs: '1.1rem', md: '1rem' }, // کوچکتر در موبایل
-    transition: 'transform 0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.08)',
-      backgroundColor: '#fff',
-    },
+    fontSize: { xs: '0.85rem', md: '0.9rem' },
   },
   likeButton: {
     position: 'absolute' as const,
@@ -307,8 +343,9 @@ const styles = {
     left: { xs: 12, md: 16 },
     backgroundColor: 'rgba(0,0,0,0.3)',
     backdropFilter: 'blur(10px)',
-    width: { xs: 42, md: 48 },
-    height: { xs: 42, md: 48 },
+    width: 'fit-content',
+    pr: 2,
+    borderRadius: '32px',
     transition: 'all 0.3s ease',
     '&:hover': {
       backgroundColor: 'rgba(0,0,0,0.5)',
