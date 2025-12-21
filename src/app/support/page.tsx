@@ -6,7 +6,7 @@ import { FiPhone, FiMail, FiMessageCircle, FiClock, FiShield, FiHeadphones, FiGl
 import { FaWhatsapp } from 'react-icons/fa';
 import { MdExpandMore } from 'react-icons/md';
 import ChildrenLayout from '@/components/ChildrenLayout';
-import ContactForm from '@/components/pages/Home/ContactForm'; // اضافه شد
+import ContactForm from '@/components/pages/Home/ContactForm';
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 
 export default function SupportPage() {
