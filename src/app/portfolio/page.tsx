@@ -11,6 +11,7 @@ import Portfolios from '@/components/pages/Home/Portfolios';
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 import PortfolioTitles from '@/components/pages/portfolio/PortfolioTitles';
 import CompanyVoices from '@/components/pages/Home/CompanyVoices';
+import CoopiesLogoSection from '@/components/pages/Home/CoopiesLogoSection';
 
 export default function PortfolioPage() {
   // Ref برای کل بخش نمونه‌کارها
@@ -29,6 +30,7 @@ export default function PortfolioPage() {
         <Box ref={portfoliosRef} mt={14}>
           <Box my={12}>
             <CompanyVoices />
+            <CoopiesLogoSection />
           </Box>
           <Portfolios />
           <PortfolioTitles />

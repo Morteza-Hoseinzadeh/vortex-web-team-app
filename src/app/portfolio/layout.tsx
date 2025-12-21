@@ -80,6 +80,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PortfolioLayout({ children }: { children: ReactNode }) {
+export default function AboutUsLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }

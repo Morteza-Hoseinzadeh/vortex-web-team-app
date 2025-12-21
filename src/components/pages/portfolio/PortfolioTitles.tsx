@@ -6,7 +6,6 @@ export default function PortfolioTitles() {
   return (
     <Box sx={{ mt: { xs: 4, md: 8 }, textAlign: 'center', py: { xs: 6, md: 8 }, px: { xs: 3, md: 6 }, bgcolor: 'rgba(107, 78, 255, 0.08)', borderRadius: '60px', border: '2px solid rgba(107, 78, 255, 0.3)', backdropFilter: 'blur(16px)', maxWidth: '900px', mx: 'auto' }}>
       <Typography sx={{ fontSize: { xs: '1.6rem', md: '2.2rem', lg: '2.4rem' }, fontWeight: 900, color: '#fff', mb: { xs: 3, md: 4 }, lineHeight: 1.4 }}>آماده‌اید پروژه بعدی‌تون با ما باشه؟ 🚀</Typography>
-
       <Typography sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, fontWeight: 600, color: 'rgba(255,255,255,0.85)', maxWidth: '700px', mx: 'auto', mb: { xs: 5, md: 6 }, lineHeight: 1.7 }}>از نمونه‌کارها خوشتون اومد؟ عالیه! همین حالا با تیم ما چت کنید و پروژه‌تون رو شروع کنیم.</Typography>
 
       <Button

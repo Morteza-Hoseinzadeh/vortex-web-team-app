@@ -1,8 +1,6 @@
 'use client';
 
-import React from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NotFound() {

@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { FiLayers, FiShoppingCart, FiUser, FiMonitor } from 'react-icons/fi';
 import { MdOutlineDesignServices, MdOutlineSpeed } from 'react-icons/md';

@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
-import { Box, Typography, Button, Grid, Paper, useTheme, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Box, Typography, Button, Grid, useTheme, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { FiPhone, FiMail, FiMessageCircle, FiClock, FiShield, FiHeadphones, FiGlobe, FiZap } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { MdExpandMore } from 'react-icons/md';
 import ChildrenLayout from '@/components/ChildrenLayout';
 import ContactForm from '@/components/pages/Home/ContactForm';
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
+import CoopWays from '@/components/pages/Home/CoopWays';
 
 export default function SupportPage() {
   const theme = useTheme();
@@ -75,6 +76,10 @@ export default function SupportPage() {
               </Box>
             </Grid>
           </Grid>
+        </Box>
+
+        <Box ref={contactRef} mt={8}>
+          <CoopWays />
         </Box>
 
         {/* امکانات پشتیبانی - طراحی لوکس‌تر */}
@@ -162,7 +167,7 @@ export default function SupportPage() {
               { q: 'آیا سایت من ریسپانسیو خواهد بود؟', a: '۱۰۰٪ — همه سایت‌ها کاملاً responsive و مناسب موبایل، تبلت و دسکتاپ طراحی می‌شن. تست روی بیش از ۵۰ دستگاه مختلف انجام می‌شه.' },
               { q: 'قرارداد رسمی دارید؟', a: 'بله، در پکیج خورشید قرارداد رسمی با جزئیات کامل ارائه می‌شه. در پکیج‌های دیگر هم در صورت درخواست، قرارداد تنظیم می‌کنیم.' },
             ].map((faq, i) => (
-              <Grid size={{ xs: 12, md: 6 }}>
+              <Grid key={i} size={{ xs: 12, md: 6 }}>
                 <Accordion key={i} sx={{ bgcolor: 'rgba(107, 78, 255, 0.18)', backdropFilter: 'blur(20px)', border: '1px solid rgba(107, 78, 255, 0.4)', borderRadius: '28px !important', p: 2, boxShadow: '0 12px 40px rgba(107, 78, 255, 0.2)', '&:before': { display: 'none' }, '&.Mui-expanded': { margin: '0 0 32px 0 !important' } }}>
                   <AccordionSummary expandIcon={<MdExpandMore style={{ color: '#fff', fontSize: '2rem' }} />}>
                     <Typography sx={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff' }}>{faq.q}</Typography>

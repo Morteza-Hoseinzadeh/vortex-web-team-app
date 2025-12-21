@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Box, Button, Typography, useTheme, Link, IconButton } from '@mui/material';
 import { FiPhone, FiMail, FiInstagram, FiTwitter, FiLinkedin, FiYoutube } from 'react-icons/fi';
 import Image from 'next/image';

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, Button, Grid, IconButton, Typography, useTheme } from '@mui/material';
-import { TbEye, TbEyeFilled, TbHeart, TbHeartFilled } from 'react-icons/tb';
+import { TbHeart, TbHeartFilled } from 'react-icons/tb';
 import Image from 'next/image';
 import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
 
