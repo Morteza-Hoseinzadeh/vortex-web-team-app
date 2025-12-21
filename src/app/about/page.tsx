@@ -5,6 +5,7 @@ import { Box, Typography, Button, Grid, Paper, useTheme } from '@mui/material';
 import { FiGlobe, FiZap, FiShield, FiUsers, FiAward, FiHeart } from 'react-icons/fi';
 import ChildrenLayout from '@/components/ChildrenLayout';
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
+import AboutVortex from '@/components/pages/Home/AboutVortex';
 
 export default function AboutUsPage() {
   const theme = useTheme();
@@ -26,23 +27,8 @@ export default function AboutUsPage() {
     <ChildrenLayout>
       <Box sx={{ px: { xs: 2, md: 4, lg: 6 }, position: 'relative' }}>
         {/* داستان ما - ترکیب هدر و داستان در یک بخش واحد با طراحی Neon + مینیمال */}
-        <Box ref={headerRef} my={{ xs: 10, md: 14 }} textAlign="center">
-          <Box>
-            <Typography component="h1" sx={{ fontSize: { xs: '3rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: '#fff', mb: 3, lineHeight: 1.2, textShadow: '0 0 20px rgba(107, 78, 255, 0.8), 0 0 40px rgba(107, 78, 255, 0.5)' }}>
-              درباره ورتکس
-            </Typography>
-            <Typography sx={{ fontSize: { xs: '2.2rem', md: '3rem' }, fontWeight: 900, color: '#fff', mb: 4, lineHeight: 1.3, textShadow: '0 0 15px rgba(107, 78, 255, 0.6)' }}>داستان ما از سال ۱۴۰۴ شروع شد</Typography>
-            <Box sx={{ width: { xs: 150, md: 200 }, height: 5, bgcolor: '#6B4EFF', mx: 'auto', mb: 6, borderRadius: '3px', boxShadow: '0 0 20px rgba(107, 78, 255, 0.8)' }} />
-          </Box>
-
-          <Box>
-            {/* توضیح کوتاه درباره ورتکس */}
-            <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' }, fontWeight: 500, color: 'rgba(255,255,255,0.9)', maxWidth: '900px', mx: 'auto', lineHeight: 1.8, mb: 8, textShadow: '0 0 10px rgba(107, 78, 255, 0.3)' }}>
-              ما ورتکس هستیم — استودیوی طراحی دیجیتال که از سال ۱۴۰۴ با عشق به خلق تجربه‌های بی‌نظیر وب، همراه کسب‌وکارها بوده‌ایم. هدفمون ساده است: سایت‌هایی بسازیم که نه تنها زیبا باشن، بلکه واقعاً کار کنن و فروش بیارن. در سال ۱۴۰۴، با یک تیم کوچک اما پر از انرژی و ایده، ورتکس رو راه‌اندازی کردیم. از همون روز اول تمرکزمون روی کیفیت، نوآوری و رضایت مشتری بود. حالا با افتخار بیش از ۶ پروژه موفق داریم که هر کدومشون داستان یک تحول دیجیتال رو روایت می‌کنن.
-            </Typography>
-
-            <Typography sx={{ fontSize: '1.3rem', fontWeight: 700, color: theme.palette.primary.light, fontStyle: 'italic', textShadow: '0 0 20px rgba(107, 78, 255, 0.7)' }}>🌌 ما آینده دیجیتال شما رو روشن می‌کنیم</Typography>
-          </Box>
+        <Box ref={headerRef} textAlign="center" my={{ xs: 10, md: 14 }}>
+          <AboutVortex />
         </Box>
 
         {/* آمار و ارقام - Neon Glow روی اعداد */}
