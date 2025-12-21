@@ -44,6 +44,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogLayout({ children }: { children: ReactNode }) {
+export default function PricingLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
