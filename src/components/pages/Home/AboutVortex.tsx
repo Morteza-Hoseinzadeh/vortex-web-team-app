@@ -37,11 +37,15 @@ export default function AboutVortex() {
           id="about-heading"
           component="h2"
           sx={{
-            fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem', lg: '3.8rem' },
+            fontSize: { xs: '2rem', md: '3.5rem', lg: '4.5rem' },
             fontWeight: 900,
             color: '#fff',
-            lineHeight: 1.15,
-            mb: 2,
+            mb: 4,
+            lineHeight: 1.2,
+            background: 'linear-gradient(135deg, #6B4EFF, #A78BFA)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             position: 'relative',
             '&::after': {
               content: '""',
@@ -56,7 +60,7 @@ export default function AboutVortex() {
             },
           }}
         >
-          🔥 چرا تیم طراحی سایت ورتکس؟
+          چرا تیم طراحی سایت ورتکس؟
         </Typography>
 
         {/* Description */}
