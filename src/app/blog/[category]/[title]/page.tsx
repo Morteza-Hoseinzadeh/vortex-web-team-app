@@ -362,7 +362,7 @@ export default function CurrentBlogPage() {
                       label={tag}
                       clickable
                       component={Link}
-                      href={`/blog/tag/${tag.toLowerCase().replace(/ /g, '-')}`}
+                      href={`/blog?tags=${tag.toLowerCase().replace(/ /g, '-')}`}
                       sx={{
                         bgcolor: 'rgba(107, 78, 255, 0.25)',
                         color: '#fff',
