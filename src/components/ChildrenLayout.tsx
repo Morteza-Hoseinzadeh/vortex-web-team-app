@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 // Custom GSAP Hook
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 import CustomSnackbar from './custom/CustomSnackbar';
+import SubHeader from './UI/SubHeader';
 
 // Dynamic imports (no SSR for performance + animation safety)
 const Navbar = dynamic(() => import('@/components/UI/Navbar'), { ssr: false });
@@ -40,14 +41,14 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
     <>
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         {/* Navbar with animation */}
-        <Box ref={navbarRef}>
+        <Box ref={navbarRef} position={'relative'} sx={{ position: 'sticky', top: 24, zIndex: 1000, mx: 4 }}>
           <Navbar snackbarState={snackbarState} setSnackbarState={setSnackbarState} />
+          {/* Sub Navbar */}
+          <SubHeader />
         </Box>
 
         {/* Main Content - all sections animated together */}
-        <Box component="main" sx={{ flex: 1, py: { xs: 4, md: 8 } }}>
-          {children}
-        </Box>
+        <Box component="main">{children}</Box>
 
         {/* Footer with animation */}
         <Box ref={footerRef}>

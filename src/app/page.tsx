@@ -16,9 +16,11 @@ import ContactForm from '@/components/pages/Home/ContactForm';
 
 // Custom GSAP Hook
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
+import HeroSection from '@/components/pages/Home/HeroSection';
 
 export default function Home() {
   // Refs for each section
+  const homeRef = React.useRef<HTMLDivElement | any>(null);
   const aboutRef = React.useRef<HTMLDivElement | any>(null);
   const servicesRef = React.useRef<HTMLDivElement | any>(null);
   const coopiesRef = React.useRef<HTMLDivElement | any>(null);
@@ -29,6 +31,12 @@ export default function Home() {
   const contactRef = React.useRef<HTMLDivElement | any>(null);
 
   // NEW & VARIED ANIMATIONS — هر بخش انیمیشن متفاوت و جذاب
+  useScrollAnimation(homeRef, {
+    from: { opacity: 0, scale: 0.95 },
+    to: { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' },
+    delay: 0.2,
+  });
+
   useScrollAnimation(aboutRef, {
     from: { opacity: 0, scale: 0.95 },
     to: { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' },
@@ -79,6 +87,9 @@ export default function Home() {
 
   return (
     <ChildrenLayout>
+      <Box ref={aboutRef}>
+        <HeroSection />
+      </Box>
       <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
         <Box ref={aboutRef}>
           <AboutVortex />
