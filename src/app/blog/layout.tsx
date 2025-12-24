@@ -2,21 +2,23 @@ import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
 type Props = {
-  params: { tag: string };
+  params?: { tag?: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const myPromise = new Promise((resolve) => {
-    setTimeout(() => {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const myPromise = new Promise<string>((resolve) => {
+    setInterval(() => {
       resolve(params);
     }, 1000);
   });
-
   const result: any = await myPromise;
-  const decodedTag = decodeURIComponent(result.tag).replaceAll('-', ' ');
+  const rawTag = result?.tags;
 
-  const title = `مقالات مرتبط با ${decodedTag} | وبلاگ ورتکس`;
-  const description = `مقالات تخصصی، آموزش‌ها و مطالب کاربردی درباره ${decodedTag} در وبلاگ تیم طراحی سایت ورتکس.`;
+  const decodedTag = rawTag ? decodeURIComponent(rawTag).replaceAll('-', ' ') : 'تکنولوژی';
+
+  const title = rawTag ? `مقالات مرتبط با ${decodedTag} | وبلاگ ورتکس` : `وبلاگ ورتکس`;
+
+  const description = rawTag ? `مقالات تخصصی، آموزش‌ها و مطالب کاربردی درباره ${decodedTag} در وبلاگ تیم طراحی سایت ورتکس.` : `جدیدترین مقالات تخصصی، آموزش‌ها و مطالب کاربردی حوزه تکنولوژی در وبلاگ تیم طراحی سایت ورتکس.`;
 
   return {
     title,
@@ -24,12 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [decodedTag, 'وبلاگ طراحی سایت', 'آموزش طراحی سایت', 'توسعه وب', 'سئو', 'UI UX', 'فرانت‌اند', 'Next.js', 'React', 'وبلاگ ورتکس'],
     metadataBase: new URL('https://vortexweb.ir'),
     alternates: {
-      canonical: `/blog/tag/${result.tag}`,
+      canonical: rawTag ? `/blog/tag/${rawTag}` : `/blog`,
     },
     openGraph: {
       title,
       description,
-      url: `https://vortexweb.ir/blog/tag/${result.tag}`,
+      url: rawTag ? `https://vortexweb.ir/blog/tag/${rawTag}` : `https://vortexweb.ir/blog`,
       siteName: 'تیم طراحی سایت ورتکس',
       locale: 'fa_IR',
       type: 'website',
