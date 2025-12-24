@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TbCheck, TbX, TbInfoCircle, TbAlertTriangle } from 'react-icons/tb';
-import AnimatedMotion from '../UI/AnimatedMotion';
+import AnimatedMotion from '@/components/UI/AnimatedMotion';
 
 type Variant = 'success' | 'error' | 'info' | 'warning';
 
@@ -53,7 +53,7 @@ const CustomSnackbar: React.FC<Props> = ({ open, onClose, autoHideDuration = 200
           style={{
             position: 'fixed',
             bottom: 20,
-            right: 20,
+            left: 20,
             zIndex: 9999,
             backgroundColor: bg,
             color: '#fff',

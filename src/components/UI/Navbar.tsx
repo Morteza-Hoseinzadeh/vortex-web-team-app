@@ -1,18 +1,23 @@
 'use client';
 
-import { Box, Button, Drawer, Typography, IconButton, List, ListItem, ListItemButton, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Button, Drawer, Typography, IconButton, List, ListItem, ListItemButton, useTheme, useMediaQuery, Divider } from '@mui/material';
 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { TbUser } from 'react-icons/tb';
 import TypewriterComponent from 'typewriter-effect';
 
-const Navbar = () => {
+const NavbarContainer = ({ setSnackbarState }: any) => {
   const theme = useTheme();
   const pathname = usePathname();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { noSsr: true });
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const openSnackbar = () => {
+    setSnackbarState({ open: true, message: 'پنل کاربری در حال توسعه میباشد', variant: 'warning' });
+  };
 
   const links = [
     { title: 'صفحه اصلی', href: '/' },
@@ -89,8 +94,11 @@ const Navbar = () => {
         </Box>
 
         {/* Desktop CTA Button */}
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
           <Button sx={{ fontSize: 17, fontWeight: 800, px: 4.5, py: 1.6, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', transition: 'all 0.45s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'translateY(-5px)', borderColor: '#fff' } }}>نیاز به مشاوره دارید؟</Button>
+          <IconButton onClick={openSnackbar} size="large" color="primary" sx={{ bgcolor: 'rgba(107, 78, 255, 0.2)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff' }}>
+            <TbUser />
+          </IconButton>
         </Box>
 
         {/* Mobile Hamburger */}
@@ -98,7 +106,6 @@ const Navbar = () => {
           <GiHamburgerMenu color="#fff" size={32} />
         </IconButton>
       </Box>
-
       {/* Mobile Drawer */}
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)} PaperProps={{ sx: { bgcolor: 'rgba(15, 8, 35, 0.95)', backdropFilter: 'blur(28px)', borderLeft: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: { xs: '24px 0 0 24px', md: '32px 0 0 32px' }, width: 300 } }}>
         <Box sx={{ p: 4 }}>
@@ -115,10 +122,17 @@ const Navbar = () => {
               </ListItem>
             ))}
           </List>
-
-          <Button fullWidth sx={{ mt: 6, fontSize: 18, fontWeight: 800, py: 2, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'scale(1.03)' } }}>
-            مشاوره رایگان
-          </Button>
+          <Box>
+            <Divider sx={{ opacity: 0.5 }} />
+          </Box>
+          <Box display={'flex'} flexDirection={'column'} gap={2} mt={2}>
+            <Button fullWidth sx={{ fontSize: 18, fontWeight: 800, py: 2, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'scale(1.03)' } }}>
+              مشاوره رایگان
+            </Button>
+            <Button onClick={openSnackbar} fullWidth sx={{ fontSize: 18, fontWeight: 800, py: 2, borderRadius: '28px', bgcolor: 'rgba(107, 78, 255, 0.2)', backdropFilter: 'blur(14px)', border: '1px solid rgba(107, 78, 255, 0.5)', color: '#fff', textTransform: 'none', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.35)', transform: 'scale(1.03)' } }}>
+              حساب کاربری
+            </Button>
+          </Box>
         </Box>
       </Drawer>
     </>
@@ -225,11 +239,11 @@ const HeroSection = () => {
 };
 
 // ---------------- Exported Layout Component ----------------
-export default function HomePage() {
+export default function Navbar({ snackbarState, setSnackbarState }: any) {
   const pathname = usePathname();
   return (
     <Box width="100%" position="relative" dir="rtl">
-      <Navbar />
+      <NavbarContainer snackbarState={snackbarState} setSnackbarState={setSnackbarState} />
       {pathname === '/' ? <HeroSection /> : null}
     </Box>
   );
