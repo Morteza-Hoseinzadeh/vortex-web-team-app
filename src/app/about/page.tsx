@@ -25,9 +25,9 @@ export default function AboutUsPage() {
 
   return (
     <ChildrenLayout>
-      <Box sx={{ px: { xs: 2, md: 4, lg: 6 }, position: 'relative' }}>
+      <Box sx={{ px: { xs: 2, md: 4, lg: 6 }, position: 'relative' }} mt={28} mb={8}>
         {/* داستان ما - ترکیب هدر و داستان در یک بخش واحد با طراحی Neon + مینیمال */}
-        <Box ref={headerRef} textAlign="center" my={{ xs: 10, md: 14 }}>
+        <Box ref={headerRef} textAlign="center">
           <AboutVortex />
         </Box>
 

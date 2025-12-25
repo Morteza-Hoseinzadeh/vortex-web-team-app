@@ -33,7 +33,7 @@ export default function PricingTable() {
       category: 'امکانات ارتباطی',
       items: [
         { name: 'فرم تماس', atarod: false, merikh: true, zohre: true, zohal: true, khorshid: true },
-        { name: 'اتصال واتساپ', atarod: true, merikh: false, zohre: true, zohal: true, khorshid: true },
+        { name: 'اتصال واتساپ', atarod: true, merikh: true, zohre: true, zohal: true, khorshid: true },
         { name: 'درگاه پرداخت', atarod: false, merikh: false, zohre: false, zohal: true, khorshid: true },
         { name: 'چندزبانه', atarod: false, merikh: false, zohre: false, zohal: false, khorshid: true },
       ],
@@ -50,7 +50,7 @@ export default function PricingTable() {
       items: [
         { name: 'زمان پشتیبانی', atarod: '۷ روز', merikh: '۱ ماه', zohre: '۲ ماه', zohal: '۳ ماه', khorshid: '۶ ماه' },
         { name: 'آموزش مدیریت', atarod: false, merikh: false, zohre: true, zohal: true, khorshid: true },
-        { name: 'قرارداد رسمی', atarod: false, merikh: false, zohre: false, zohal: false, khorshid: true },
+        { name: 'قرارداد رسمی', atarod: false, merikh: false, zohre: false, zohal: true, khorshid: true },
       ],
     },
   ];

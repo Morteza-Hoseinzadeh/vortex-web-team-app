@@ -236,9 +236,9 @@ export default function CurrentBlogPage() {
 
   return (
     <ChildrenLayout>
-      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
+      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }} mt={28} mb={8}>
         {/* هدر مقاله */}
-        <Box ref={headerRef} mt={16}>
+        <Box ref={headerRef}>
           <Box sx={{ position: 'relative', height: { xs: 400, md: 600 }, borderRadius: '40px', overflow: 'hidden', mb: { xs: 6, md: 8 }, boxShadow: '0 24px 70px rgba(107, 78, 255, 0.3)' }}>
             <Image src={blogPost.image} alt={blogPost.title} fill priority style={{ objectFit: 'cover' }} />
             <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,5,30,0.95), transparent 40%)' }} />

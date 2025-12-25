@@ -28,9 +28,9 @@ export default function SupportPage() {
 
   return (
     <ChildrenLayout>
-      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
+      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }} mt={28} mb={8}>
         {/* هدر اصلی صفحه پشتیبانی - طراحی لوکس‌تر */}
-        <Box ref={headerRef} textAlign="center" my={{ xs: 10, md: 14 }}>
+        <Box ref={headerRef} textAlign="center">
           <Typography component="h1" sx={{ fontSize: { xs: '3rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: '#fff', mb: 4, lineHeight: 1.2, background: 'linear-gradient(135deg, #6B4EFF, #A78BFA, #E0AAFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textShadow: '0 10px 30px rgba(107, 78, 255, 0.3)' }}>
             پشتیبانی ۲۴ ساعته ورتکس
           </Typography>

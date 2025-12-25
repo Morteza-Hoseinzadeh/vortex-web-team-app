@@ -35,9 +35,9 @@ export default function PricingPage() {
 
   return (
     <ChildrenLayout>
-      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
+      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }} mt={28} mb={8}>
         {/* هدر اختصاصی صفحه تعرفه‌ها */}
-        <Box ref={headerRef} textAlign="center" mt={{ xs: 10, md: 16 }} mb={8}>
+        <Box ref={headerRef} textAlign="center">
           <Typography component="h1" sx={{ fontSize: { xs: '2.8rem', md: '4.2rem', lg: '4.8rem' }, fontWeight: 900, color: '#fff', mb: 4, lineHeight: 1.5, background: 'linear-gradient(135deg, #6B4EFF, #A78BFA)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             تعرفه‌های طراحی سایت
           </Typography>

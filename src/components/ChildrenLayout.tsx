@@ -37,6 +37,8 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
     delay: 0.4,
   });
 
+  // TODO: fix space issue from top of body
+
   return (
     <>
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
