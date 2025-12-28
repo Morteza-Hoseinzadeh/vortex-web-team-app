@@ -43,7 +43,7 @@ export default function HeroSection() {
       <Box sx={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.35)', zIndex: 1 }} />
 
       {/* Hero Content */}
-      <Box position="relative" zIndex={2} height="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center" textAlign="center" px={2}>
+      <Box position="relative" mt={2} zIndex={2} height="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center" textAlign="center" px={2}>
         <Typography component="h1" sx={{ fontWeight: 800, color: '#fff', mb: 2, fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
           تیم طراحی سایت ورتکس
         </Typography>
