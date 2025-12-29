@@ -15,22 +15,20 @@ const query = async (sql, params) => {
 };
 
 // GET all blogs posts
-router.get('/all-blogs', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const blogs = await query('SELECT * FROM blog_posts');
-    return res.status(200).json({ blogs, status: 200 });
+    return res.status(200).json({ data: blogs, status: 200 });
   } catch (error) {
     return res.status(500).json({ message: 'خطا در برقراری ارتباط با سرور', status: 500, error });
   }
 });
 
-router.post('/create-blog', async (req,res) => {
+// Create blog route
+router.post('/create-blog', async (req, res) => {
   try {
-    
-  } catch (error) {
-    
-  }
-})
+  } catch (error) {}
+});
 
 // GET comments of a specific blog post
 router.get('/:postId/comments', async (req, res) => {
