@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
 type Props = {
-  params?: { tag?: string };
+  params: { tag?: string };
 };
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
@@ -11,38 +11,48 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       resolve(params);
     }, 1000);
   });
+
   const result: any = await myPromise;
+
+  if (result?.length) clearInterval(await myPromise);
+
   const rawTag = result?.tags;
 
   const decodedTag = rawTag ? decodeURIComponent(rawTag).replaceAll('-', ' ') : 'تکنولوژی';
 
-  const title = rawTag ? `مقالات مرتبط با ${decodedTag} | وبلاگ ورتکس` : `وبلاگ ورتکس`;
+  const title = rawTag ? `مقالات ${decodedTag} | وبلاگ تیم طراحی سایت ورتکس` : 'وبلاگ طراحی سایت و تکنولوژی | تیم ورتکس';
 
-  const description = rawTag ? `مقالات تخصصی، آموزش‌ها و مطالب کاربردی درباره ${decodedTag} در وبلاگ تیم طراحی سایت ورتکس.` : `جدیدترین مقالات تخصصی، آموزش‌ها و مطالب کاربردی حوزه تکنولوژی در وبلاگ تیم طراحی سایت ورتکس.`;
+  const description = rawTag ? `مقالات تخصصی و آموزش‌های کاربردی درباره ${decodedTag}. بررسی تجربه‌ها و نکات عملی تیم طراحی سایت ورتکس.` : 'جدیدترین مقالات طراحی سایت، سئو، برنامه‌نویسی و تکنولوژی توسط تیم طراحی سایت ورتکس.';
+
+  const canonicalUrl = rawTag ? `https://vortexweb.ir/blog/tag/${rawTag}` : `https://vortexweb.ir/blog`;
 
   return {
     title,
     description,
-    keywords: [decodedTag, 'وبلاگ طراحی سایت', 'آموزش طراحی سایت', 'توسعه وب', 'سئو', 'UI UX', 'فرانت‌اند', 'Next.js', 'React', 'وبلاگ ورتکس'],
+
     metadataBase: new URL('https://vortexweb.ir'),
+
     alternates: {
-      canonical: rawTag ? `/blog/tag/${rawTag}` : `/blog`,
+      canonical: canonicalUrl,
     },
+
     openGraph: {
       title,
       description,
-      url: rawTag ? `https://vortexweb.ir/blog/tag/${rawTag}` : `https://vortexweb.ir/blog`,
+      url: canonicalUrl,
       siteName: 'تیم طراحی سایت ورتکس',
       locale: 'fa_IR',
       type: 'website',
     },
+
     twitter: {
       card: 'summary_large_image',
       title,
       description,
     },
+
     robots: {
-      index: true,
+      index: !!rawTag, // فقط صفحات tag ایندکس بشن
       follow: true,
     },
   };
