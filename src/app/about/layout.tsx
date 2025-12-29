@@ -2,26 +2,28 @@ import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'درباره ما - تیم طراحی سایت ورتکس',
-  description: 'با تیم طراحی سایت ورتکس آشنا شوید. ما یک تیم متخصص در طراحی سایت، رابط کاربری (UI)، تجربه کاربری (UX) و توسعه وب مدرن هستیم.',
+  title: 'درباره تیم طراحی سایت ورتکس',
+  description: 'با تیم طراحی سایت ورتکس آشنا شوید؛ تیمی متخصص در طراحی سایت شرکتی و فروشگاهی با تمرکز بر کیفیت، سرعت، سئو و تجربه کاربری.',
 
-  keywords: ['درباره ما', 'تیم طراحی سایت ورتکس', 'معرفی تیم طراحی وب', 'تیم طراحی وب', 'طراحی سایت حرفه‌ای', 'طراحی رابط کاربری', 'طراحی تجربه کاربری', 'UI', 'UX', 'توسعه وب', 'Frontend', 'Backend', 'طراحی سایت اختصاصی', 'طراحی سایت مدرن', 'طراحی سایت با React', 'طراحی سایت با Next.js', 'تیم برنامه‌نویسی وب', 'خدمات طراحی سایت', 'تیم طراحی دیجیتال'],
+  // ❌ meta keywords عمداً حذف شده
 
-  authors: [{ name: 'تیم طراحی ورتکس', url: 'https://vortexweb.ir' }],
-  creator: 'تیم طراحی ورتکس',
-  publisher: 'تیم طراحی ورتکس',
+  authors: [{ name: 'تیم طراحی سایت ورتکس', url: 'https://vortexweb.ir' }],
+  creator: 'تیم طراحی سایت ورتکس',
+  publisher: 'تیم طراحی سایت ورتکس',
 
   metadataBase: new URL('https://vortexweb.ir'),
 
   alternates: {
-    canonical: '/about',
+    canonical: 'https://vortexweb.ir/about',
   },
 
   openGraph: {
-    title: 'درباره ما - تیم طراحی سایت ورتکس',
-    description: 'با تیم طراحی سایت ورتکس آشنا شوید؛ متخصص در طراحی سایت، UI/UX و توسعه وب حرفه‌ای.',
+    title: 'درباره تیم طراحی سایت ورتکس',
+    description: 'معرفی تیم طراحی سایت ورتکس؛ متخصص در طراحی سایت حرفه‌ای، شرکتی و فروشگاهی با استانداردهای روز دنیا.',
     url: 'https://vortexweb.ir/about',
     siteName: 'تیم طراحی سایت ورتکس',
+    locale: 'fa_IR',
+    type: 'website',
     images: [
       {
         url: '/assets/logo/vortex-logo.png',
@@ -30,24 +32,18 @@ export const metadata: Metadata = {
         alt: 'درباره تیم طراحی سایت ورتکس',
       },
     ],
-    locale: 'fa_IR',
-    type: 'website',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'درباره ما - تیم طراحی سایت ورتکس',
-    description: 'معرفی تیم طراحی سایت ورتکس؛ متخصص در طراحی وب، UI/UX و توسعه وب مدرن.',
+    title: 'درباره تیم طراحی سایت ورتکس',
+    description: 'آشنایی با تیم طراحی سایت ورتکس؛ متخصص در طراحی سایت حرفه‌ای و توسعه وب مدرن.',
     images: ['/assets/logo/vortex-logo.png'],
   },
 
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
   },
 };
 
