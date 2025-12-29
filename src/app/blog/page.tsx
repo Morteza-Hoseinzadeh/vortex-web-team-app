@@ -70,7 +70,7 @@ export default function BlogPage() {
           <>
             <Box ref={headerRef} textAlign="center" my={{ xs: 10, md: 14 }}>
               <Typography component="h1" sx={{ fontSize: { xs: '3rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: '#fff', mb: 4, lineHeight: 1.2, background: 'linear-gradient(135deg, #6B4EFF, #A78BFA)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                وبلاگح ورتکس
+                وبلاگ ورتکس
               </Typography>
 
               <Typography sx={{ fontSize: { xs: '1.3rem', md: '1.8rem' }, fontWeight: 600, color: 'rgba(255,255,255,0.9)', maxWidth: '900px', mx: 'auto', lineHeight: 1.8 }}>جدیدترین مقالات، آموزش‌ها و نکات کاربردی در زمینه طراحی وب، توسعه فرانت‌اند و بک‌اند، Next.js و ابزارهای مدرن</Typography>

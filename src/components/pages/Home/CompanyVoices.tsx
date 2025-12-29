@@ -46,14 +46,14 @@ export default function CompanyVoices() {
   return (
     <Box component="section" sx={{ px: { xs: 2, md: 4, lg: 6 }, bgcolor: 'rgba(10, 5, 30, 0.95)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
       {/* Header */}
-      <Box mb={{ xs: 8, md: 12 }}>
+      <Box my={{ xs: 8, md: 12 }}>
         <Typography component="h2" sx={{ fontSize: { xs: '2.6rem', md: '3.6rem', lg: '4.2rem' }, fontWeight: 900, color: '#fff', mb: 3, display: 'inline-flex', alignItems: 'center', gap: 2 }}>
           <Box component="span" sx={{ color: theme.palette.primary.main }}>
-            💎
+            🚀
           </Box>
           نظرات مشتریان
           <Box component="span" sx={{ color: theme.palette.primary.main }}>
-            💎
+            🚀
           </Box>
         </Typography>
 

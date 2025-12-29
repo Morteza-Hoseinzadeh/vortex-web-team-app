@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://vortexweb.ir'),
 
   title: {
-    default: 'طراحی سایت شرکتی و فروشگاهی | تیم طراحی سایت ورتکس',
+    default: 'تیم طراحی سایت ورتکس | طراحی سایت شرکتی و فروشگاهی',
     template: '%s | تیم طراحی سایت ورتکس',
   },
 

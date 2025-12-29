@@ -14,13 +14,11 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const result: any = await myPromise;
 
-  if (result?.length) clearInterval(await myPromise);
-
   const rawTag = result?.tags;
 
   const decodedTag = rawTag ? decodeURIComponent(rawTag).replaceAll('-', ' ') : 'تکنولوژی';
 
-  const title = rawTag ? `مقالات ${decodedTag} | وبلاگ تیم طراحی سایت ورتکس` : 'وبلاگ طراحی سایت و تکنولوژی | تیم ورتکس';
+  const title = rawTag ? `مقالات ${decodedTag}` : 'وبلاگ طراحی سایت و تکنولوژی';
 
   const description = rawTag ? `مقالات تخصصی و آموزش‌های کاربردی درباره ${decodedTag}. بررسی تجربه‌ها و نکات عملی تیم طراحی سایت ورتکس.` : 'جدیدترین مقالات طراحی سایت، سئو، برنامه‌نویسی و تکنولوژی توسط تیم طراحی سایت ورتکس.';
 

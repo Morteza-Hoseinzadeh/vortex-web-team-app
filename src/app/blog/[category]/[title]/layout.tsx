@@ -2,21 +2,27 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const myPromise = new Promise((resolve) => {
+  const myPromise: any = new Promise((resolve) => {
     setTimeout(() => {
       resolve(params);
     }, 1000);
   });
 
   const result: any = await myPromise;
+  const { title, category } = result;
 
-  const readableTitle = decodeURIComponent(result?.title).replace(/-/g, ' ');
-  const readableCategory = decodeURIComponent(result?.category).replace(/-/g, ' ');
+  if (result?.length) clearInterval(await myPromise);
 
-  const pageTitle = `${readableTitle} | بلاگ تیم طراحی سایت ورتکس`;
-  const pageDescription = `مقاله «${readableTitle}» در دسته‌بندی ${readableCategory}. آموزش‌ها و نکات تخصصی طراحی سایت، سئو و توسعه وب توسط تیم طراحی سایت ورتکس.`;
+  // ساخت نسخه قابل خواندن برای Title و Description
+  const readableTitle = decodeURIComponent(title).replace(/-/g, ' ');
+  const readableCategory = decodeURIComponent(category).replace(/-/g, ' ');
 
-  const url = `https://vortexweb.ir/blog/${readableTitle}/${readableCategory}`;
+  // Title و Description مناسب SEO و CTR
+  const pageTitle = `${readableTitle} | بلاگ طراحی سایت ورتکس`;
+  const pageDescription = `مطالعه مقاله "${readableTitle}" در دسته‌بندی ${readableCategory}. آموزش‌ها و نکات عملی طراحی سایت، سئو و توسعه وب توسط تیم حرفه‌ای ورتکس.`;
+
+  // URL canonical با title و category
+  const url = `https://vortexweb.ir/blog/${category}/${title}`;
 
   return {
     title: pageTitle,
@@ -37,7 +43,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       type: 'article',
       images: [
         {
-          url: '/assets/logo/vortex-logo.png',
+          url: '/assets/logo/vortex-logo.png', // اگر مقاله تصویر اختصاصی دارد، URL آن را اینجا قرار دهید
           width: 1200,
           height: 630,
           alt: pageTitle,
@@ -49,7 +55,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       card: 'summary_large_image',
       title: pageTitle,
       description: pageDescription,
-      images: ['/assets/logo/vortex-logo.png'],
+      images: ['/assets/logo/vortex-logo.png'], // می‌تواند تصویر مقاله باشد
     },
 
     robots: {
@@ -59,6 +65,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   };
 }
 
-export default function BlogSlugLayout({ children }: { children: ReactNode }) {
+// Layout صفحه بلاگ برای App Router
+export default function BlogtitleLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
