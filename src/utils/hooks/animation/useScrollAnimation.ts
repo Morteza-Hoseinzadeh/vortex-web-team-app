@@ -28,7 +28,7 @@ export const useScrollAnimation = (selector: string | React.RefObject<HTMLElemen
       delay,
       scrollTrigger: {
         trigger: elements[0] as any,
-        start: 'top 85%',
+        start: 'top 10%',
         toggleActions: 'play none none reverse',
         once: triggerOnce,
       },

@@ -27,7 +27,7 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
   // Animations – each part appears with different style
   useScrollAnimation(navbarRef, {
     from: { y: -100, opacity: 0 },
-    to: { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+    to: { y: 0, opacity: 1, duration: 1, ease: 'back.out(1.2)' },
     delay: 0.3,
   });
 
@@ -36,8 +36,6 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
     to: { scale: 1, opacity: 1, duration: 1.1, ease: 'back.out(1.2)' },
     delay: 0.4,
   });
-
-  // TODO: fix space issue from top of body
 
   return (
     <>
