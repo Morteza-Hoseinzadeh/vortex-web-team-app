@@ -1,84 +1,28 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Box, Button, Grid, IconButton, Typography, useTheme } from '@mui/material';
-import { TbHeart, TbHeartFilled } from 'react-icons/tb';
+import { useMemo, useState, useEffect } from 'react';
+import { Box, Button, Grid, Typography, useTheme, Skeleton } from '@mui/material';
+import { TbEye } from 'react-icons/tb'; // Eye icon for views
 import Image from 'next/image';
 import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
+import axiosInstance from '@/utils/hooks/axiosInstance';
 
 // Types
 interface PortfolioItem {
-  logo: string;
+  id: string;
+  views: number;
   mockup: string;
+  logo: string;
+  alt: string;
   description: string;
   category: string[];
-  status: string;
-  alt: string;
-  liveUrl?: string | null;
+  status: 'در حال توسعه' | 'توسعه یافته شده';
+  live_url: string | null;
 }
 
-const categories = ['همه', 'فروشگاهی', 'خدماتی', 'شخصی', 'شرکتی'] as const;
-type Category = (typeof categories)[number];
+type Category = 'همه' | string;
 
-// Data
-const portfolioItems: PortfolioItem[] = [
-  {
-    logo: '/assets/logo/company-logo/chroma-ui.png',
-    mockup: '/assets/image/mockups/chormaUI-mockup.png',
-    description: 'کروما یو آی - طراحی رابط کاربری حرفه‌ای و مدرن با تمرکز بر تجربه کاربری و زیبایی بصری',
-    category: ['شرکتی'],
-    status: 'در حال توسعه',
-    alt: 'نمونه کار طراحی رابط کاربری برای کروما یو آی',
-    liveUrl: null,
-  },
-  {
-    logo: '/assets/logo/company-logo/zichat-logo.png',
-    mockup: '/assets/image/mockups/zichat-mockup.png',
-    description: 'زیچت - پروژه پیام‌رسان ایرانی با امکانات پیشرفته و امنیت بالا برای ارتباط امن کاربران',
-    category: ['خدماتی'],
-    status: 'در حال توسعه',
-    alt: 'نمونه کار پروژه پیام‌رسان زیچت',
-    liveUrl: null,
-  },
-  {
-    logo: '/assets/logo/company-logo/zephyr-logo.png',
-    mockup: '/assets/image/mockups/zephyr-mockup.png',
-    description: 'زفیـر - طراحی وب‌سایت شرکتی با تمرکز بر برندینگ، سرعت بالا و طراحی واکنش‌گرا',
-    category: ['شرکتی'],
-    status: 'توسعه یافته شده',
-    alt: 'نمونه کار طراحی وب‌سایت شرکتی زفیـر',
-    liveUrl: 'https://zephyr-team.ir',
-  },
-  {
-    logo: '/assets/logo/company-logo/dorna-logo.png',
-    mockup: '/assets/image/mockups/dourna-mockup.png',
-    description: 'کلینک زیبایی درنا - فروشگاه آنلاین محصولات زیبایی با سیستم رزرو نوبت و پرداخت امن',
-    category: ['فروشگاهی', 'خدماتی'],
-    status: 'توسعه یافته شده',
-    alt: 'نمونه کار فروشگاهی کلینک زیبایی درنا',
-    liveUrl: 'https://dournaclinic.com',
-  },
-  {
-    logo: '/assets/logo/company-logo/rabet-automatic-kasra-logo.png',
-    mockup: '/assets/image/mockups/rabet-automatic-kasra-mockup.png',
-    description: 'رابط اتوماتیک کسری - سیستم هوشمند مدیریت ارتباط با مشتریان برای کسب‌وکارهای صنعتی',
-    category: ['خدماتی'],
-    status: 'توسعه یافته شده',
-    alt: 'نمونه کار پروژه اختصاصی رابط اتوماتیک کسری',
-    liveUrl: 'https://rabetkasra.ir',
-  },
-  {
-    logo: '/assets/logo/company-logo/personal-portfolio.png',
-    mockup: '/assets/image/mockups/my-portfolio-mockup.png',
-    description: 'پورتفولیو شخصی - طراحی رابط کاربری بصری و انیمیشن‌های پیشرفته با Next.js و GSAP',
-    category: ['شخصی'],
-    status: 'توسعه یافته شده',
-    alt: 'نمونه کار پورتفولیو شخصی با طراحی بصری',
-    liveUrl: 'https://personal-portfolio-eta-lac-35.vercel.app/',
-  },
-];
-
-// Portfolio Header
+// Portfolio Header (unchanged)
 function PortfolioHeader() {
   const theme = useTheme();
 
@@ -94,19 +38,14 @@ function PortfolioHeader() {
   );
 }
 
-// Category Filters
-interface CategoryFiltersProps {
-  activeCategory: Category;
-  onCategoryChange: (category: Category) => void;
-}
-
-function CategoryFilters({ activeCategory, onCategoryChange }: CategoryFiltersProps) {
+// Category Filters (unchanged)
+function CategoryFilters({ categories, activeCategory, onCategoryChange }: { categories: string[]; activeCategory: Category; onCategoryChange: (cat: Category) => void }) {
   return (
     <Box display="flex" flexWrap="wrap" gap={{ xs: 2, md: 3 }} justifyContent="center" mb={{ xs: 8, md: 10 }} role="tablist" aria-label="دسته‌بندی نمونه کارها">
       {categories.map((category) => (
         <Button
           key={category}
-          onClick={() => onCategoryChange(category)}
+          onClick={() => onCategoryChange(category as Category)}
           variant={category === activeCategory ? 'contained' : 'outlined'}
           role="tab"
           aria-selected={category === activeCategory}
@@ -121,12 +60,17 @@ function CategoryFilters({ activeCategory, onCategoryChange }: CategoryFiltersPr
             fontWeight: 800,
             fontSize: { xs: '1.05rem', md: '1.25rem' },
             textTransform: 'none',
-            color: category === activeCategory ? '#fff' : '#fff',
+            color: '#fff',
             bgcolor: category === activeCategory ? 'rgba(107, 78, 255, 0.25)' : 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(12px)',
             boxShadow: category === activeCategory ? '0 8px 32px rgba(107, 78, 255, 0.35)' : '0 4px 16px rgba(107, 78, 255, 0.1)',
             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            '&:hover': { bgcolor: category === activeCategory ? 'rgba(107, 78, 255, 0.35)' : 'rgba(107, 78, 255, 0.15)', transform: 'translateY(-6px)', boxShadow: '0 12px 40px rgba(107, 78, 255, 0.3)', borderColor: '#fff' },
+            '&:hover': {
+              bgcolor: category === activeCategory ? 'rgba(107, 78, 255, 0.35)' : 'rgba(107, 78, 255, 0.15)',
+              transform: 'translateY(-6px)',
+              boxShadow: '0 12px 40px rgba(107, 78, 255, 0.3)',
+              borderColor: '#fff',
+            },
           }}
         >
           {category}
@@ -136,15 +80,23 @@ function CategoryFilters({ activeCategory, onCategoryChange }: CategoryFiltersPr
   );
 }
 
-// Portfolio Card
-interface PortfolioCardProps {
-  item: PortfolioItem;
-  index: number;
-  isLiked: boolean;
-  onToggleLike: (index: number) => void;
+// Portfolio Card Skeleton (unchanged)
+function PortfolioCardSkeleton() {
+  return (
+    <Box sx={styles.cardContainer}>
+      <Skeleton variant="rectangular" width="100%" height="100%" sx={{ borderRadius: '24px' }} />
+      <Box sx={{ ...styles.contentOverlay, opacity: 1, background: 'rgba(107, 78, 255, 0.7)' }}>
+        <Skeleton width="60%" height={40} sx={{ mb: 2 }} />
+        <Skeleton width="80%" height={20} sx={{ mb: 1 }} />
+        <Skeleton width="70%" height={20} />
+        <Skeleton width="100%" height={56} sx={{ borderRadius: '28px', mt: 'auto' }} />
+      </Box>
+    </Box>
+  );
 }
 
-function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProps) {
+// Portfolio Card with Views Counter
+function PortfolioCard({ item, index }: { item: PortfolioItem; index: number }) {
   const projectName = item.description.split(' - ')[0].trim();
   const projectDesc = item.description.split(' - ')[1]?.trim();
 
@@ -153,7 +105,6 @@ function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProp
       <Box sx={styles.imageWrapper}>
         <Image src={item.mockup} alt={item.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover', filter: 'blur(3px)' }} priority={index < 3} loading={index >= 3 ? 'lazy' : undefined} />
 
-        {/* Overlay با محتوا - کاملاً responsive */}
         <Box sx={styles.contentOverlay}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: { xs: 1.5, md: 2 } }} mb={{ xs: 1.5, md: 2 }}>
             <Image src={item.logo} alt={item.alt} width={40} height={40} priority style={{ borderRadius: '8px' }} />
@@ -174,16 +125,14 @@ function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProp
             ))}
           </Box>
 
-          {/* وضعیت پروژه */}
           <Typography sx={{ fontSize: { xs: '0.9rem', md: '1rem' }, fontWeight: 700, color: '#fff', mb: { xs: 1.5, md: 2 }, bgcolor: 'rgba(0,0,0,0.3)', px: { xs: 2, md: 2.5 }, py: { xs: 0.6, md: 0.8 }, borderRadius: '16px', alignSelf: 'flex-start' }}>{item.status === 'در حال توسعه' ? '🔄 در حال توسعه' : '✅ توسعه یافته شده'}</Typography>
 
-          {/* دکمه مشاهده پروژه */}
           <Button
             fullWidth
+            disabled={!item.live_url}
             component="a"
-            disabled={item.liveUrl !== null ? false : true}
             variant="contained"
-            href={item.liveUrl || '#'}
+            href={item.live_url || '#'}
             target="_blank"
             rel="noopener noreferrer"
             sx={{
@@ -213,21 +162,19 @@ function PortfolioCard({ item, index, isLiked, onToggleLike }: PortfolioCardProp
           </Button>
         </Box>
 
-        {/* آیکون لایک */}
-        <Box sx={styles.likeButton} display={'flex'} alignItems={'center'}>
+        {/* Views Counter */}
+        <Box sx={styles.viewsButton} display={'flex'} alignItems={'center'}>
           <Typography component={'span'} variant="body1" color={'#FFF'} fontWeight={'bold'}>
-            {ConvertToPersianDigit(1013)}
+            {ConvertToPersianDigit(item.views)}
           </Typography>
-          <IconButton onClick={() => onToggleLike(index)} aria-label={isLiked ? 'حذف لایک از این پروژه' : 'لایک این پروژه'} aria-pressed={isLiked}>
-            {isLiked ? <TbHeartFilled color="#fff" size={24} /> : <TbHeart color="#fff" size={24} />}
-          </IconButton>
+          <TbEye color="#fff" size={26} style={{ marginRight: '4px' }} />
         </Box>
       </Box>
     </Box>
   );
 }
 
-// Empty State
+// Empty & Error States (unchanged)
 function EmptyState() {
   return (
     <Grid size={12}>
@@ -238,30 +185,80 @@ function EmptyState() {
   );
 }
 
+function ErrorState() {
+  return (
+    <Grid size={12}>
+      <Typography textAlign="center" color="error" py={8}>
+        خطایی در بارگذاری نمونه‌کارها رخ داد. لطفاً دوباره تلاش کنید.
+      </Typography>
+    </Grid>
+  );
+}
+
 // Main Component
 export default function Portfolios() {
   const [activeCategory, setActiveCategory] = useState<Category>('همه');
-  const [likedItems, setLikedItems] = useState<Record<number, boolean>>({});
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const filteredItems = useMemo<PortfolioItem[]>(() => {
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const response = await axiosInstance.get('/api/portfolios');
+        const data = response?.data?.data || response?.data || [];
+
+        // Ensure views  is a number
+        const formattedData = data.map((item: any) => ({
+          ...item,
+          views: Number(item.views) || 0,
+        }));
+
+        setPortfolioItems(formattedData);
+      } catch (err) {
+        console.error('Error fetching portfolios:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolios();
+  }, []);
+
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    portfolioItems.forEach((item) => item.category.forEach((c) => cats.add(c)));
+    return ['همه', ...Array.from(cats)];
+  }, [portfolioItems]);
+
+  const filteredItems = useMemo(() => {
     return activeCategory === 'همه' ? portfolioItems : portfolioItems.filter((item) => item.category.includes(activeCategory));
-  }, [activeCategory]);
-
-  const handleToggleLike = (index: number) => {
-    setLikedItems((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
+  }, [activeCategory, portfolioItems]);
 
   return (
     <Box component="section" my={6} px={{ xs: 2, md: 6, lg: 8 }} aria-labelledby="portfolios-heading">
       <PortfolioHeader />
 
-      <CategoryFilters activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+      {!loading && <CategoryFilters categories={categories} activeCategory={activeCategory} onCategoryChange={setActiveCategory} />}
 
       <Grid id="portfolio-grid" container spacing={{ xs: 3, md: 4 }} justifyContent="center" role="tabpanel" aria-live="polite">
-        {filteredItems.length > 0 ? (
+        {loading ? (
+          <>
+            {[...Array(6)].map((_, i) => (
+              <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 4 }} key={`skeleton-${i}`}>
+                <PortfolioCardSkeleton />
+              </Grid>
+            ))}
+          </>
+        ) : error ? (
+          <ErrorState />
+        ) : filteredItems.length > 0 ? (
           filteredItems.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 4 }} key={index}>
-              <PortfolioCard item={item} index={index} isLiked={!!likedItems[index]} onToggleLike={handleToggleLike} />
+            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 4 }} key={item.id}>
+              <PortfolioCard item={item} index={index} />
             </Grid>
           ))
         ) : (
@@ -272,12 +269,12 @@ export default function Portfolios() {
   );
 }
 
-// Styles - بهینه‌شده برای responsive کامل
+// Updated Styles - replaced likeButton with viewsButton
 const styles = {
   cardContainer: {
     position: 'relative' as const,
     width: '100%',
-    height: { xs: '320px', sm: '360px', md: '400px', lg: '360px' }, // ارتفاع متعادل در همه دستگاه‌ها
+    height: { xs: '320px', sm: '360px', md: '400px', lg: '360px' },
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: '0px 12px 32px rgba(107, 78, 255, 0.15)',
@@ -337,19 +334,20 @@ const styles = {
     fontWeight: 600,
     fontSize: { xs: '0.85rem', md: '0.9rem' },
   },
-  likeButton: {
+  viewsButton: {
     position: 'absolute' as const,
     top: { xs: 12, md: 16 },
     left: { xs: 12, md: 16 },
     backgroundColor: 'rgba(0,0,0,0.3)',
     backdropFilter: 'blur(10px)',
     width: 'fit-content',
-    pr: 2,
+    px: 1.5,
+    py: 0.5,
     borderRadius: '32px',
     transition: 'all 0.3s ease',
     '&:hover': {
       backgroundColor: 'rgba(0,0,0,0.5)',
-      transform: 'scale(1.15)',
+      transform: 'scale(1.1)',
     },
   },
 };
