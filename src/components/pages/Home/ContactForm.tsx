@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography, useTheme } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography, useTheme, CircularProgress, Alert } from '@mui/material';
+import axiosInstance from '@/utils/hooks/axiosInstance'; // فرض می‌کنیم این را دارید
 
 export default function ContactForm() {
   const theme = useTheme();
@@ -14,6 +15,10 @@ export default function ContactForm() {
     message: '',
   });
 
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,10 +27,31 @@ export default function ContactForm() {
     setFormData({ ...formData, service: event.target.value as string });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // اینجا می‌توانید فرم را به API بفرستید
+    setLoading(true);
+    setSuccess(false);
+    setError(null);
+
+    try {
+      const response = await axiosInstance.post('/api/contact/submit', {
+        full_name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        service: formData.service,
+        description: formData.message.trim(),
+      });
+
+      if (response.data.status === 201) {
+        setSuccess(true);
+        setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+      }
+    } catch (err: any) {
+      console.error('Form submission error:', err);
+      setError(err.response?.data?.message || 'خطایی در ارسال اطلاعات رخ داد. لطفاً دوباره تلاش کنید.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const services = [
@@ -51,6 +77,19 @@ export default function ContactForm() {
         </Typography>
       </Box>
 
+      {/* Messages */}
+      {success && (
+        <Alert severity="success" sx={{ mb: 6, maxWidth: '800px', mx: 'auto', borderRadius: '24px', fontSize: '1.1rem' }}>
+          درخواست شما با موفقیت ثبت شد! به‌زودی با شما تماس خواهیم گرفت.
+        </Alert>
+      )}
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 6, maxWidth: '800px', mx: 'auto', borderRadius: '24px', fontSize: '1.1rem' }}>
+          {error}
+        </Alert>
+      )}
+
       {/* Form */}
       <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off" sx={{ maxWidth: '1100px', mx: 'auto', display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 5, md: 7 } }}>
         {/* Name */}
@@ -73,11 +112,7 @@ export default function ContactForm() {
             value={formData.service}
             onChange={handleServiceChange}
             displayEmpty
-            sx={{
-              ...selectStyle,
-              '& .MuiSelect-select': { padding: '28px 32px', paddingRight: '64px !important', textAlign: 'right', color: '#fff', fontSize: '1.15rem' },
-              '& .MuiSelect-icon': { color: '#fff', right: '24px', fontSize: '28px' },
-            }}
+            sx={{ ...selectStyle, '& .MuiSelect-select': { padding: '28px 32px', paddingRight: '64px !important', textAlign: 'right', color: '#fff', fontSize: '1.15rem' }, '& .MuiSelect-icon': { color: '#fff', right: '24px', fontSize: '28px' } }}
             MenuProps={{
               PaperProps: {
                 sx: { bgcolor: 'rgba(20, 10, 40, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: '24px', mt: 1, boxShadow: '0 16px 50px rgba(107, 78, 255, 0.4)', '& .MuiMenuItem-root': { fontSize: '1.1rem', fontWeight: 600, color: '#fff', py: 2, px: 4, textAlign: 'right', transition: 'all 0.3s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.3)', transform: 'translateX(8px)' }, '&.Mui-selected': { bgcolor: 'rgba(107, 78, 255, 0.4)' } } },
@@ -100,12 +135,12 @@ export default function ContactForm() {
 
         {/* Buttons */}
         <Box sx={{ gridColumn: { xs: '1 / -1', md: '1 / -1' }, display: 'flex', justifyContent: 'center', gap: { xs: 4, md: 6 }, mt: 2 }}>
-          <Button type="reset" onClick={() => setFormData({ name: '', phone: '', email: '', service: '', message: '' })} sx={secondaryButtonStyle}>
+          <Button type="reset" onClick={() => setFormData({ name: '', phone: '', email: '', service: '', message: '' })} disabled={loading} sx={secondaryButtonStyle}>
             پاک کردن فرم
           </Button>
 
-          <Button type="submit" sx={primaryButtonStyle}>
-            ثبت پیشنهاد
+          <Button type="submit" disabled={loading} sx={primaryButtonStyle}>
+            {loading ? <CircularProgress size={28} color="inherit" /> : 'ثبت پیشنهاد'}
           </Button>
         </Box>
       </Box>
@@ -113,7 +148,7 @@ export default function ContactForm() {
   );
 }
 
-// استایل‌های بهینه‌شده و کاملاً MUI-based
+// استایل‌ها — دقیقاً همان قبلی، بدون تغییر
 const fieldStyle = {
   bgcolor: 'rgba(107, 78, 255, 0.15)',
   backdropFilter: 'blur(20px)',
@@ -124,9 +159,7 @@ const fieldStyle = {
   '& .MuiFilledInput-root': {
     bgcolor: 'transparent',
     borderRadius: '32px',
-    '&:hover': {
-      bgcolor: 'transparent',
-    },
+    '&:hover': { bgcolor: 'transparent' },
   },
   '& .MuiInputLabel-root': {
     color: '#fff',
@@ -135,9 +168,7 @@ const fieldStyle = {
     right: 28,
     left: 'auto',
     transformOrigin: 'right',
-    '&.Mui-focused': {
-      color: '#fff',
-    },
+    '&.Mui-focused': { color: '#fff' },
     '&.MuiInputLabel-shrink': {
       transform: 'translate(14px, -9px) scale(0.75)',
       bgcolor: 'rgba(10, 5, 30, 0.9)',
@@ -150,10 +181,7 @@ const fieldStyle = {
     fontSize: '1.15rem',
     py: 3.5,
     textAlign: 'right',
-    '&::placeholder': {
-      color: 'rgba(255,255,255,0.5)',
-      opacity: 1,
-    },
+    '&::placeholder': { color: 'rgba(255,255,255,0.5)', opacity: 1 },
   },
   '&:hover': {
     borderColor: 'rgba(107, 78, 255, 0.7)',
@@ -166,9 +194,7 @@ const fieldStyle = {
   },
 };
 
-const selectStyle = {
-  ...fieldStyle,
-};
+const selectStyle = { ...fieldStyle };
 
 const primaryButtonStyle = {
   px: { xs: 8, md: 10 },

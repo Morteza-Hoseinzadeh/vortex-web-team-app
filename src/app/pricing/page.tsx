@@ -95,7 +95,7 @@ export default function PricingPage() {
             {/* دکمه تماس تلفنی - کوچکتر */}
             <Button
               component="a"
-              href="tel:+989309363715"
+              href="tel:989309363715+"
               sx={{ py: { xs: 1.8, md: 2.2 }, px: { xs: 4, md: 6 }, borderRadius: '32px', fontSize: { xs: '1rem', md: '1.2rem' }, fontWeight: 800, bgcolor: 'rgba(255,255,255,0.12)', color: '#fff', border: '2px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(12px)', transition: 'all 0.4s ease', display: 'flex', alignItems: 'center', gap: 2, minHeight: '48px', '&:hover': { bgcolor: 'rgba(255,255,255,0.22)', transform: 'translateY(-6px) scale(1.04)' } }}
             >
               <Box component="span" sx={{ fontSize: { xs: '1.8rem', md: '2rem' } }}>

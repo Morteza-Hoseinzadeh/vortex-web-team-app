@@ -115,26 +115,33 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
           </Box>
 
           {/* دکمه‌های اکشن دسکتاپ */}
-          <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 2 }}>
+          <Box width={225} sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 2 }}>
             <Button
+              fullWidth
               component={Link}
-              href="/contact"
+              href="https://wa.me/989309363715"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
-                px: 4,
-                py: 1.5,
-                borderRadius: '28px',
-                bgcolor: 'rgba(107, 78, 255, 0.25)',
-                border: '1px solid rgba(107, 78, 255, 0.6)',
+                p: 1.5,
+                borderRadius: '24px',
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                fontWeight: 800,
+                bgcolor: '#25D366',
+                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                 color: '#fff',
-                fontWeight: 700,
-                fontSize: '1.05rem',
-                textTransform: 'none',
-                boxShadow: '0 8px 28px rgba(107, 78, 255, 0.3)',
+                boxShadow: '0 16px 50px rgba(37, 211, 102, 0.5)',
+                border: 'none',
                 transition: 'all 0.4s ease',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2,
                 '&:hover': {
-                  bgcolor: 'rgba(167, 139, 250, 0.4)',
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 16px 40px rgba(167, 139, 250, 0.4)',
+                  transform: 'scale(1.06)',
+                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
+                  bgcolor: '#22c55e',
                 },
               }}
             >
@@ -173,13 +180,7 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
-          sx: {
-            width: 280,
-            bgcolor: 'rgba(15, 8, 35, 0.95)',
-            backdropFilter: 'blur(32px)',
-            borderLeft: '1px solid rgba(107, 78, 255, 0.5)',
-            borderRadius: '32px 0 0 32px',
-          },
+          sx: { width: 280, bgcolor: 'rgba(15, 8, 35, 0.95)', backdropFilter: 'blur(32px)', borderLeft: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: '32px 0 0 32px' },
         }}
       >
         <Box sx={{ p: 4, textAlign: 'center' }}>
@@ -219,15 +220,31 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
             <Button
               fullWidth
               component={Link}
-              href="/contact"
+              href="https://wa.me/989309363715"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setDrawerOpen(false)}
               sx={{
-                py: 2,
-                borderRadius: '28px',
-                bgcolor: 'rgba(107, 78, 255, 0.3)',
-                color: '#fff',
+                p: 2,
+                borderRadius: '24px',
+                fontSize: { xs: '1rem', md: '1.2rem' },
                 fontWeight: 800,
-                '&:hover': { bgcolor: 'rgba(167, 139, 250, 0.5)', transform: 'scale(1.03)' },
+                bgcolor: '#25D366',
+                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                color: '#fff',
+                boxShadow: '0 16px 50px rgba(37, 211, 102, 0.5)',
+                border: 'none',
+                transition: 'all 0.4s ease',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2,
+                '&:hover': {
+                  transform: 'scale(1.06)',
+                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
+                  bgcolor: '#22c55e',
+                },
               }}
             >
               مشاوره رایگان
@@ -237,13 +254,22 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
               fullWidth
               onClick={openSnackbar}
               sx={{
-                py: 2,
-                borderRadius: '28px',
-                bgcolor: 'rgba(255,255,255,0.1)',
+                p: 2,
+                borderRadius: '24px',
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                fontWeight: 800,
                 color: '#fff',
-                fontWeight: 700,
-                border: '1px solid rgba(107, 78, 255, 0.5)',
-                '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.3)' },
+                border: '1px solid #25D366',
+                transition: 'all 0.4s ease',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2,
+                '&:hover': {
+                  transform: 'scale(1.06)',
+                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
+                },
               }}
             >
               ورود / ثبت نام
