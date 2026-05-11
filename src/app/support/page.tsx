@@ -70,7 +70,7 @@ export default function SupportPage() {
               <Box sx={{ bgcolor: 'rgba(107, 78, 255, 0.22)', backdropFilter: 'blur(20px)', border: '1px solid rgba(107, 78, 255, 0.6)', borderRadius: '36px', p: { xs: 5, md: 6 }, textAlign: 'center', transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)', transform: 'translateY(-8px)', boxShadow: '0 20px 60px rgba(107, 78, 255, 0.3)', '&:hover': { transform: 'translateY(-24px)', boxShadow: '0 32px 80px rgba(107, 78, 255, 0.4)' } }}>
                 <FiMail size={56} color={theme.palette.primary.main} style={{ marginBottom: 24 }} />
                 <Typography sx={{ fontSize: '1.6rem', fontWeight: 900, color: '#fff', mb: 2 }}>ایمیل پشتیبانی</Typography>
-                <Button component="a" href="mailto:support@vortexweb.ir" fullWidth sx={{ py: 2, borderRadius: '32px', fontSize: '1.15rem', fontWeight: 800, bgcolor: 'rgba(255,255,255,0.15)', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)', transform: 'scale(1.04)' } }}>
+                <Button component="a" href="mailto:support@vortexwebteam.ir" fullWidth sx={{ py: 2, borderRadius: '32px', fontSize: '1.15rem', fontWeight: 800, bgcolor: 'rgba(255,255,255,0.15)', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)', transform: 'scale(1.04)' } }}>
                   ارسال ایمیل
                 </Button>
               </Box>

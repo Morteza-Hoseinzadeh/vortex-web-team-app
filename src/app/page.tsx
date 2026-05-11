@@ -87,42 +87,15 @@ export default function Home() {
 
   return (
     <ChildrenLayout>
-      <Box ref={aboutRef}>
-        <HeroSection />
-      </Box>
-      <Box sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
-        <Box ref={aboutRef}>
-          <AboutVortex />
-        </Box>
-
-        <Box ref={servicesRef}>
-          <OurServices />
-        </Box>
-
-        <Box ref={coopiesRef}>
-          <CoopiesLogoSection />
-        </Box>
-
-        <Box ref={portfoliosRef}>
-          <Portfolios />
-        </Box>
-
-        <Box ref={coopWaysRef}>
-          <CoopWays />
-        </Box>
-
-        <Box ref={pricingRef}>
-          <PricingTable />
-        </Box>
-
-        <Box ref={voicesRef}>
-          <CompanyVoices />
-        </Box>
-
-        <Box ref={contactRef}>
-          <ContactForm />
-        </Box>
-      </Box>
+      <HeroSection />
+      <AboutVortex />
+      <OurServices />
+      <CoopiesLogoSection />
+      <Portfolios />
+      <CoopWays />
+      <PricingTable />
+      <CompanyVoices />
+      <ContactForm />
     </ChildrenLayout>
   );
 }

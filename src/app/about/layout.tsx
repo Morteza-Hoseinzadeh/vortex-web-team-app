@@ -7,20 +7,20 @@ export const metadata: Metadata = {
 
   // ❌ meta keywords عمداً حذف شده
 
-  authors: [{ name: 'تیم طراحی سایت ورتکس', url: 'https://vortexweb.ir' }],
+  authors: [{ name: 'تیم طراحی سایت ورتکس', url: 'https://vortexwebteam.ir' }],
   creator: 'تیم طراحی سایت ورتکس',
   publisher: 'تیم طراحی سایت ورتکس',
 
-  metadataBase: new URL('https://vortexweb.ir'),
+  metadataBase: new URL('https://vortexwebteam.ir'),
 
   alternates: {
-    canonical: 'https://vortexweb.ir/about',
+    canonical: 'https://vortexwebteam.ir/about',
   },
 
   openGraph: {
     title: 'درباره تیم طراحی سایت ورتکس',
     description: 'معرفی تیم طراحی سایت ورتکس؛ متخصص در طراحی سایت حرفه‌ای، شرکتی و فروشگاهی با استانداردهای روز دنیا.',
-    url: 'https://vortexweb.ir/about',
+    url: 'https://vortexwebteam.ir/about',
     siteName: 'تیم طراحی سایت ورتکس',
     locale: 'fa_IR',
     type: 'website',

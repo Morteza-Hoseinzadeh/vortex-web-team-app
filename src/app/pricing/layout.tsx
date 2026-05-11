@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
   keywords: ['قیمت طراحی سایت', 'تعرفه طراحی سایت', 'هزینه طراحی سایت', 'پکیج طراحی سایت', 'طراحی سایت حرفه‌ای', 'طراحی سایت شرکتی', 'طراحی سایت فروشگاهی', 'طراحی سایت اختصاصی', 'قیمت طراحی سایت با React', 'قیمت طراحی سایت با Next.js', 'طراحی سایت واکنش‌گرا', 'سفارش طراحی سایت'],
 
-  authors: [{ name: 'تیم طراحی سایت ورتکس', url: 'https://vortexweb.ir' }],
+  authors: [{ name: 'تیم طراحی سایت ورتکس', url: 'https://vortexwebteam.ir' }],
   creator: 'تیم طراحی سایت ورتکس',
   publisher: 'تیم طراحی سایت ورتکس',
 
-  metadataBase: new URL('https://vortexweb.ir'),
+  metadataBase: new URL('https://vortexwebteam.ir'),
 
   alternates: {
     canonical: '/pricing',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'تعرفه طراحی سایت | قیمت طراحی سایت حرفه‌ای - ورتکس',
     description: 'تعرفه و قیمت طراحی سایت حرفه‌ای، شرکتی و فروشگاهی توسط تیم طراحی سایت ورتکس. پکیج‌های متنوع با کیفیت بالا.',
-    url: 'https://vortexweb.ir/pricing',
+    url: 'https://vortexwebteam.ir/pricing',
     siteName: 'تیم طراحی سایت ورتکس',
     images: [
       {

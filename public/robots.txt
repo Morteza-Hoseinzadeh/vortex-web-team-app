@@ -6,6 +6,7 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 Disallow: /dashboard/
+Disallow: /blog/
 
 # Sitemap location
-Sitemap: https://vortexweb.ir/sitemap.xml
+Sitemap: https://vortexwebteam.ir/sitemap.xml

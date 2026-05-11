@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const description = rawTag ? `مقالات تخصصی و آموزش‌های کاربردی درباره ${decodedTag}. بررسی تجربه‌ها و نکات عملی تیم طراحی سایت ورتکس.` : 'جدیدترین مقالات طراحی سایت، سئو، برنامه‌نویسی و تکنولوژی توسط تیم طراحی سایت ورتکس.';
 
-  const canonicalUrl = rawTag ? `https://vortexweb.ir/blog/tag/${rawTag}` : `https://vortexweb.ir/blog`;
+  const canonicalUrl = rawTag ? `https://vortexwebteam.ir/blog/tag/${rawTag}` : `https://vortexwebteam.ir/blog`;
 
   return {
     title,
     description,
 
-    metadataBase: new URL('https://vortexweb.ir'),
+    metadataBase: new URL('https://vortexwebteam.ir'),
 
     alternates: {
       canonical: canonicalUrl,

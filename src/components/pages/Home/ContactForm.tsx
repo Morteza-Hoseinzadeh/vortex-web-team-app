@@ -1,33 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography, useTheme, CircularProgress, Alert } from '@mui/material';
-import axiosInstance from '@/utils/hooks/axiosInstance'; // فرض می‌کنیم این را دارید
+import { useState } from 'react';
+import axiosInstance from '@/utils/hooks/axiosInstance';
+import { useTheme } from '@mui/material';
 
 export default function ContactForm() {
   const theme = useTheme();
 
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    service: '',
-    message: '',
-  });
-
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleServiceChange = (event: any) => {
-    setFormData({ ...formData, service: event.target.value as string });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
@@ -65,170 +54,199 @@ export default function ContactForm() {
   ];
 
   return (
-    <Box component="section" aria-labelledby="contact-form-heading" sx={{ py: { xs: 4, md: 6, lg: 8 }, px: { xs: 4, md: 8, lg: 12 }, bgcolor: 'rgba(10, 5, 30, 0.98)', textAlign: 'center' }}>
-      {/* Header */}
-      <Box mb={{ xs: 5, md: 8 }}>
-        <Typography id="contact-form-heading" component="h2" sx={{ fontSize: { xs: '3rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: '#fff', mb: 4, letterSpacing: '-1px', lineHeight: 1.1, textShadow: '0 0 40px rgba(107, 78, 255, 0.6)' }}>
-          فرم همکاری
-        </Typography>
+    <div style={{ padding: '60px 20px', backgroundColor: 'rgba(10, 5, 30, 0.98)', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+        {/* Header */}
+        <div style={{ marginBottom: '60px', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)', fontWeight: 900, marginBottom: '20px', background: 'linear-gradient(135deg, #fff 0%, #A78BFA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>فرم همکاری</h2>
+          <p style={{ fontSize: 'clamp(1rem, 3vw, 1.3rem)', fontWeight: 500, color: 'rgba(255, 255, 255, 0.85)', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6, padding: '0 20px' }}>برای شروع همکاری یا دریافت مشاوره رایگان، فرم زیر را تکمیل کنید. تیم ما در کوتاه‌ترین زمان ممکن با شما تماس خواهد گرفت.</p>
+        </div>
 
-        <Typography component="p" sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' }, fontWeight: 600, color: 'rgba(255, 255, 255, 0.9)', maxWidth: '1000px', mx: 'auto', lineHeight: 1.9 }}>
-          برای شروع همکاری یا دریافت مشاوره رایگان، فرم زیر را تکمیل کنید. تیم ما در کوتاه‌ترین زمان ممکن با شما تماس خواهد گرفت و بهترین راهکار را برای پروژه‌تان پیشنهاد می‌دهیم.
-        </Typography>
-      </Box>
+        {/* Messages */}
+        {success && <div style={{ marginBottom: '30px', maxWidth: '800px', marginLeft: 'auto', marginRight: 'auto', padding: '12px 20px', borderRadius: '12px', backgroundColor: 'rgba(76, 175, 80, 0.1)', border: '1px solid rgba(76, 175, 80, 0.3)', color: '#4caf50', textAlign: 'center' }}>درخواست شما با موفقیت ثبت شد! به‌زودی با شما تماس خواهیم گرفت.</div>}
 
-      {/* Messages */}
-      {success && (
-        <Alert severity="success" sx={{ mb: 6, maxWidth: '800px', mx: 'auto', borderRadius: '24px', fontSize: '1.1rem' }}>
-          درخواست شما با موفقیت ثبت شد! به‌زودی با شما تماس خواهیم گرفت.
-        </Alert>
-      )}
+        {error && <div style={{ marginBottom: '30px', maxWidth: '800px', marginLeft: 'auto', marginRight: 'auto', padding: '12px 20px', borderRadius: '12px', backgroundColor: 'rgba(244, 67, 54, 0.1)', border: '1px solid rgba(244, 67, 54, 0.3)', color: '#f44336', textAlign: 'center' }}>{error}</div>}
 
-      {error && (
-        <Alert severity="error" sx={{ mb: 6, maxWidth: '800px', mx: 'auto', borderRadius: '24px', fontSize: '1.1rem' }}>
-          {error}
-        </Alert>
-      )}
+        {/* Form */}
+        <form onSubmit={handleSubmit} style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px' }}>
+          {/* Name */}
+          <div style={inputWrapperStyle}>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder=" " style={inputStyle} />
+            <label style={labelStyle}>نام و نام خانوادگی *</label>
+          </div>
 
-      {/* Form */}
-      <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off" sx={{ maxWidth: '1100px', mx: 'auto', display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 5, md: 7 } }}>
-        {/* Name */}
-        <TextField name="name" label="نام و نام خانوادگی" value={formData.name} onChange={handleChange} required fullWidth variant="filled" InputProps={{ disableUnderline: true }} InputLabelProps={{ shrink: true }} sx={fieldStyle} aria-required="true" />
+          {/* Phone */}
+          <div style={inputWrapperStyle}>
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required placeholder=" " style={inputStyle} />
+            <label style={labelStyle}>شماره تماس *</label>
+          </div>
 
-        {/* Phone */}
-        <TextField name="phone" label="شماره تماس" value={formData.phone} onChange={handleChange} required fullWidth variant="filled" type="tel" InputProps={{ disableUnderline: true }} InputLabelProps={{ shrink: true }} sx={fieldStyle} aria-required="true" />
+          {/* Email */}
+          <div style={inputWrapperStyle}>
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder=" " style={inputStyle} />
+            <label style={labelStyle}>ایمیل (اختیاری)</label>
+          </div>
 
-        {/* Email */}
-        <TextField name="email" label="ایمیل (اختیاری)" value={formData.email} onChange={handleChange} fullWidth variant="filled" type="email" InputProps={{ disableUnderline: true }} InputLabelProps={{ shrink: true }} sx={fieldStyle} />
+          {/* Service Select */}
+          <div style={inputWrapperStyle}>
+            <select name="service" value={formData.service} onChange={handleChange} required style={selectStyle}>
+              <option style={{ backgroundColor: theme.palette.primary.dark, color: 'white' }} value="" disabled>
+                یک گزینه انتخاب کنید
+              </option>
+              {services.map((option) => (
+                <option style={{ backgroundColor: theme.palette.primary.dark, color: 'white' }} key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Service Select */}
-        <FormControl fullWidth required sx={fieldStyle}>
-          <InputLabel id="service-label" shrink>
-            نوع خدمات مورد نظر
-          </InputLabel>
-          <Select
-            labelId="service-label"
-            name="service"
-            value={formData.service}
-            onChange={handleServiceChange}
-            displayEmpty
-            sx={{ ...selectStyle, '& .MuiSelect-select': { padding: '28px 32px', paddingRight: '64px !important', textAlign: 'right', color: '#fff', fontSize: '1.15rem' }, '& .MuiSelect-icon': { color: '#fff', right: '24px', fontSize: '28px' } }}
-            MenuProps={{
-              PaperProps: {
-                sx: { bgcolor: 'rgba(20, 10, 40, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: '24px', mt: 1, boxShadow: '0 16px 50px rgba(107, 78, 255, 0.4)', '& .MuiMenuItem-root': { fontSize: '1.1rem', fontWeight: 600, color: '#fff', py: 2, px: 4, textAlign: 'right', transition: 'all 0.3s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.3)', transform: 'translateX(8px)' }, '&.Mui-selected': { bgcolor: 'rgba(107, 78, 255, 0.4)' } } },
-              },
-            }}
-          >
-            <MenuItem value="" disabled>
-              یک گزینه انتخاب کنید
-            </MenuItem>
-            {services.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          {/* Message */}
+          <div style={{ ...inputWrapperStyle, gridColumn: '1 / -1' }}>
+            <textarea name="message" value={formData.message} onChange={handleChange} rows={5} placeholder=" " style={{ ...inputStyle, resize: 'vertical', fontFamily: 'inherit' }} />
+            <label style={labelStyle}>توضیحات مربوط به پروژه</label>
+          </div>
 
-        {/* Message */}
-        <TextField name="message" label="توضیحات مربوط به پروژه" value={formData.message} onChange={handleChange} multiline rows={7} fullWidth variant="filled" InputProps={{ disableUnderline: true }} InputLabelProps={{ shrink: true }} sx={{ ...fieldStyle, gridColumn: { xs: '1 / -1', md: '1 / -1' } }} />
+          {/* Buttons */}
+          <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px', flexWrap: 'wrap' }}>
+            <button type="reset" onClick={() => setFormData({ name: '', phone: '', email: '', service: '', message: '' })} disabled={loading} style={secondaryButtonStyle}>
+              پاک کردن فرم
+            </button>
 
-        {/* Buttons */}
-        <Box sx={{ gridColumn: { xs: '1 / -1', md: '1 / -1' }, display: 'flex', justifyContent: 'center', gap: { xs: 4, md: 6 }, mt: 2 }}>
-          <Button type="reset" onClick={() => setFormData({ name: '', phone: '', email: '', service: '', message: '' })} disabled={loading} sx={secondaryButtonStyle}>
-            پاک کردن فرم
-          </Button>
+            <button type="submit" disabled={loading} style={primaryButtonStyle}>
+              {loading ? 'در حال ارسال...' : 'ثبت پیشنهاد'}
+            </button>
+          </div>
+        </form>
+      </div>
 
-          <Button type="submit" disabled={loading} sx={primaryButtonStyle}>
-            {loading ? <CircularProgress size={28} color="inherit" /> : 'ثبت پیشنهاد'}
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+          border-color: #6b4eff !important;
+          background-color: rgba(107, 78, 255, 0.15) !important;
+          box-shadow: 0 0 0 3px rgba(107, 78, 255, 0.1) !important;
+        }
+
+        input:focus + label,
+        textarea:focus + label,
+        select:focus + label,
+        input:not(:placeholder-shown) + label,
+        textarea:not(:placeholder-shown) + label {
+          transform: translate(10px, -12px) scale(0.85) !important;
+          color: #a78bfa !important;
+        }
+
+        select + label {
+          transition: all 0.2s ease;
+        }
+
+        button:hover {
+          transform: translateY(-2px);
+        }
+
+        button:active {
+          transform: translateY(0);
+        }
+
+        button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+      `}</style>
+    </div>
   );
 }
 
-// استایل‌ها — دقیقاً همان قبلی، بدون تغییر
-const fieldStyle = {
-  bgcolor: 'rgba(107, 78, 255, 0.15)',
-  backdropFilter: 'blur(20px)',
-  border: '2px solid rgba(107, 78, 255, 0.4)',
-  borderRadius: '32px',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-  transition: 'all 0.5s ease',
-  '& .MuiFilledInput-root': {
-    bgcolor: 'transparent',
-    borderRadius: '32px',
-    '&:hover': { bgcolor: 'transparent' },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#fff',
-    fontWeight: 700,
-    fontSize: { xs: '1rem', md: '1.15rem' },
-    right: 28,
-    left: 'auto',
-    transformOrigin: 'right',
-    '&.Mui-focused': { color: '#fff' },
-    '&.MuiInputLabel-shrink': {
-      transform: 'translate(14px, -9px) scale(0.75)',
-      bgcolor: 'rgba(10, 5, 30, 0.9)',
-      px: 2,
-      borderRadius: '12px',
-    },
-  },
-  '& .MuiFilledInput-input': {
-    color: '#fff',
-    fontSize: '1.15rem',
-    py: 3.5,
-    textAlign: 'right',
-    '&::placeholder': { color: 'rgba(255,255,255,0.5)', opacity: 1 },
-  },
-  '&:hover': {
-    borderColor: 'rgba(107, 78, 255, 0.7)',
-    bgcolor: 'rgba(107, 78, 255, 0.22)',
-  },
-  '&.Mui-focused': {
-    borderColor: '#A78BFA',
-    bgcolor: 'rgba(107, 78, 255, 0.25)',
-    boxShadow: '0 0 0 4px rgba(107, 78, 255, 0.3)',
-  },
+const inputWrapperStyle: any = {
+  position: 'relative',
+  animation: 'fadeIn 0.5s ease-out',
 };
 
-const selectStyle = { ...fieldStyle };
+const inputStyle: any = {
+  width: '100%',
+  padding: '18px 16px 8px',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(107, 78, 255, 0.08)',
+  border: '1px solid rgba(107, 78, 255, 0.3)',
+  borderRadius: '12px',
+  color: '#fff',
+  outline: 'none',
+  transition: 'all 0.3s ease',
+  fontFamily: 'inherit',
+  direction: 'rtl',
+};
 
-const primaryButtonStyle = {
-  px: { xs: 8, md: 10 },
-  py: { xs: 2.5, md: 3 },
+const labelStyle: any = {
+  position: 'absolute',
+  right: '15px',
+  top: '0',
+  transform: 'translate(0, 17px)',
+  fontSize: '0.95rem',
+  color: 'rgba(255, 255, 255, 0.7)',
+  transition: 'all 0.2s ease',
+  pointerEvents: 'none',
+  fontWeight: 500,
+  backgroundColor: 'transparent',
+  padding: '0 4px',
+};
+
+const selectStyle: any = {
+  width: '100%',
+  padding: '18px 16px 8px',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(107, 78, 255, 0.08)',
+  border: '1px solid rgba(107, 78, 255, 0.3)',
+  borderRadius: '12px',
+  color: '#fff',
+  outline: 'none',
+  transition: 'all 0.3s ease',
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  direction: 'rtl',
+  appearance: 'none',
+  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e")`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'left 15px center',
+  backgroundSize: '20px',
+};
+
+const primaryButtonStyle: any = {
+  padding: '14px 40px',
   borderRadius: '40px',
-  fontSize: { xs: '1.15rem', md: '1.4rem' },
-  fontWeight: 800,
-  bgcolor: '#6B4EFF',
+  fontSize: '1rem',
+  fontWeight: 700,
   background: 'linear-gradient(135deg, #6B4EFF 0%, #A855F7 100%)',
   color: '#fff',
-  boxShadow: '0 16px 50px rgba(107, 78, 255, 0.6)',
-  textTransform: 'none',
-  transition: 'all 0.5s ease',
-  '&:hover': {
-    transform: 'translateY(-12px)',
-    boxShadow: '0 28px 80px rgba(107, 78, 255, 0.7)',
-  },
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  boxShadow: '0 8px 20px rgba(107, 78, 255, 0.3)',
+  fontFamily: 'inherit',
 };
 
-const secondaryButtonStyle = {
-  px: { xs: 8, md: 10 },
-  py: { xs: 2.5, md: 3 },
+const secondaryButtonStyle: any = {
+  padding: '14px 40px',
   borderRadius: '40px',
-  fontSize: { xs: '1.15rem', md: '1.4rem' },
-  fontWeight: 800,
-  bgcolor: 'rgba(255,255,255,0.08)',
+  fontSize: '1rem',
+  fontWeight: 600,
+  backgroundColor: 'transparent',
   color: '#fff',
-  border: '2px solid rgba(255,255,255,0.2)',
-  backdropFilter: 'blur(12px)',
-  textTransform: 'none',
-  transition: 'all 0.5s ease',
-  '&:hover': {
-    bgcolor: 'rgba(255,255,255,0.18)',
-    transform: 'translateY(-10px)',
-    borderColor: 'rgba(255,255,255,0.5)',
-  },
+  border: '2px solid rgba(107, 78, 255, 0.5)',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  fontFamily: 'inherit',
 };

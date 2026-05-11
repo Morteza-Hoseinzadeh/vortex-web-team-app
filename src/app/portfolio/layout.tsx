@@ -7,20 +7,20 @@ export const metadata: Metadata = {
 
   keywords: ['نمونه کار طراحی سایت', 'پورتفولیو طراحی سایت', 'نمونه پروژه وب', 'طراحی سایت حرفه‌ای', 'تیم طراحی وب ورتکس'],
 
-  authors: [{ name: 'تیم طراحی ورتکس', url: 'https://vortexweb.ir' }],
+  authors: [{ name: 'تیم طراحی ورتکس', url: 'https://vortexwebteam.ir' }],
   creator: 'تیم طراحی ورتکس',
   publisher: 'تیم طراحی ورتکس',
 
-  metadataBase: new URL('https://vortexweb.ir'),
+  metadataBase: new URL('https://vortexwebteam.ir'),
 
   alternates: {
-    canonical: 'https://vortexweb.ir/portfolio',
+    canonical: 'https://vortexwebteam.ir/portfolio',
   },
 
   openGraph: {
     title: 'نمونه کار طراحی سایت حرفه‌ای | پورتفولیو تیم ورتکس',
     description: 'نمونه کارهای حرفه‌ای طراحی سایت، UI/UX و توسعه وب توسط تیم طراحی سایت ورتکس. مشاهده پروژه‌های شرکتی، فروشگاهی و اختصاصی.',
-    url: 'https://vortexweb.ir/portfolio',
+    url: 'https://vortexwebteam.ir/portfolio',
     siteName: 'تیم طراحی سایت ورتکس',
     images: [
       {

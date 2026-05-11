@@ -36,13 +36,13 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const pageTitle = `${post.title} | بلاگ طراحی سایت ورتکس`;
   const pageDescription = post.excerpt || `مطالعه مقاله ${post.title} در بلاگ طراحی سایت ورتکس. آموزش طراحی سایت، سئو و توسعه وب.`;
 
-  const canonicalUrl = `https://vortexweb.ir/blog/${id}`;
+  const canonicalUrl = `https://vortexwebteam.ir/blog/${id}`;
 
   return {
     title: pageTitle,
     description: pageDescription,
 
-    metadataBase: new URL('https://vortexweb.ir'),
+    metadataBase: new URL('https://vortexwebteam.ir'),
 
     alternates: {
       canonical: canonicalUrl,

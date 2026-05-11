@@ -32,7 +32,7 @@ export default function CoopWays() {
     <Box component="section" sx={{ py: 6, px: 2, bgcolor: 'rgba(10, 5, 30, 0.95)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(107, 78, 255, 0.2)', borderBottom: '1px solid rgba(107, 78, 255, 0.2)', textAlign: 'center' }}>
       {/* Header */}
       <Box mb={{ xs: 6, md: 8 }}>
-        <Typography component="h2" sx={{ fontSize: { xs: '2.6rem', md: '3.6rem', lg: '4.2rem' }, fontWeight: 900, color: '#fff', mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+        <Typography component="h2" sx={{ fontSize: { xs: '2rem', md: '3rem', lg: '3.3rem' }, fontWeight: 900, color: '#fff', mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
           <span role="img" aria-label="lightning">
             ⚡
           </span>

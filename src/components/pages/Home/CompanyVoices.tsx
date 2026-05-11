@@ -1,53 +1,72 @@
 'use client';
 
-import { useState } from 'react';
-import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
-import { FaPause, FaPlay } from 'react-icons/fa';
-import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
+import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
-export default function CompanyVoices() {
+export default function CompanyComments() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { noSsr: true });
 
-  const [voicePlayed, setVoicePlayed] = useState<Record<number, boolean>>({});
-
-  const handlePlayingVoice = (index: number) => {
-    return setVoicePlayed((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
-
-  const voices = [
+  const comments = [
     {
       logo: '/assets/logo/company-logo/dorna-logo.png',
       name: 'کلینیک زیبایی درنا',
+      rating: 5,
+      text: 'تجربه همکاری با ورتکس فوق‌العاده بود. طراحی سایت ما کاملاً حرفه‌ای و مدرن شد و نرخ تبدیل مشتریانمان به طور چشمگیری افزایش پیدا کرد. پشتیبانی عالی و تحویل به موقع!',
     },
     {
       logo: '/assets/logo/company-logo/zichat-logo.png',
       name: 'زیچت',
+      rating: 5,
+      text: 'ورتکس نه تنها یک وبسایت زیبا برای ما ساخت، بلکه با بهینه‌سازی سئو کمک کرد تا در جستجوهای گوگل رتبه‌های اول را بگیریم. واقعاً از نتیجه راضی هستیم.',
     },
     {
       logo: '/assets/logo/company-logo/rabet-automatic-kasra-logo.png',
       name: 'رابط اتوماتیک کسری',
+      rating: 5,
+      text: 'طراحی رابط کاربری فروشگاه آنلاین ما توسط ورتکس انجام شد و بازخورد مشتریان بسیار مثبت بوده. سرعت سایت عالی و تجربه کاربری بی‌نقص است.',
     },
     {
       logo: '/assets/logo/company-logo/zephyr-logo.png',
       name: 'زفیـر',
+      rating: 5,
+      text: 'ما به دنبال یک تیم حرفه‌ای برای بازطراحی برند و وبسایت بودیم. ورتکس دقیقاً همان چیزی بود که نیاز داشتیم. خلاقیت و دقت در جزئیات تحسین‌برانگیز است.',
     },
     {
       logo: '/assets/logo/company-logo/chroma-ui.png',
       name: 'کروما یو آی',
+      rating: 5,
+      text: 'کتابخانه کامپوننت‌های کروما با کمک ورتکس توسعه داده شد. همکاری سریع، کد تمیز و طراحی زیبا. بهترین تجربه همکاری با یک تیم توسعه!',
     },
     {
       logo: '/assets/logo/company-logo/personal-portfolio.png',
       name: 'پورتفولیو شخصی',
+      rating: 5,
+      text: 'پورتفولیوی شخصی من حالا دقیقاً همان چیزی است که می‌خواستم: مینیمال، سریع و جذاب. از مشاوره اولیه تا تحویل نهایی، همه چیز حرفه‌ای بود.',
     },
   ];
 
+  const renderStars = (rating: number) => {
+    return [...Array(5)].map((_, i) => (
+      <Box
+        key={i}
+        component="span"
+        sx={{
+          color: i < rating ? '#FFD700' : 'rgba(255,255,255,0.2)',
+          fontSize: '1.2rem',
+        }}
+      >
+        ★
+      </Box>
+    ));
+  };
+
   return (
-    <Box component="section" sx={{ px: { xs: 2, md: 4, lg: 6 }, bgcolor: 'rgba(10, 5, 30, 0.95)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+    <Box component="section" sx={{ px: { xs: 2, md: 4, lg: 6 }, bgcolor: 'rgba(10, 5, 30, 0.95)', textAlign: 'center', position: 'relative', overflow: 'hidden', py: { xs: 8, md: 12 } }}>
       {/* Header */}
-      <Box my={{ xs: 8, md: 12 }}>
-        <Typography component="h2" sx={{ fontSize: { xs: '2.6rem', md: '3.6rem', lg: '4.2rem' }, fontWeight: 900, color: '#fff', mb: 3, display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+      <Box mb={{ xs: 8, md: 12 }}>
+        <Typography component="h2" sx={{ fontSize: { xs: '2rem', md: '3rem', lg: '3.3rem' }, fontWeight: 900, color: '#fff', mb: 3, display: 'inline-flex', alignItems: 'center', gap: 2 }}>
           <Box component="span" sx={{ color: theme.palette.primary.main }}>
             🚀
           </Box>
@@ -62,55 +81,47 @@ export default function CompanyVoices() {
         </Typography>
       </Box>
 
-      {/* Voice Messages Grid */}
-      <Grid container spacing={4} justifyContent={'center'} mb={6}>
-        {voices.map((voice, index) => {
-          return (
-            <Grid
-              size={{ xs: 12, md: 6, lg: 4 }}
-              key={index}
+      {/* Comments Grid */}
+      <Grid container spacing={4} justifyContent="center">
+        {comments.map((comment, index) => (
+          <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
+            <Box
               sx={{
                 bgcolor: 'linear-gradient(135deg, rgba(107, 78, 255, 0.3) 0%, rgba(80, 50, 150, 0.4) 100%)',
                 backdropFilter: 'blur(16px)',
                 border: '1px solid rgba(107, 78, 255, 0.5)',
                 borderRadius: '32px',
-                p: { xs: 3, md: 4 },
+                p: { xs: 4, md: 5 },
                 boxShadow: '0 16px 50px rgba(107, 78, 255, 0.3)',
                 transition: 'all 0.5s ease',
                 position: 'relative',
                 overflow: 'hidden',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
                 '&:hover': { transform: 'translateY(-12px)', boxShadow: '0 28px 80px rgba(107, 78, 255, 0.45)', bgcolor: 'linear-gradient(135deg, rgba(107, 78, 255, 0.4) 0%, rgba(100, 70, 180, 0.5) 100%)' },
               }}
             >
               {/* Logo + Name */}
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, mb: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, mb: 4 }}>
                 <Box sx={{ width: { xs: 60, md: 70 }, height: { xs: 60, md: 70 }, borderRadius: '50%', overflow: 'hidden', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
-                  <Image src={voice.logo} alt={voice.name} width={70} height={70} style={{ objectFit: 'contain' }} />
+                  <Image src={comment.logo} alt={comment.name} width={70} height={70} style={{ objectFit: 'contain', backgroundColor: '#fff' }} />
                 </Box>
-
-                <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' }, fontWeight: 800, color: '#fff' }}>{voice.name}</Typography>
+                <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' }, fontWeight: 800, color: '#fff', textAlign: 'center' }}>{comment.name}</Typography>
               </Box>
-              {/* Play Button + Waveform */}
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: { xs: 2.5, md: 4 } }}>
-                {/* Play Icon Button */}
-                <IconButton onClick={() => handlePlayingVoice(index)} aria-label="پخش نظر صوتی" sx={{ width: { xs: 56, sm: 64, md: 72 }, height: { xs: 56, sm: 64, md: 72 }, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.18)', color: '#fff', backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(0,0,0,0.4)', transition: 'all 0.4s ease', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)', transform: 'scale(1.15)', boxShadow: '0 16px 40px rgba(0,0,0,0.5)' } }}>
-                  {!!voicePlayed[index] ? <FaPause style={{ fontSize: '2rem' }} /> : <FaPlay style={{ fontSize: '2rem' }} />}
-                </IconButton>
 
-                <Typography component={'span'} variant="h6" color={theme.palette.text.primary}>
-                  {ConvertToPersianDigit('00:26')}
-                </Typography>
+              {/* Star Rating */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0.5, mb: 3 }}>{renderStars(comment.rating)}</Box>
 
-                {/* Waveform Bars */}
-                <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {[...Array(isMobile ? 60 : 22)].map((_, i) => (
-                    <Box key={i} sx={{ width: '4px', height: `${20 + Math.sin(i * 0.5) * 20 + 20}px`, bgcolor: 'rgba(255,255,255,0.6)', borderRadius: '4px', animation: !!voicePlayed[index] ? 'wave 2s ease-in-out infinite' : 'none', animationDelay: `${i * 0.05}s`, '@keyframes wave': { '0%, 100%': { height: '20px' }, '50%': { height: '50px' } } }} />
-                  ))}
-                </Box>
+              {/* Comment Text with Quotes */}
+              <Box sx={{ position: 'relative', flex: 1 }}>
+                <FaQuoteLeft style={{ position: 'absolute', top: -10, left: isMobile ? -5 : 0, fontSize: '2.5rem', opacity: 0.2, color: theme.palette.primary.main }} />
+                <Typography sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, fontWeight: 500, position: 'relative', zIndex: 1 }}>{comment.text}</Typography>
+                <FaQuoteRight style={{ position: 'absolute', bottom: -20, right: isMobile ? -5 : 0, fontSize: '2.5rem', opacity: 0.2, color: theme.palette.primary.main }} />
               </Box>
-            </Grid>
-          );
-        })}
+            </Box>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

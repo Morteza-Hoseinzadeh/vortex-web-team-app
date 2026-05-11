@@ -39,26 +39,24 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
 
   return (
     <>
-      <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {/* Navbar with animation */}
-        <Box ref={navbarRef} position={'relative'} sx={{ position: 'sticky', top: 24, zIndex: 1000, mx: 4 }}>
+        <Box ref={navbarRef} position={'relative'} sx={{ zIndex: 1300, m: 3 }}>
           <Navbar snackbarState={snackbarState} setSnackbarState={setSnackbarState} />
-          {/* Sub Navbar */}
           <SubHeader />
         </Box>
 
         {/* Main Content - all sections animated together */}
-        <Box component="main">{children}</Box>
+        <Box sx={{ minWidth: '100vw', minHeight: '100vh' }}>{children}</Box>
 
         {/* Footer with animation */}
-        <Box ref={footerRef}>
+        <Box>
           <Footer />
         </Box>
       </Box>
       <CustomSnackbar open={snackbarState.open} onClose={closeSnackbar} autoHideDuration={5000} variant={snackbarState.variant}>
         {snackbarState.message}
       </CustomSnackbar>
-      ;
     </>
   );
 }

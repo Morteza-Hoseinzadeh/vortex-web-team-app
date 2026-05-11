@@ -26,7 +26,8 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
     { title: 'تعرفه ها', href: '/pricing' },
     { title: 'پشتیبانی', href: '/support' },
     { title: 'درباره ی ما', href: '/about' },
-    { title: 'وبلاگ', href: '/blog' },
+    { title: 'پنل کاربری', href: '/dashboard' },
+    // { title: 'وبلاگ', href: '/blog' },
   ];
 
   const isActive = (href: string) => pathname === href;

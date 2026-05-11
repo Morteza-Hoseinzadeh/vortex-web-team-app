@@ -7,20 +7,20 @@ export const metadata: Metadata = {
 
   keywords: ['پشتیبانی سایت', 'مشاوره طراحی سایت', 'ارتباط با تیم طراحی سایت'],
 
-  authors: [{ name: 'تیم طراحی ورتکس', url: 'https://vortexweb.ir' }],
+  authors: [{ name: 'تیم طراحی ورتکس', url: 'https://vortexwebteam.ir' }],
   creator: 'تیم طراحی ورتکس',
   publisher: 'تیم طراحی ورتکس',
 
-  metadataBase: new URL('https://vortexweb.ir'),
+  metadataBase: new URL('https://vortexwebteam.ir'),
 
   alternates: {
-    canonical: 'https://vortexweb.ir/support',
+    canonical: 'https://vortexwebteam.ir/support',
   },
 
   openGraph: {
     title: 'پشتیبانی و ارتباط با تیم طراحی سایت ورتکس',
     description: 'دریافت پشتیبانی فنی، مشاوره و پاسخ به سوالات طراحی سایت توسط تیم حرفه‌ای ورتکس.',
-    url: 'https://vortexweb.ir/support',
+    url: 'https://vortexwebteam.ir/support',
     siteName: 'تیم طراحی سایت ورتکس',
     locale: 'fa_IR',
     type: 'website',
