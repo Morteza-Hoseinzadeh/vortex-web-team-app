@@ -27,7 +27,7 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
   }, []);
 
   const openSnackbar = () => {
-    return router.push('/dashboard');
+    setSnackbarState({ open: true, message: 'پنل کاربری در حال توسعه میباشد', variant: 'warning' });
   };
 
   const links = [
@@ -36,7 +36,7 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
     { title: 'تعرفه‌ها', href: '/pricing' },
     { title: 'پشتیبانی', href: '/support' },
     { title: 'درباره ما', href: '/about' },
-    { title: 'پنل کاربری', href: '/dashboard' },
+    // { title: 'پنل کاربری', href: '/dashboard' },
   ];
 
   const isActive = (href: string) => pathname === href;
