@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Box, Button, Typography, useTheme, Link, IconButton, Modal, Fade, Backdrop, Paper, useMediaQuery } from '@mui/material';
-import { FiPhone, FiMail, FiInstagram, FiTwitter, FiLinkedin, FiYoutube, FiX, FiCheck } from 'react-icons/fi';
+import { Box, Button, Typography, useTheme, Link, IconButton, Modal, Fade, Backdrop, Paper, useMediaQuery, Tooltip } from '@mui/material';
+import { FiPhone, FiMail, FiInstagram, FiTwitter, FiLinkedin, FiYoutube, FiX, FiCheck, FiShield, FiAward } from 'react-icons/fi';
 import Image from 'next/image';
 import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
 
@@ -153,25 +153,18 @@ export default function Footer() {
     { title: 'شرایط خدمات', content: termsContent },
   ];
 
+  // نمادهای اعتماد و مجوزها
+  const trustBadges = [
+    { id: 1, name: 'اینماد', logo: '/assets/badges/enamad.png', link: 'https://enamad.ir/', alt: 'نماد اعتماد الکترونیکی' },
+    { id: 2, name: 'سامانه ساماندهی', logo: '/assets/badges/samanandehi.webp', link: 'https://samanandehi.ir/', alt: 'سامانه ساماندهی' },
+    { id: 3, name: 'اتحادیه کشوری', logo: '/assets/badges/ettehadie.webp', link: '#', alt: 'اتحادیه کشوری businesses' },
+  ];
+
   return (
     <>
-      <Box component="footer" dir="rtl" sx={{ bgcolor: 'rgba(10, 5, 30, 0.98)', color: '#fff', py: { xs: 6, sm: 8, md: 10 }, px: { xs: 2, sm: 4, md: 8, lg: 12 }, borderTop: '1px solid rgba(107, 78, 255, 0.3)', position: 'relative', overflow: 'hidden' }}>
+      <Box component="footer" dir="rtl" sx={{ bgcolor: 'rgba(10, 5, 30, 0.98)', color: '#fff', py: { xs: 3, sm: 4, md: 5 }, px: { xs: 1, sm: 2, md: 4, lg: 6 }, borderTop: '1px solid rgba(107, 78, 255, 0.3)', position: 'relative', overflow: 'hidden' }}>
         {/* Top CTA Section */}
-        <Box
-          sx={{
-            bgcolor: 'linear-gradient(145deg, rgba(107, 78, 255, 0.35) 0%, rgba(60, 30, 140, 0.55) 100%)',
-            backdropFilter: 'blur(24px)',
-            border: '2px solid rgba(107, 78, 255, 0.6)',
-            borderRadius: { xs: '30px', sm: '40px' },
-            p: { xs: 4, sm: 5, md: 6 },
-            textAlign: 'center',
-            mb: { xs: 6, sm: 8, md: 10 },
-            boxShadow: '0 16px 48px rgba(107, 78, 255, 0.3)',
-            position: 'relative',
-            overflow: 'hidden',
-            '&::before': { content: '""', position: 'absolute', inset: 0, borderRadius: { xs: '30px', sm: '40px' }, padding: '2px', background: 'linear-gradient(145deg, rgba(107, 78, 255, 0.8), rgba(167, 139, 250, 0.6))', mask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', maskComposite: 'exclude', pointerEvents: 'none' },
-          }}
-        >
+        <Box sx={{ background: 'linear-gradient(145deg, rgba(107, 78, 255, 0.35) 0%, rgba(60, 30, 140, 0.55) 100%)', backdropFilter: 'blur(24px)', border: '2px solid rgba(107, 78, 255, 0.6)', borderRadius: { xs: '30px', sm: '40px' }, p: { xs: 4, sm: 5, md: 6 }, textAlign: 'center', mb: { xs: 6, sm: 8, md: 10 }, boxShadow: '0 16px 48px rgba(107, 78, 255, 0.3)', position: 'relative', overflow: 'hidden' }}>
           <Typography sx={{ fontSize: { xs: '1rem', sm: '1.5rem', md: '1.8rem' }, fontWeight: 900, mb: { xs: 3, md: 4 }, lineHeight: 1.4, color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.4)' }}>
             جدیدترین نکات طراحی سایت، تجربه‌های دیجیتال و پیشنهادهای ویژه
             <br />
@@ -180,26 +173,7 @@ export default function Footer() {
 
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 3, md: 4 }, justifyContent: 'center', alignItems: 'center', maxWidth: '680px', mx: 'auto' }}>
             <Box sx={{ direction: 'rtl', position: 'relative', width: '100%', maxWidth: '500px' }}>
-              <input
-                type="tel"
-                placeholder="شماره همراه خود را وارد کنید"
-                style={{
-                  width: '100%',
-                  padding: isMobile ? '14px 20px' : '18px 28px',
-                  paddingRight: '24px',
-                  borderRadius: '40px',
-                  border: 'none',
-                  background: 'rgba(255,255,255,0.15)',
-                  backdropFilter: 'blur(16px)',
-                  color: '#fff',
-                  fontSize: isMobile ? '0.9rem' : '1.1rem',
-                  outline: 'none',
-                  transition: 'all 0.4s ease',
-                  boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.2)',
-                  textAlign: 'right',
-                  direction: 'rtl',
-                }}
-              />
+              <input type="tel" placeholder="شماره همراه خود را وارد کنید" style={{ width: '100%', padding: isMobile ? '14px 20px' : '18px 28px', paddingRight: '24px', borderRadius: '40px', border: 'none', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(16px)', color: '#fff', fontSize: isMobile ? '0.9rem' : '1.1rem', outline: 'none', transition: 'all 0.4s ease', boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.2)', textAlign: 'right', direction: 'rtl' }} />
 
               <Button
                 sx={{
@@ -278,55 +252,34 @@ export default function Footer() {
               </Box>
             </Box>
           </Box>
+        </Box>
 
-          {/* Left Column - Contact Info */}
-          <Box
-            sx={{
-              textAlign: { xs: 'center', lg: 'right' },
-              width: { xs: '100%', lg: 'auto' },
-              borderTop: { xs: '1px solid rgba(107, 78, 255, 0.3)', lg: 'none' },
-              pt: { xs: 4, lg: 0 },
-              mt: { xs: 2, lg: 0 },
-            }}
-          >
-            <Typography sx={{ fontSize: { xs: '1.3rem', sm: '1.5rem' }, color: theme.palette.primary.main, fontWeight: 900, mb: 3 }}>راه‌های ارتباطی</Typography>
+        {/* Trust Badges Section */}
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: { xs: 3, sm: 4, md: 5 }, pt: { xs: 2, sm: 3 }, borderTop: '1px solid rgba(107, 78, 255, 0.2)', textAlign: 'center' }}>
+          <Typography sx={{ fontSize: { xs: '0.7rem', sm: '0.8rem' }, color: 'rgba(255,255,255,0.5)', textAlign: 'right', lineHeight: 1.8, maxWidth: '600px' }}>
+            <FiShield size={14} style={{ display: 'inline', marginLeft: '4px', verticalAlign: 'middle' }} />
+            ورتکس دارای نماد اعتماد الکترونیکی (اینماد)، مجوز رسمی از اتحادیه کشوری کسب‌وکارهای اینترنتی، نماد ساماندهی و گواهی ثبت اختراع می‌باشد. تمامی فعالیت‌های ما تحت نظارت و با رعایت قوانین تجارت الکترونیک انجام می‌شود.
+          </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, alignItems: { xs: 'center', lg: 'flex-start' } }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', lg: 'flex-start' } }}>
-                <FiPhone size={isMobile ? 20 : 24} color={theme.palette.primary.main} />
-                <Typography component="a" href="tel:989309363715+" sx={{ fontSize: { xs: '0.9rem', sm: '1.1rem' }, color: '#fff', textDecoration: 'none' }}>
-                  {ConvertToPersianDigit(989309363715)}+
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', lg: 'flex-start' } }}>
-                <FiMail size={isMobile ? 20 : 24} color={theme.palette.primary.main} />
-                <Link href="mailto:vortexwebteam@info.com" underline="none" color="inherit">
-                  <Typography sx={{ fontSize: { xs: '0.85rem', sm: '1.1rem' } }}>vortexwebteam@info.com</Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: { xs: 3, sm: 4, md: 5 } }}>
+            {trustBadges.map((badge) => (
+              <Tooltip key={badge.id} title={badge.name} arrow>
+                <Link href={badge.link} target="_blank" rel="noopener noreferrer" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-4px)', filter: 'drop-shadow(0 4px 12px rgba(107, 78, 255, 0.4))' } }}>
+                  <Image src={badge.logo} alt={badge.alt} width={80} height={80} style={{ width: 'auto', height: isMobile ? 75 : 80, objectFit: 'contain', opacity: 0.9, transition: 'opacity 0.3s ease' }} onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')} />
                 </Link>
-              </Box>
-            </Box>
+              </Tooltip>
+            ))}
 
-            {/* Social Icons */}
-            <Box sx={{ display: 'flex', justifyContent: { xs: 'center', lg: 'flex-start' }, gap: 2.5, mt: 4 }}>
-              <IconButton href="https://www.instagram.com/vortexweb.team" sx={{ bgcolor: 'rgba(255,255,255,0.1)', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
-                <FiInstagram size={isMobile ? 18 : 20} color="#fff" />
-              </IconButton>
-              <IconButton href="#" sx={{ bgcolor: 'rgba(255,255,255,0.1)', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
-                <FiTwitter size={isMobile ? 18 : 20} color="#fff" />
-              </IconButton>
-              <IconButton href="#" sx={{ bgcolor: 'rgba(255,255,255,0.1)', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
-                <FiLinkedin size={isMobile ? 18 : 20} color="#fff" />
-              </IconButton>
-              <IconButton href="#" sx={{ bgcolor: 'rgba(255,255,255,0.1)', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
-                <FiYoutube size={isMobile ? 18 : 20} color="#fff" />
-              </IconButton>
+            {/* Additional Certificates */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(107, 78, 255, 0.1)', px: 2, py: 1, borderRadius: '40px' }}>
+              <FiAward size={16} color={theme.palette.primary.main} />
+              <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)' }}>عضویت در اتحادیه کسب‌وکارهای دیجیتال</Typography>
             </Box>
           </Box>
         </Box>
 
         {/* Bottom Copyright */}
-        <Box sx={{ mt: { xs: 5, sm: 6, md: 8 }, pt: { xs: 3, sm: 4, md: 6 }, borderTop: '1px solid rgba(107, 78, 255, 0.2)', textAlign: 'center' }}>
+        <Box sx={{ mt: { xs: 2.5, sm: 3, md: 4 }, pt: { xs: 1.5, sm: 2, md: 3 }, borderTop: '1px solid rgba(107, 78, 255, 0.2)', textAlign: 'center' }}>
           <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.95rem' }, color: 'rgba(255,255,255,0.6)' }}>© تمامی حقوق برای تیم طراحی سایت ورتکس محفوظ است. | توسعه با ❤️ در ایران</Typography>
         </Box>
       </Box>
@@ -334,26 +287,7 @@ export default function Footer() {
       {/* Custom Modal */}
       <Modal open={open} onClose={handleClose} closeAfterTransition slots={{ backdrop: Backdrop }} slotProps={{ backdrop: { timeout: 500 } }}>
         <Fade in={open}>
-          <Paper
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: { xs: '95%', sm: '550px', md: '600px' },
-              maxHeight: '85vh',
-              bgcolor: 'rgba(20, 10, 40, 0.95)',
-              backdropFilter: 'blur(24px)',
-              border: '2px solid rgba(107, 78, 255, 0.6)',
-              borderRadius: { xs: '24px', sm: '32px' },
-              boxShadow: '0 24px 80px rgba(107, 78, 255, 0.4)',
-              p: { xs: 2, sm: 3, md: 4 },
-              outline: 'none',
-              overflowY: 'auto',
-            }}
-          >
-            {modalContent}
-          </Paper>
+          <Paper sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { xs: '95%', sm: '550px', md: '600px' }, maxHeight: '85vh', bgcolor: 'rgba(20, 10, 40, 0.95)', backdropFilter: 'blur(24px)', border: '2px solid rgba(107, 78, 255, 0.6)', borderRadius: { xs: '24px', sm: '32px' }, boxShadow: '0 24px 80px rgba(107, 78, 255, 0.4)', p: { xs: 2, sm: 3, md: 4 }, outline: 'none', overflowY: 'auto' }}>{modalContent}</Paper>
         </Fade>
       </Modal>
     </>

@@ -1,113 +1,97 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Drawer, Typography, IconButton, List, ListItem, ListItemButton, useTheme, useMediaQuery, Divider } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { TbUser } from 'react-icons/tb';
+import { IoClose } from 'react-icons/io5';
 
 const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) => void }) => {
   const theme = useTheme();
+  const router = useRouter();
   const pathname = usePathname();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // تشخیص اسکرول برای تغییر استایل navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const openSnackbar = () => {
-    setSnackbarState({ open: true, message: 'پنل کاربری در حال توسعه میباشد', variant: 'warning' });
+    return router.push('/dashboard');
   };
 
-  // منوی سبک‌تر و متمرکزتر — فقط موارد اصلی
   const links = [
     { title: 'صفحه اصلی', href: '/' },
-    { title: 'نمونه کار ها', href: '/portfolio' },
-    { title: 'تعرفه ها', href: '/pricing' },
+    { title: 'نمونه کارها', href: '/portfolio' },
+    { title: 'تعرفه‌ها', href: '/pricing' },
     { title: 'پشتیبانی', href: '/support' },
-    { title: 'درباره ی ما', href: '/about' },
+    { title: 'درباره ما', href: '/about' },
     { title: 'پنل کاربری', href: '/dashboard' },
-    // { title: 'وبلاگ', href: '/blog' },
   ];
 
   const isActive = (href: string) => pathname === href;
 
   return (
     <>
-      {/* Navbar ثابت و سبک */}
-      <Box component="nav" sx={{ width: '100%', position: 'fixed', left: 0, right: 0, zIndex: 1300, pointerEvents: 'none' }}>
+      <Box component="nav" sx={{ width: '100%', position: 'fixed', left: 0, right: 0, zIndex: 1300, pointerEvents: 'none', top: 0 }}>
         <Box
           sx={{
-            width: '100%',
+            width: 'calc(100% - 32px)',
             maxWidth: '1400px',
             mx: 'auto',
-            bgcolor: 'rgba(20, 10, 40, 0.5)',
-            boxShadow: '0 16px 50px rgba(107, 78, 255, 0.25)',
-            borderRadius: '32px',
-            backdropFilter: 'blur(28px)',
+            mt: { xs: 2, lg: 3 },
+            bgcolor: scrolled ? 'rgba(10, 5, 30, 0.85)' : 'rgba(20, 10, 40, 0.5)',
+            boxShadow: scrolled ? '0 8px 32px rgba(0, 0, 0, 0.3)' : '0 16px 50px rgba(107, 78, 255, 0.15)',
+            borderRadius: '40px',
+            backdropFilter: 'blur(20px)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            py: { xs: 2, lg: 2.5 },
-            px: { xs: 4, lg: 6 },
+            py: { xs: 1.5, lg: 2 },
+            px: { xs: 3, sm: 4, lg: 5 },
             pointerEvents: 'all',
-            transition: 'all 0.5s ease',
-            '&:hover': {
-              borderColor: '#A78BFA',
-              boxShadow: '0 24px 70px rgba(107, 78, 255, 0.35)',
-            },
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            border: '1px solid rgba(107, 78, 255, 0.15)',
+            '&:hover': { borderColor: 'rgba(107, 78, 255, 0.3)' },
           }}
         >
-          {/* لوگو */}
-          <Box component={Link} href="/" sx={{ display: 'flex' }}>
-            <Image
-              src="/assets/logo/vortex-logo.png"
-              alt="ورتکس"
-              width={isMobile ? 48 : 56}
-              height={isMobile ? 48 : 56}
-              priority
-              style={{
-                borderRadius: '16px',
-                boxShadow: '0 8px 32px rgba(107, 78, 255, 0.4)',
-                transition: 'all 0.4s ease',
-              }}
-              className="hover:scale-110"
-            />
+          {/* Logo */}
+          <Box component={Link} href="/" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Box sx={{ position: 'relative', width: isMobile ? 42 : 50, height: isMobile ? 42 : 50, borderRadius: '14px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(107, 78, 255, 0.3)' }}>
+              <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" fill style={{ objectFit: 'contain', backgroundColor: '#fff' }} priority />
+            </Box>
+            <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.3rem' }, fontWeight: 700, background: 'linear-gradient(135deg, #FFFFFF, #9B7BFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', display: { xs: 'none', sm: 'block' } }}>ورتکس</Typography>
           </Box>
 
-          {/* لینک‌های دسکتاپ — سبک و مینیمال */}
-          <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: { md: 3, lg: 5 } }}>
+          {/* Desktop Links */}
+          <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: { lg: 3, xl: 4 } }}>
             {links.map((link) => (
               <Typography
                 key={link.href}
                 component={Link}
                 href={link.href}
                 sx={{
-                  color: isActive(link.href) ? '#A78BFA' : '#fff',
-                  fontWeight: isActive(link.href) ? 800 : 600,
-                  fontSize: { md: '1.05rem', lg: '1.15rem' },
+                  color: isActive(link.href) ? '#A78BFA' : 'rgba(255,255,255,0.8)',
+                  fontWeight: isActive(link.href) ? 700 : 500,
+                  fontSize: '0.95rem',
                   textDecoration: 'none',
                   position: 'relative',
                   px: 1,
                   py: 0.5,
-                  borderRadius: '20px',
-                  transition: 'all 0.4s ease',
-                  '&:hover': {
-                    color: '#A78BFA',
-                  },
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: -6,
-                    left: '50%',
-                    width: isActive(link.href) ? '60%' : 0,
-                    height: '3px',
-                    bgcolor: '#A78BFA',
-                    borderRadius: '2px',
-                    transform: 'translateX(-50%)',
-                    transition: 'width 0.4s ease',
-                  },
-                  '&:hover::after': { width: '60%' },
+                  transition: 'all 0.3s ease',
+                  '&:hover': { color: '#A78BFA' },
+                  '&::after': { content: '""', position: 'absolute', bottom: -4, left: '50%', width: isActive(link.href) ? '100%' : 0, height: '2px', bgcolor: '#A78BFA', borderRadius: '2px', transform: 'translateX(-50%)', transition: 'width 0.3s ease' },
+                  '&:hover::after': { width: '100%' },
                 }}
               >
                 {link.title}
@@ -115,164 +99,62 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
             ))}
           </Box>
 
-          {/* دکمه‌های اکشن دسکتاپ */}
-          <Box width={225} sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 2 }}>
-            <Button
-              fullWidth
-              component={Link}
-              href="https://wa.me/989309363715"
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                p: 1.5,
-                borderRadius: '24px',
-                fontSize: { xs: '1rem', md: '1.2rem' },
-                fontWeight: 800,
-                bgcolor: '#25D366',
-                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
-                color: '#fff',
-                boxShadow: '0 16px 50px rgba(37, 211, 102, 0.5)',
-                border: 'none',
-                transition: 'all 0.4s ease',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                '&:hover': {
-                  transform: 'scale(1.06)',
-                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
-                  bgcolor: '#22c55e',
-                },
-              }}
-            >
+          {/* Desktop Actions */}
+          <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 2 }}>
+            <Button component={Link} href="https://wa.me/989309363715" target="_blank" rel="noopener noreferrer" sx={{ px: 3, py: 1.2, borderRadius: '30px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)' } }}>
               مشاوره رایگان
             </Button>
 
-            <IconButton
-              onClick={openSnackbar}
-              sx={{
-                width: 52,
-                height: 52,
-                bgcolor: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(107, 78, 255, 0.5)',
-                color: '#fff',
-                transition: 'all 0.4s ease',
-                '&:hover': {
-                  bgcolor: 'rgba(107, 78, 255, 0.4)',
-                  transform: 'scale(1.1)',
-                },
-              }}
-            >
-              <TbUser size={26} />
+            <IconButton onClick={openSnackbar} sx={{ width: 42, height: 42, bgcolor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(107, 78, 255, 0.3)', color: '#fff', transition: 'all 0.3s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.2)', borderColor: '#6B4EFF', transform: 'translateY(-2px)' } }}>
+              <TbUser size={22} />
             </IconButton>
           </Box>
 
-          {/* همبرگر موبایل */}
-          <IconButton onClick={() => setDrawerOpen(true)} sx={{ display: { xs: 'flex', lg: 'none' }, color: '#fff' }}>
-            <GiHamburgerMenu size={32} />
+          {/* Mobile Menu Button */}
+          <IconButton onClick={() => setDrawerOpen(true)} sx={{ display: { xs: 'flex', lg: 'none' }, color: '#fff', bgcolor: 'rgba(255,255,255,0.05)', borderRadius: '12px', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.2)' } }}>
+            <GiHamburgerMenu size={24} />
           </IconButton>
         </Box>
       </Box>
 
-      {/* دراور موبایل — سبک و زیبا */}
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: { width: 280, bgcolor: 'rgba(15, 8, 35, 0.95)', backdropFilter: 'blur(32px)', borderLeft: '1px solid rgba(107, 78, 255, 0.5)', borderRadius: '32px 0 0 32px' },
-        }}
-      >
-        <Box sx={{ p: 4, textAlign: 'center' }}>
-          <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" width={80} height={80} style={{ borderRadius: '20px', boxShadow: '0 12px 40px rgba(107, 78, 255, 0.4)', marginBottom: '2rem' }} />
+      {/* Mobile Drawer */}
+      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)} PaperProps={{ sx: { width: 280, bgcolor: 'rgba(10, 5, 25, 0.98)', backdropFilter: 'blur(20px)', borderLeft: '1px solid rgba(107, 78, 255, 0.3)', boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.5)' } }}>
+        <Box sx={{ p: 3 }}>
+          {/* Drawer Header */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Box sx={{ width: 40, height: 40, position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" fill style={{ objectFit: 'contain', backgroundColor: '#fff' }} />
+              </Box>
+              <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>ورتکس</Typography>
+            </Box>
+            <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: '#fff' }}>
+              <IoClose size={24} />
+            </IconButton>
+          </Box>
 
-          <List>
+          <Divider sx={{ mb: 3, bgcolor: 'rgba(107, 78, 255, 0.2)' }} />
+
+          {/* Drawer Links */}
+          <List sx={{ p: 0 }}>
             {links.map((link) => (
-              <ListItem key={link.href} disablePadding sx={{ mb: 1.5 }}>
-                <ListItemButton
-                  component={Link}
-                  href={link.href}
-                  onClick={() => setDrawerOpen(false)}
-                  sx={{
-                    py: 2,
-                    borderRadius: '24px',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    fontSize: '1.1rem',
-                    color: '#fff',
-                    bgcolor: isActive(link.href) ? 'rgba(107, 78, 255, 0.3)' : 'transparent',
-                    transition: 'all 0.4s ease',
-                    '&:hover': {
-                      bgcolor: 'rgba(107, 78, 255, 0.4)',
-                      transform: 'translateX(-8px)',
-                    },
-                  }}
-                >
+              <ListItem key={link.href} disablePadding sx={{ mb: 1 }}>
+                <ListItemButton component={Link} href={link.href} onClick={() => setDrawerOpen(false)} sx={{ py: 1.5, px: 2, borderRadius: '16px', justifyContent: 'flex-start', fontWeight: isActive(link.href) ? 700 : 500, fontSize: '0.95rem', color: isActive(link.href) ? '#A78BFA' : 'rgba(255,255,255,0.7)', bgcolor: isActive(link.href) ? 'rgba(107, 78, 255, 0.15)' : 'transparent', transition: 'all 0.2s ease', '&:hover': { bgcolor: 'rgba(107, 78, 255, 0.1)', color: '#fff' } }}>
                   {link.title}
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
 
-          <Divider sx={{ my: 4, opacity: 0.4 }} />
+          <Divider sx={{ my: 3, bgcolor: 'rgba(107, 78, 255, 0.2)' }} />
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
-              fullWidth
-              component={Link}
-              href="https://wa.me/989309363715"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setDrawerOpen(false)}
-              sx={{
-                p: 2,
-                borderRadius: '24px',
-                fontSize: { xs: '1rem', md: '1.2rem' },
-                fontWeight: 800,
-                bgcolor: '#25D366',
-                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
-                color: '#fff',
-                boxShadow: '0 16px 50px rgba(37, 211, 102, 0.5)',
-                border: 'none',
-                transition: 'all 0.4s ease',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                '&:hover': {
-                  transform: 'scale(1.06)',
-                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
-                  bgcolor: '#22c55e',
-                },
-              }}
-            >
+          {/* Drawer Actions */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <Button fullWidth component={Link} href="https://wa.me/989309363715" target="_blank" rel="noopener noreferrer" onClick={() => setDrawerOpen(false)} sx={{ py: 1.5, borderRadius: '24px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', '&:hover': { transform: 'translateY(-1px)' } }}>
               مشاوره رایگان
             </Button>
 
-            <Button
-              fullWidth
-              onClick={openSnackbar}
-              sx={{
-                p: 2,
-                borderRadius: '24px',
-                fontSize: { xs: '1rem', md: '1.2rem' },
-                fontWeight: 800,
-                color: '#fff',
-                border: '1px solid #25D366',
-                transition: 'all 0.4s ease',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                '&:hover': {
-                  transform: 'scale(1.06)',
-                  boxShadow: '0 24px 70px rgba(37, 211, 102, 0.6)',
-                },
-              }}
-            >
+            <Button fullWidth onClick={openSnackbar} sx={{ py: 1.5, borderRadius: '24px', fontSize: '0.85rem', fontWeight: 600, color: '#fff', border: '1px solid rgba(107, 78, 255, 0.4)', textTransform: 'none', '&:hover': { borderColor: '#6B4EFF', bgcolor: 'rgba(107, 78, 255, 0.1)' } }}>
               ورود / ثبت نام
             </Button>
           </Box>

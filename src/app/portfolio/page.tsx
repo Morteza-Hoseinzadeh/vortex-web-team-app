@@ -26,12 +26,10 @@ export default function PortfolioPage() {
 
   return (
     <ChildrenLayout>
-      <Box ref={portfoliosRef} mt={28} mb={8} sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
-        <Box my={12}>
-          <CompanyVoices />
-          <CoopiesLogoSection />
-        </Box>
+      <Box mt={14}>
         <Portfolios />
+        <CompanyVoices />
+        <CoopiesLogoSection />
         <PortfolioTitles />
       </Box>
     </ChildrenLayout>

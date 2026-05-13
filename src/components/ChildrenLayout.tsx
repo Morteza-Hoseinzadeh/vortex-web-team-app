@@ -40,16 +40,13 @@ export default function ChildrenLayout({ children }: { children: React.ReactNode
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        {/* Navbar with animation */}
-        <Box ref={navbarRef} position={'relative'} sx={{ zIndex: 1300, m: 3 }}>
+        <Box ref={navbarRef} position={'relative'} sx={{ zIndex: 10, mx: 3 }}>
           <Navbar snackbarState={snackbarState} setSnackbarState={setSnackbarState} />
           <SubHeader />
         </Box>
 
-        {/* Main Content - all sections animated together */}
         <Box sx={{ minWidth: '100vw', minHeight: '100vh' }}>{children}</Box>
 
-        {/* Footer with animation */}
         <Box>
           <Footer />
         </Box>
