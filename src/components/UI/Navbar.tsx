@@ -4,19 +4,20 @@ import React, { useState } from 'react';
 import { Box, Button, Drawer, Typography, IconButton, List, ListItem, ListItemButton, useTheme, useMediaQuery, Divider } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { TbUser } from 'react-icons/tb';
 
 const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) => void }) => {
   const theme = useTheme();
+  const router = useRouter();
   const pathname = usePathname();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const openSnackbar = () => {
-    setSnackbarState({ open: true, message: 'پنل کاربری در حال توسعه میباشد', variant: 'warning' });
+    return router.push('/dashboard');
   };
 
   // منوی سبک‌تر و متمرکزتر — فقط موارد اصلی
