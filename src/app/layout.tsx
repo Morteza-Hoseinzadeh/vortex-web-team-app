@@ -31,8 +31,6 @@ export const metadata: Metadata = {
     apple: '/favicon/apple-touch-icon.png',
   },
 
-  themeColor: '#0A0D1A',
-
   openGraph: {
     type: 'website',
     locale: 'fa_IR',
@@ -100,6 +98,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Robots additional */}
         <meta name="googlebot" content="index, follow" />
         <meta name="bingbot" content="index, follow" />
+
+        {/* Theme color */}
+        <meta name="theme-color" content="#0A0D1A" />
 
         {/* Mobile optimization */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />

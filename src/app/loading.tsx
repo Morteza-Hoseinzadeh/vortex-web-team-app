@@ -1,39 +1,65 @@
 'use client';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function Loading() {
-  return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'rgba(10, 5, 30, 0.98)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-      {/* پس‌زمینه متحرک با ذرات بنفش (برای حس لوکس و مدرن) */}
-      <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 50%, rgba(107, 78, 255, 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%)', animation: 'float 20s ease-in-out infinite', '@keyframes float': { '0%, 100%': { transform: 'translateY(0) rotate(0deg)' }, '50%': { transform: 'translateY(-30px) rotate(5deg)' } } }} />
+  const [progress, setProgress] = useState(0);
 
-      {/* لوگوی شما (مسیر رو بعداً درست کن) */}
-      <Box width={'100%'} height={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
-        <Box sx={{ width: { xs: 60, sm: 80, md: 100 }, height: { xs: 60, sm: 80, md: 100 }, position: 'relative', mb: 6, animation: 'pulseGlow 2.5s ease-in-out infinite alternate', '@keyframes pulseGlow': { '0%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 20px rgba(107, 78, 255, 0.4))' }, '100%': { transform: 'scale(1.08)', filter: 'drop-shadow(0 0 40px rgba(107, 78, 255, 0.7))' } } }}>
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        const diff = Math.random() * 15;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 200);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ minHeight: '100vh', bgcolor: '#0A0D1A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+      {/* Background Gradients */}
+      <Box sx={{ position: 'absolute', top: '20%', left: '-10%', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(107, 78, 255, 0.08) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+      <Box sx={{ position: 'absolute', bottom: '10%', right: '-10%', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255, 79, 216, 0.06) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+
+      {/* Main Content */}
+      <Box sx={{ position: 'relative', zIndex: 2, textAlign: 'center', px: { xs: 3, sm: 4, md: 6 } }}>
+        {/* Logo Container */}
+        <Box sx={{ width: { xs: 70, sm: 90, md: 110 }, height: { xs: 70, sm: 90, md: 110 }, mx: 'auto', mb: 4, position: 'relative', animation: 'logoPulse 2s ease-in-out infinite', '@keyframes logoPulse': { '0%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 0px rgba(107, 78, 255, 0))' }, '50%': { transform: 'scale(1.05)', filter: 'drop-shadow(0 0 20px rgba(107, 78, 255, 0.5))' }, '100%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 0px rgba(107, 78, 255, 0))' } } }}>
           <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" fill priority style={{ objectFit: 'contain' }} />
         </Box>
-        <Typography component={'h1'} gutterBottom variant="h4" color="#fff" fontWeight={900}>
+
+        {/* Title with Gradient */}
+        <Typography component="h1" sx={{ fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2rem' }, fontWeight: 700, background: 'linear-gradient(135deg, #FFFFFF, #9B7BFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', mb: 3 }}>
           تیم طراحی سایت ورتکس
         </Typography>
-      </Box>
 
-      {/* متن لودینگ با انیمیشن تایپینگ */}
-      <Typography sx={{ fontSize: { xs: '1.4rem', md: '1.8rem' }, fontWeight: 700, color: '#fff', letterSpacing: '0.2em', mb: 4, opacity: 0.9 }}>
-        در حال بارگذاری
-        <Box component="span" sx={{ display: 'inline-block', animation: 'dots 1.5s infinite' }}>
-          ...
+        {/* Loading Text with Dots Animation */}
+        <Typography sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', mb: 3, letterSpacing: '2px' }}>
+          در حال بارگذاری
+          <Box component="span" sx={{ display: 'inline-block', width: 60, textAlign: 'left', '&::after': { content: '"..."', display: 'inline-block', animation: 'dots 1.5s steps(4, end) infinite' }, '@keyframes dots': { '0%, 20%': { content: '"."' }, '40%': { content: '".."' }, '60%, 100%': { content: '"..."' } } }} />
+        </Typography>
+
+        {/* Progress Bar */}
+        <Box sx={{ width: { xs: '280px', sm: '320px', md: '400px' }, maxWidth: '90%', mx: 'auto', mb: 2 }}>
+          <Box sx={{ width: '100%', height: '3px', bgcolor: 'rgba(107, 78, 255, 0.2)', borderRadius: '3px', overflow: 'hidden', position: 'relative' }}>
+            <Box sx={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #6B4EFF, #FF4FD8)', borderRadius: '3px', transition: 'width 0.3s ease', position: 'relative', '&::after': { content: '""', position: 'absolute', top: 0, right: 0, width: '20px', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3))', borderRadius: '3px' } }} />
+          </Box>
         </Box>
-      </Typography>
 
-      {/* بار لودینگ مدرن (گرادیان متحرک) */}
-      <Box sx={{ width: { xs: '80%', sm: '60%', md: '40%' }, maxWidth: '500px', height: '6px', bgcolor: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden', position: 'relative' }}>
-        <Box sx={{ position: 'absolute', top: 0, left: 0, height: '100%', width: '40%', bgcolor: '#fff', background: 'linear-gradient(90deg, transparent, #fff, transparent)', borderRadius: '3px', animation: 'loadingBar 2s ease-in-out infinite', '@keyframes loadingBar': { '0%': { transform: 'translateX(-100%)' }, '100%': { transform: 'translateX(300%)' } } }} />
+        {/* Progress Percentage */}
+        <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.35)', fontFamily: 'monospace' }}>{Math.floor(progress)}%</Typography>
       </Box>
 
-      {/* متن کوچک پایین */}
-      <Typography sx={{ position: 'absolute', bottom: 32, fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}>© ۱۴۰۴ ورتکس — در حال آماده‌سازی تجربه‌ای بی‌نظیر برای شما</Typography>
+      {/* Footer Text */}
+      <Typography sx={{ position: 'absolute', bottom: { xs: 20, sm: 30, md: 40 }, fontSize: { xs: '0.65rem', sm: '0.7rem', md: '0.75rem' }, color: 'rgba(255, 255, 255, 0.25)', textAlign: 'center', width: '100%', zIndex: 2 }}>© ۱۴۰۴ ورتکس — در حال آماده‌سازی تجربه‌ای بی‌نظیر برای شما</Typography>
     </Box>
   );
 }

@@ -31,7 +31,7 @@ export default function NotFound() {
 
           <Button
             component="a"
-            href="https://wa.me/989309363715"
+            href="https://ble.ir/vortexwebteam"
             target="_blank"
             rel="noopener noreferrer"
             size="large"

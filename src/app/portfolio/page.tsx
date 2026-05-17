@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 // Components
@@ -12,6 +12,7 @@ import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 import PortfolioTitles from '@/components/pages/portfolio/PortfolioTitles';
 import CompanyVoices from '@/components/pages/Home/CompanyVoices';
 import CoopiesLogoSection from '@/components/pages/Home/CoopiesLogoSection';
+import Loading from '../loading';
 
 export default function PortfolioPage() {
   // Ref برای کل بخش نمونه‌کارها
@@ -24,12 +25,22 @@ export default function PortfolioPage() {
     delay: 0.2,
   });
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <Loading />;
+  }
+
   return (
     <ChildrenLayout>
-      <Box mt={14}>
+      <Box mt={18}>
+        <CoopiesLogoSection />
         <Portfolios />
         <CompanyVoices />
-        <CoopiesLogoSection />
         <PortfolioTitles />
       </Box>
     </ChildrenLayout>

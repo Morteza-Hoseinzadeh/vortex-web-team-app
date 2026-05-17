@@ -2,8 +2,8 @@
 
 import ConvertToPersianDigit from '@/utils/functions/convertToPersianDigit';
 import { Box, Button, Typography, useTheme, Zoom } from '@mui/material';
-import { FaWhatsapp, FaRocket, FaShieldAlt } from 'react-icons/fa';
-import { TbArrowLeft, TbArrowRight } from 'react-icons/tb';
+import { FaRocket, FaShieldAlt } from 'react-icons/fa';
+import { TbArrowLeft } from 'react-icons/tb';
 
 export default function PortfolioTitles() {
   const theme = useTheme();
@@ -41,11 +41,11 @@ export default function PortfolioTitles() {
           {/* Stats */}
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: { xs: 3, sm: 5, md: 6 }, mb: { xs: 5, md: 6 }, flexWrap: 'wrap' }}>
             <Box sx={{ textAlign: 'center' }}>
-              <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.4rem' }, fontWeight: 800, color: '#6B4EFF' }}>{ConvertToPersianDigit(150)}+</Typography>
+              <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.4rem' }, fontWeight: 800, color: '#6B4EFF' }}>{ConvertToPersianDigit(10)}+</Typography>
               <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)' }}>پروژه موفق</Typography>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
-              <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.4rem' }, fontWeight: 800, color: '#6B4EFF' }}>{ConvertToPersianDigit(98)}%</Typography>
+              <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.4rem' }, fontWeight: 800, color: '#6B4EFF' }}>{ConvertToPersianDigit(100)}%</Typography>
               <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)' }}>رضایت مشتری</Typography>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
@@ -58,13 +58,17 @@ export default function PortfolioTitles() {
           <Box sx={{ display: 'flex', gap: { xs: 2, sm: 3 }, justifyContent: 'center', flexWrap: 'wrap', mb: { xs: 4, md: 5 } }}>
             <Button
               component="a"
-              href="https://wa.me/989309363715?text=سلام%20تیم%20ورتکس%20👋%0Aاز%20نمونه%E2%80%8Cکارهای%20شما%20خیلی%20خوشم%20اومد!%0Aمی‌خوام%20در%20مورد%20طراحی%20سایت%20صحبت%20کنیم%20🙏"
+              href="https://ble.ir/vortexwebteam"
               target="_blank"
               rel="noopener noreferrer"
-              startIcon={<FaWhatsapp size={20} style={{ marginLeft: '8px' }} />}
+              startIcon={
+                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '8px' }}>
+                  <img src={'/assets/logo/app-logo/bale-logo.jpg'} alt="ارتباط با ما - تیم طراحی سایت ورتکس (بله)" width={25} height={25} style={{ borderRadius: '8px' }} />
+                </Box>
+              }
               sx={{ py: { xs: 1.5, sm: 1.8, md: 2 }, px: { xs: 3, sm: 4, md: 5 }, borderRadius: '40px', fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, fontWeight: 700, bgcolor: '#25D366', background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)', color: '#fff', boxShadow: '0 12px 36px rgba(37, 211, 102, 0.3)', transition: 'all 0.3s ease', textTransform: 'none', '&:hover': { transform: 'translateY(-3px)', boxShadow: '0 20px 45px rgba(37, 211, 102, 0.4)' } }}
             >
-              شروع پروژه در واتساپ
+              شروع پروژه در بله
             </Button>
 
             <Button

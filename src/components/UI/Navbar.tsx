@@ -66,11 +66,14 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
           }}
         >
           {/* Logo */}
-          <Box component={Link} href="/" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box component={Link} href="/" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, textDecoration: 'none' }}>
             <Box sx={{ position: 'relative', width: isMobile ? 42 : 50, height: isMobile ? 42 : 50, borderRadius: '14px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(107, 78, 255, 0.3)' }}>
               <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" fill style={{ objectFit: 'contain', backgroundColor: '#fff' }} priority />
             </Box>
-            <Typography sx={{ fontSize: { xs: '1.2rem', md: '1.3rem' }, fontWeight: 700, background: 'linear-gradient(135deg, #FFFFFF, #9B7BFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', display: { xs: 'none', sm: 'block' } }}>ورتکس</Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'right' }}>
+              <Typography sx={{ fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' }, fontWeight: 700, background: 'linear-gradient(135deg, #FFFFFF, #9B7BFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>تیم طراحی سایت ورتکس</Typography>
+              <Typography sx={{ fontSize: { xs: '0.65rem', sm: '0.70rem', md: '0.75rem' }, fontWeight: 500, color: 'rgba(107, 78, 255, 0.7)', letterSpacing: '2px', mb: 0.3 }}>VORTEX WEB TEAM</Typography>
+            </Box>
           </Box>
 
           {/* Desktop Links */}
@@ -101,7 +104,7 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
 
           {/* Desktop Actions */}
           <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 2 }}>
-            <Button component={Link} href="https://wa.me/989309363715" target="_blank" rel="noopener noreferrer" sx={{ px: 3, py: 1.2, borderRadius: '30px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)' } }}>
+            <Button component={Link} href="https://ble.ir/vortexwebteam" target="_blank" rel="noopener noreferrer" sx={{ px: 3, py: 1.2, borderRadius: '30px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)' } }}>
               مشاوره رایگان
             </Button>
 
@@ -118,7 +121,7 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
       </Box>
 
       {/* Mobile Drawer */}
-      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)} PaperProps={{ sx: { width: 280, bgcolor: 'rgba(10, 5, 25, 0.98)', backdropFilter: 'blur(20px)', borderLeft: '1px solid rgba(107, 78, 255, 0.3)', boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.5)' } }}>
+      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)} PaperProps={{ sx: { width: 300, bgcolor: 'rgba(10, 5, 25, 0.98)', backdropFilter: 'blur(20px)', borderLeft: '1px solid rgba(107, 78, 255, 0.3)', boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.5)' } }}>
         <Box sx={{ p: 3 }}>
           {/* Drawer Header */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
@@ -126,7 +129,10 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
               <Box sx={{ width: 40, height: 40, position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
                 <Image src="/assets/logo/vortex-logo.png" alt="ورتکس" fill style={{ objectFit: 'contain', backgroundColor: '#fff' }} />
               </Box>
-              <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>ورتکس</Typography>
+              <Box sx={{ display: 'block', textAlign: 'right' }}>
+                <Typography sx={{ fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' }, fontWeight: 700, background: 'linear-gradient(135deg, #FFFFFF, #9B7BFF)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>تیم طراحی سایت ورتکس</Typography>
+                <Typography sx={{ fontSize: { xs: '0.65rem', sm: '0.70rem', md: '0.75rem' }, fontWeight: 500, color: 'rgba(107, 78, 255, 0.7)', letterSpacing: '2px', mb: 0.3 }}>VORTEX WEB TEAM</Typography>
+              </Box>
             </Box>
             <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: '#fff' }}>
               <IoClose size={24} />
@@ -150,12 +156,12 @@ const NavbarContainer = ({ setSnackbarState }: { setSnackbarState: (state: any) 
 
           {/* Drawer Actions */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            <Button fullWidth component={Link} href="https://wa.me/989309363715" target="_blank" rel="noopener noreferrer" onClick={() => setDrawerOpen(false)} sx={{ py: 1.5, borderRadius: '24px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', '&:hover': { transform: 'translateY(-1px)' } }}>
+            <Button fullWidth component={Link} href="https://ble.ir/vortexwebteam" target="_blank" rel="noopener noreferrer" onClick={() => setDrawerOpen(false)} sx={{ py: 1.5, borderRadius: '24px', fontSize: '0.85rem', fontWeight: 600, background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff', textTransform: 'none', '&:hover': { transform: 'translateY(-1px)' } }}>
               مشاوره رایگان
             </Button>
 
             <Button fullWidth onClick={openSnackbar} sx={{ py: 1.5, borderRadius: '24px', fontSize: '0.85rem', fontWeight: 600, color: '#fff', border: '1px solid rgba(107, 78, 255, 0.4)', textTransform: 'none', '&:hover': { borderColor: '#6B4EFF', bgcolor: 'rgba(107, 78, 255, 0.1)' } }}>
-              ورود / ثبت نام
+              پنل کاربری
             </Button>
           </Box>
         </Box>

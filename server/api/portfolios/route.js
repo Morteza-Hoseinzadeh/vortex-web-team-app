@@ -16,7 +16,7 @@ const query = async (sql, params) => {
 
 router.get('/', async (req, res) => {
   try {
-    const portfolios = await query('SELECT * FROM portfolios');
+    const portfolios = await query('SELECT * FROM portfolios ORDER BY id DESC');
     return res.status(200).json({ data: portfolios, status: 200 });
   } catch (error) {
     return res.status(500).json({ message: 'خطا در برقراری ارتباط با سرور', status: 500, error });

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 // Components
@@ -17,6 +17,8 @@ import ContactForm from '@/components/pages/Home/ContactForm';
 // Custom GSAP Hook
 import { useScrollAnimation } from '@/utils/hooks/animation/useScrollAnimation';
 import HeroSection from '@/components/pages/Home/HeroSection';
+import Loading from './loading';
+import AffiliateSection from '@/components/pages/Home/AffiliateSection';
 
 export default function Home() {
   // Refs for each section
@@ -85,17 +87,30 @@ export default function Home() {
     delay: 0.3,
   });
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <Loading />;
+  }
+
   return (
-    <ChildrenLayout>
-      <HeroSection />
-      <AboutVortex />
-      <OurServices />
-      <CoopiesLogoSection />
-      <Portfolios />
-      <CoopWays />
-      <PricingTable />
-      <CompanyVoices />
-      <ContactForm />
-    </ChildrenLayout>
+    isMounted && (
+      <ChildrenLayout>
+        <HeroSection />
+        <AboutVortex />
+        <OurServices />
+        <AffiliateSection />
+        <CoopiesLogoSection />
+        <Portfolios />
+        <CoopWays />
+        <PricingTable />
+        <CompanyVoices />
+        <ContactForm />
+      </ChildrenLayout>
+    )
   );
 }
