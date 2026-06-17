@@ -24,7 +24,7 @@ app
     server.use('/api', require('./server/route'));
 
     // --- Custom Next.js Routes ---
-    const routes = ['/', '/about', '/blog', '/portfolio', '/pricing', '/support'];
+    const routes = ['/', '/about', '/portfolio', '/pricing', '/support'];
 
     routes.forEach((route) => {
       server.get(route, (req, res) => {
@@ -32,11 +32,11 @@ app
       });
     });
 
-    // Dynamic blog route
-    server.get('/blog/:category/:title', (req, res) => {
-      const { category, title } = req.params;
-      return app.render(req, res, '/blog/[category]/[title]', { category, title });
-    });
+    // // Dynamic blog route
+    // server.get('/blog/:category/:title', (req, res) => {
+    //   const { category, title } = req.params;
+    //   return app.render(req, res, '/blog/[category]/[title]', { category, title });
+    // });
 
     // --- Fallback for everything else ---
     server.all('*', (req, res) => handle(req, res));

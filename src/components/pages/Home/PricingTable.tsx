@@ -14,7 +14,7 @@ export default function PricingTable() {
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
 
   // تاریخ پایان تخفیف
-  const discountEndDate = '۳۱ خرداد ۱۴۰۵';
+  const discountEndDate = '۳۱ تیر ۱۴۰۵';
   const discountTitle = 'همبستگی با مردم ایران 🇮🇷';
   const discountSubtitle = 'به پاس همراهی شما در شرایط سخت کشور، تمام پکیج‌ها رو با ۵۰٪ تخفیف ویژه قرار دادیم.';
 

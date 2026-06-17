@@ -87,7 +87,7 @@ export default function HeroSection() {
         {startSecond && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Box sx={{ mb: 6 }}>
-              <Typography component="div" sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.2rem' }, fontWeight: 400, color: 'rgba(255, 255, 255, 0.7)' }}>
+              <Typography component="div" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' }, fontWeight: 500, color: 'rgba(255, 255, 255, 0.85)' }}>
                 <div className={hideSecondCursor ? 'hide-cursor' : ''}>
                   <TypewriterComponent
                     options={{ cursor: ' ', delay: 50 }}

@@ -97,7 +97,6 @@ function PortfolioCard({ item, index }: { item: PortfolioItem; index: number }) 
             <Image className="card-image" src={item.mockup} alt={item.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: 'cover' }} onLoad={() => setImageLoaded(true)} priority={index < 3} />
           </motion.div>
         </Box>
-
         {/* Views Counter */}
         {item?.views !== 0 && (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 + 0.2 }}>
@@ -107,7 +106,6 @@ function PortfolioCard({ item, index }: { item: PortfolioItem; index: number }) 
             </Box>
           </motion.div>
         )}
-
         {/* Gradient Overlay */}
         <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10, 5, 30, 0.95) 0%, rgba(107, 78, 255, 0.6) 40%, transparent 100%)', opacity: isHovered ? 1 : 0.9, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', p: { xs: 2.5, sm: 3, md: 3.5 } }}>
           {/* Logo and Name */}
@@ -165,7 +163,6 @@ function PortfolioCard({ item, index }: { item: PortfolioItem; index: number }) 
             </Button>
           </motion.div>
         </Box>
-
         {/* Sparkle Effect on Hover */}
         {isHovered && <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 50%, rgba(107, 78, 255, 0.2), transparent)', animation: 'sparkle 0.5s ease-in-out' }} />}
       </Box>
