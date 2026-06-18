@@ -2,9 +2,9 @@ const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'Admin',
+  user: process.env.DB_USER || 'rvbicovc_Admin',
   password: process.env.DB_PASSWORD || '09906451808@Morteza',
-  database: process.env.DB_NAME || 'vortex-web-team',
+  database: process.env.DB_NAME || 'rvbicovc_vortexwebteam.ir',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
